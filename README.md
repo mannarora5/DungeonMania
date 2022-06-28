@@ -18,7 +18,7 @@ This specification is broken into four parts:
 
 ## 0. Changelog
 
-None
+- Tue 28 Jun 11:30am - Correct descriptions for `tick` overloads in interface, add note about keeping branches when squashing and fix formatting in link, add setup images
 
 ## 1. Aims
 
@@ -490,7 +490,7 @@ InvalidActionException
 </td>
 <td>
 
-Ticks the game state when the player moves in the specified direction **one** square. The player's movement must be carried out first, <i>then</i> enemy movement.
+Ticks the game state when the player uses/attempts to use an item. The player's action (attempts/using an item) must be carried out first, <i>then</i> enemy movement.
 
 </td>
 <td>
@@ -513,7 +513,7 @@ public DungeonResponse tick(Direction movementDirection)
 
 </td>
 <td>
-Ticks the game state when the player uses/attempts to use an item. The player's action (attempts/using an item) must be carried out first, <i>then</i> enemy movement.
+Ticks the game state when the player moves in the specified direction **one** square. The player's movement must be carried out first, <i>then</i> enemy movement.
 </td>
 <td>
 N/A
@@ -702,7 +702,7 @@ A checked exception to throw when an invalid action is attempted (See Section 6.
 
 ## 9. Assumptions
 
-As you develop your solution you will undoubtedly come across scenarios where the behaviour is not defined by the rules of the specification. In these cases you should make **a post on the [Assumptions Megathread in the forum**](https://edstem.org/au/courses/8675/discussion/926856) asking the Course Staff whether you are able to make an assumption about the behaviour in this case. We will either a) approve the assumption and add it to our list of approved assumptions, which will be listed under the forum post, b) update the specification if appropriate, or c) respond explaining how the behaviour is defined in the scope of the specification.
+As you develop your solution you will undoubtedly come across scenarios where the behaviour is not defined by the rules of the specification. In these cases you should make a post on the [Assumptions Megathread in the forum](https://edstem.org/au/courses/8675/discussion/926856) asking the Course Staff whether you are able to make an assumption about the behaviour in this case. We will either a) approve the assumption and add it to our list of approved assumptions, which will be listed under the forum post, b) update the specification if appropriate, or c) respond explaining how the behaviour is defined in the scope of the specification.
 
 Any ambiguities/assumptions that we have listed as approved **we will not be testing in automarking**. However, in many cases your solution will need to implement a particular behaviour (and make an assumption). This will need to be documented, and you will need to write tests for that assumed behaviour where appropriate.
 
@@ -830,7 +830,7 @@ During your demonstration you will need to show evidence of following this proce
 #### 12.3.2 Git Practices
 
 * We will not be assessing your commit messages, though for the sake of good practice you should write meaningful commits. 
-* Instead, when you merge a branch into master select the **Squash Commits** option. This will squash all of your branch-specific commits into a single commit during merge.
+* Instead, when you merge a branch into master select the **Squash Commits** option. This will squash all of your branch-specific commits into a single commit during merge. Make sure to **uncheck** the delete branch option so that your branch is preserved.
 * The `master` branch should always remain stable - the pipeline should always be passing. You are welcome to comment out some of the example tests we have provided until you can get them working locally.
 * When putting up Merge Requests, all changes in the diff should be relevant to the task which they relate to (not polluted with irrelevant changes, as this makes it difficult for reviewers);
 * Code reviews should occur as comments on Merge Requests - if you are doing the code review synchronously leave comments on the MR as your minutes/action items
