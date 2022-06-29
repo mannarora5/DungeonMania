@@ -20,6 +20,8 @@ This specification is broken into four parts:
 
 - Tue 28 Jun 11:30am - Correct descriptions for `tick` overloads in interface, add note about keeping branches when squashing and fix formatting in link, add setup images
 - Tue 28 Jun 6pm - Replace `gameMode` parameter with `configName` in new game method i.e. `newGame(String dungeonName, String configName)`
+- Tue 28 Jun 8:00pm - Fix two battle calculation tests in `ExampleTests`
+- Wed 29 Jun 9:30pm - Fix front-end config selector in starter code
 
 ## 1. Aims
 

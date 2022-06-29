@@ -168,14 +168,17 @@ public class ExampleTests {
         assertEquals("", getGoals(res));
     }
 
-    private static DungeonResponse genericMercenarySequence(DungeonManiaController controller, String configFile){
+    private static DungeonResponse genericMercenarySequence(DungeonManiaController controller, String configFile) {
+        /*
+         *  exit   wall  wall  wall
+         * player  [  ]  merc  wall
+         *  wall   wall  wall  wall
+         */
         DungeonResponse initialResponse = controller.newGame("d_battleTest_basicMercenary", configFile);
         int mercenaryCount = countEntityOfType(initialResponse, "mercenary");
         
         assertEquals(1, countEntityOfType(initialResponse, "player"));
         assertEquals(1, mercenaryCount);
-        controller.tick(Direction.RIGHT);
-        controller.tick(Direction.RIGHT);
         return controller.tick(Direction.RIGHT);
     }
 
@@ -201,7 +204,7 @@ public class ExampleTests {
     }
 
     @Test
-    @DisplayName("16-12-3 Test basic health calculations mercenary - player loses")
+    @DisplayName("Test basic battle calculations - mercenary - player loses")
     public void testHealthBelowZeroMercenary() {
        DungeonManiaController controller = new DungeonManiaController();
        DungeonResponse postBattleResponse = genericMercenarySequence(controller, "c_battleTests_basicMercenaryPlayerDies");
