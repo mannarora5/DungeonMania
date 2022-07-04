@@ -26,6 +26,7 @@ This specification is broken into four parts:
 - Sat 2 Jul 12pm - Allies provide attack/defence bonuses
 - Sat 2 Jul 12:30pm - Add coverage extraction
 - Mon 4 Jul 9pm - Clarify square blast radius for bombs and mercenary bribing
+- Mon 4 Jul 11pm - Nesting of compound goals
 
 ## 1. Aims
 
@@ -261,7 +262,7 @@ A complex goal is represented in the dungeon as:
 }
 ```
 
-Where `<goal>` is one of `"enemies"`, `"boulders"`, `"treasure"` or `"exit"` and `<supergoal>` is one of `"AND"` or `"OR"`.
+Where `<goal>` is one of `"enemies"`, `"boulders"`, `"treasure"`, `"exit"`, or another nested goal conjunction/disjunction itself, and `<supergoal>` is one of `"AND"` or `"OR"`.
 
 ## 5. Configuration Files
 
