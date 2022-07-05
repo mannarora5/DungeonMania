@@ -1,4 +1,6 @@
 {
+  "ally_attack": 3,
+  "ally_defence": 3,
   "bomb_radius": 1,
   "bow_durability": 1,
   "bribe_amount": 1,

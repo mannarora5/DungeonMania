@@ -27,6 +27,8 @@ This specification is broken into four parts:
 - Sat 2 Jul 12:30pm - Add coverage extraction
 - Mon 4 Jul 9pm - Clarify square blast radius for bombs and mercenary bribing
 - Mon 4 Jul 11pm - Nesting of compound goals
+- Tue 5 Jul 7pm - Fix wording of complex goals in 3.7.2
+- Tue 5 Jul 10pm - Fix provided config files for allies
 
 ## 1. Aims
 
@@ -173,13 +175,13 @@ Goals are only evaluated after the first tick. If getting to an exit is one of a
 
 More complex goals can be built by logically composing goals. For example:
 
-* Destroying all enemies and spawners AND getting to an exit
-* Collecting all treasure OR having a boulder on all floor switches
+* Destroying a certain number of enemies and spawners AND getting to an exit
+* Collecting a certain number of treasure OR having a boulder on all floor switches
 * Getting to an exit AND (destroying all enemies OR collecting all treasure)
 
 All compound goals are binary (they contain two and only two subgoals).
 
-If getting to an exit is one of a conjunction of conditions, it must be done last. For example, if the condition is to destroy all enemies AND get to an exit, the player must destroy the enemies THEN get to the exit. It is possible for a subgoal to become un-achieved, for example if the dungeon goal is `boulders AND exit`, and all boulders are pushed onto switches the boulders subgoal becomes complete, however if a boulder is then moved off a switch the boulders subgoal is no longer complete.
+If getting to an exit is one of a conjunction of conditions, it must be done last. For example, if the condition is to collect 3 treasure AND get to an exit, the player must collect at least 3 treasures THEN get to the exit. It is possible for a subgoal to become un-achieved, for example if the dungeon goal is `boulders AND exit` and all boulders are pushed onto switches, then the boulders subgoal becomes complete. However, if a boulder is then moved off a switch, the boulders subgoal is no longer complete.
 
 ## 3.8 Winning & Losing
 
