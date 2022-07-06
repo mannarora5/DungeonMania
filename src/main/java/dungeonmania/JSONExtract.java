@@ -22,9 +22,10 @@ public class JSONExtract {
      *
      * @throws IllegalArgumentException if dungeon cannot be found
      */
-    public static JSONObject extractEntitiesJSON(String dungeonName) throws IllegalArgumentException{
+    public static JSONArray extractEntitiesJSON(String dungeonName) throws IllegalArgumentException{
 
-        return new JSONObject();
+        return new JSONArray();
+
     }
 
     /**
@@ -35,10 +36,10 @@ public class JSONExtract {
      *
      * @throws IllegalArgumentException if dungeon cannot be found
      */
-    public static JSONObject extractGoalsJSON(String dungeonName) throws IllegalArgumentException{
+    public static JSONArray extractGoalsJSON(String dungeonName) throws IllegalArgumentException{
 
 
-        return new JSONObject();
+        return new JSONArray();
 
     }
 
