@@ -1,4 +1,6 @@
 {
+    "ally_attack": 0,
+    "ally_defence": 0,
     "bomb_radius": 0,
     "bow_durability": 0,
     "bribe_amount": 0,
