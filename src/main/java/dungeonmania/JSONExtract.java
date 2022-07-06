@@ -24,7 +24,11 @@ public class JSONExtract {
      */
     public static JSONArray extractEntitiesJSON(String dungeonName) throws IllegalArgumentException{
 
-        return new JSONArray();
+        try {
+            return new JSONObject(FileLoader.loadResourceFile("/dungeons/" + dungeonName + ".json")).getJSONArray("entities");
+        } catch (Exception e) {
+            throw new IllegalArgumentException(dungeonName);
+        }
 
     }
 
@@ -38,9 +42,11 @@ public class JSONExtract {
      */
     public static JSONArray extractGoalsJSON(String dungeonName) throws IllegalArgumentException{
 
-
-        return new JSONArray();
-
+        try {
+            return new JSONObject(FileLoader.loadResourceFile("/dungeons/" + dungeonName + ".json")).getJSONArray("goal-condition");
+        } catch (Exception e) {
+            throw new IllegalArgumentException(dungeonName);
+        }
     }
 
     /**
@@ -54,7 +60,11 @@ public class JSONExtract {
     public static JSONObject extractConfigJSON(String config) throws IllegalArgumentException{
 
 
-        return new JSONObject();
+        try {
+            return new JSONObject(FileLoader.loadResourceFile("/configs/" + config + ".json"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException(config);
+        }
 
     }
 
