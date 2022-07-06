@@ -37,7 +37,10 @@ public class DungeonManiaController {
      * /game/new
      */
     public DungeonResponse newGame(String dungeonName, String configName) throws IllegalArgumentException {
-        return null;
+
+        newGame(dungeonName,configName);
+
+        return getDungeonResponseModel();
     }
 
     /**

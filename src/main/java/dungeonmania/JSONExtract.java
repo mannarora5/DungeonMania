@@ -1,6 +1,5 @@
 package dungeonmania;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +12,10 @@ import dungeonmania.util.FileLoader;
 
 
 public class JSONExtract {
+
+
+    Integer entities_created = 0;
+    Integer items_created = 0;
     
     /**
      *
@@ -59,7 +62,6 @@ public class JSONExtract {
      */
     public static JSONObject extractConfigJSON(String config) throws IllegalArgumentException{
 
-
         try {
             return new JSONObject(FileLoader.loadResourceFile("/configs/" + config + ".json"));
         } catch (Exception e) {
@@ -88,12 +90,12 @@ public class JSONExtract {
 
     /**
      *
-     * @param entities as list  
+     * @param entities as list of dicts
      *
      * @return List of entites from map as List<Entity>
      *
      */
-    public static List<Entity> createEntityClasses(JSONObject entities) {
+    public static List<Entity> createEntityClasses(JSONArray entities) {
         
         return new ArrayList<Entity>();
     }
@@ -106,7 +108,7 @@ public class JSONExtract {
      * @return List of goals to be completed as List<Goal>
      *
      */
-    public static List<Goal> createGoalClasses(JSONObject goals) {
+    public static List<Goal> createGoalClasses(JSONArray goals) {
         return new ArrayList<Goal>();
     }
 
