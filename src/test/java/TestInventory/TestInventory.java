@@ -3,6 +3,13 @@ package TestInventory;
 public class TestInventory {
 
     @Test
-    @DisplayName("Test the player can move down")
+    @DisplayName("Test adding item")
+
+    @Test
+    @DisplayName("Test removing item")
+
+    
+    @Test
+    @DisplayName("Test removing item")
     
 }
