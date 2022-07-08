@@ -4,8 +4,8 @@ import dungeonmania.util.Position;
 
 public class Door extends Static {
 
-    public Door(Position position) {
-        super("door", position);
+    public Door(String Id, Position position) {
+        super(Id, "door", position);
     }
     
 }

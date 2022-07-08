@@ -29,15 +29,15 @@ public class Player extends Entity {
                 break;
             }
             if (entity instanceof Wall) {
-                break;
+                return;
             }
             if (entity instanceof Boulder) {
-
+                
             }
         }
         for  (Entity entity : entities) {
             if (entity instanceof Collectable) {
-                
+
             }
         }
 

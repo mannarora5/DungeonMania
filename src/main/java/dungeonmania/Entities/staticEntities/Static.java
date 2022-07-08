@@ -6,9 +6,12 @@ import java.util.UUID;
 
 public class Static extends Entity{
 
-    public Static(String type, Position position) {
-        super(UUID.randomUUID().toString(), type, position, false);
+    public Static(String id, String type, Position position) {
+        super(id, type, position, false);
     }
     
+    public Static(String id, String type, Position position, boolean isInterctable) {
+        super(id, type, position, isInterctable);
+    }
 
 }

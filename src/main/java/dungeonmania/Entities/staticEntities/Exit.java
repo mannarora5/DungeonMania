@@ -4,8 +4,8 @@ import dungeonmania.util.Position;
 
 public class Exit extends Static {
 
-    public Exit(Position position) {
-        super("exit", position);
+    public Exit(String Id, Position position) {
+        super(Id, "exit", position);
 
     }
     

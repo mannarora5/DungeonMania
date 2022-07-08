@@ -1,12 +1,15 @@
 package dungeonmania;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import dungeonmania.Entities.*;
 import dungeonmania.Goals.Goal;
+import dungeonmania.util.Position;
 
 
 public class GameController {
@@ -50,7 +53,9 @@ public class GameController {
         this.goals = goals;
     }
 
-
-
-
+    public final List<Entity> entitiesSamePosition(Position position) {
+        return entities.stream().
+            filter(Object -> Object.getPosition().equals(position)).
+            collect(Collectors.toList());
+    }
 }

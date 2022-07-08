@@ -5,8 +5,8 @@ import dungeonmania.util.Position;
 
 public class Wall extends Static {
 
-    public Wall(Position position) {
-        super("wall", position);
+    public Wall(String Id, Position position) {
+        super(Id, "wall", position);
     }
 
 }
