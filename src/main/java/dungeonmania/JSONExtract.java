@@ -7,15 +7,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import dungeonmania.Entities.Entity;
+import dungeonmania.Entities.staticEntities.Wall;
 import dungeonmania.Goals.Goal;
 import dungeonmania.util.FileLoader;
+import dungeonmania.util.Position;
 
 
 public class JSONExtract {
 
 
-    Integer entities_created = 0;
-    Integer items_created = 0;
+    public static Integer entities_created = 0;
+    public static Integer items_created = 0;
     
     /**
      *
@@ -86,6 +88,19 @@ public class JSONExtract {
      */
     public static void setConfig(JSONObject configs) {
 
+        // configs currently is like a dictionary
+        // To get the value for a config use configs.get(<key>)
+        // Example to set spider health and attact
+
+        // Spider.setHealth(configs.get("spider_health"))
+        // Spider.setAttach(configs.get("spider_attack"))
+
+        // NOTE: that setHealth and setAttack needs to be static methods
+        // belonging to that class and should set the static varibles for those classes to
+        // minimise memory 
+
+        // For classes with vars like health that changes during run time also need a current health var
+
     }
 
     /**
@@ -97,7 +112,38 @@ public class JSONExtract {
      */
     public static List<Entity> createEntityClasses(JSONArray entities) {
         
-        return new ArrayList<Entity>();
+        
+        List<Entity> entitiesList = new ArrayList<Entity>();
+
+        Integer array_length = entities.length();
+
+
+        for (int i = 0; i < array_length; i++) {
+
+            JSONObject entityInfo = entities.getJSONObject(i);
+
+            String entityType = entityInfo.get("type").toString();
+
+            Integer posX = (int) entityInfo.get("x");
+            Integer posY = (int) entityInfo.get("y");
+
+            Position position = new Position(posX, posY);
+
+            String Id = getEntities_created().toString();
+
+            // Example of creating a class
+
+            // if (entityType.equals("Wall")){
+            //     entitiesList.add(new Wall(Id, position));
+
+            //     setEntities_created(getEntities_created() + 1);
+            // }
+
+        }
+
+
+
+        return entitiesList;
     }
 
 
@@ -113,5 +159,33 @@ public class JSONExtract {
     }
 
 
+
+
+
+
+
+
+    
+
+    // Getters and Setters //
+
+
+    public static Integer getEntities_created() {
+        return JSONExtract.entities_created;
+    }
+
+    public static void setEntities_created(Integer entities_created) {
+        JSONExtract.entities_created = entities_created;
+    }
+
+    public static Integer getItems_created() {
+        return JSONExtract.items_created;
+    }
+
+    public static void setItems_created(Integer items_created) {
+        JSONExtract.items_created = items_created;
+    }
+
+    
 
 }

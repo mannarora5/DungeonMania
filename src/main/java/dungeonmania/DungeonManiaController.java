@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DungeonManiaController {
+
+    public GameController game;
+
     public String getSkin() {
         return "default";
     }
@@ -38,7 +41,9 @@ public class DungeonManiaController {
      */
     public DungeonResponse newGame(String dungeonName, String configName) throws IllegalArgumentException {
 
-        newGame(dungeonName,configName);
+        this.game = new GameController();
+        
+        this.game.newGame(dungeonName,configName);
 
         return getDungeonResponseModel();
     }
