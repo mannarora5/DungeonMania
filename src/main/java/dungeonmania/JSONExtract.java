@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import dungeonmania.Entities.Entity;
+import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.staticEntities.Boulder;
 import dungeonmania.Entities.staticEntities.Door;
 import dungeonmania.Entities.staticEntities.Exit;
@@ -172,7 +173,9 @@ public class JSONExtract {
                 String colour = (String) entityInfo.get("colour");
                 entitiesList.add(new Portal(Id, position, colour));
     
-            } 
+            } else if (entityType.equals("player")){
+                entitiesList.add(new Player(Id, position));
+            }
 
             setEntities_created(getEntities_created() + 1);
 

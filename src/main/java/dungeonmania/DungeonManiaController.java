@@ -48,7 +48,6 @@ public class DungeonManiaController {
 
         this.dungeonName = dungeonName;
         this.game = new GameController();
-        
         this.game.newGame(dungeonName,configName);
 
         return getDungeonResponseModel();
@@ -78,7 +77,8 @@ public class DungeonManiaController {
      * /game/tick/movement
      */
     public DungeonResponse tick(Direction movementDirection) {
-        return null;
+        this.game.tickMovement(movementDirection);
+        return getDungeonResponseModel();
     }
 
     /**

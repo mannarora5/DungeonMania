@@ -8,8 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import dungeonmania.Entities.*;
+import dungeonmania.Entities.Player.Player;
 import dungeonmania.Goals.Goal;
 import dungeonmania.response.models.EntityResponse;
+import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 
@@ -22,16 +24,24 @@ public class GameController {
 
         JSONArray entityArray = JSONExtract.extractEntitiesJSON(dungeonName);
         JSONObject configsDict = JSONExtract.extractConfigJSON(config);
-        JSONArray goalsArray = JSONExtract.extractGoalsJSON(dungeonName);
+        //JSONArray goalsArray = JSONExtract.extractGoalsJSON(dungeonName);
 
 
         JSONExtract.setConfig(configsDict);
 
         setEntities(JSONExtract.createEntityClasses(entityArray));
         
-        setGoals(JSONExtract.createGoalClasses(goalsArray));
+        //setGoals(JSONExtract.createGoalClasses(goalsArray));
 
     }
+
+
+
+    public void tickMovement(Direction movementDirection){
+        
+        findPlayer().movement(movementDirection, this);
+    }
+
 
     public List<EntityResponse> getEntityResponses(){
         List<EntityResponse> responses = new ArrayList<EntityResponse>();
@@ -41,6 +51,15 @@ public class GameController {
 
 
     /// Getters and Setters///
+
+    public Player findPlayer(){
+        return entities
+            .stream()
+            .filter(e -> e instanceof Player)
+            .map(e -> (Player) e)
+            .findFirst()
+            .orElse(null);
+    }
 
     public List<Entity> getEntities() {
         return this.entities;
