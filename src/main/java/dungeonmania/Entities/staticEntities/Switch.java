@@ -8,8 +8,8 @@ public class Switch extends Static {
 
     private Boolean activated;
 
-    public Switch(String Id, String type, Position position) {
-        super(Id, type, position);
+    public Switch(String Id, Position position) {
+        super(Id, "Switch", position);
         this.activated = false;
         
     }
