@@ -38,6 +38,7 @@ public class JSONExtract {
         try {
             return new JSONObject(FileLoader.loadResourceFile("/dungeons/" + dungeonName + ".json")).getJSONArray("entities");
         } catch (Exception e) {
+            System.out.print(e);
             throw new IllegalArgumentException(dungeonName);
         }
 
@@ -172,7 +173,7 @@ public class JSONExtract {
                 entitiesList.add(new Portal(Id, position, colour));
     
             } 
-            
+
             setEntities_created(getEntities_created() + 1);
 
         }

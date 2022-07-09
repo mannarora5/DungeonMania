@@ -1,7 +1,10 @@
 package dungeonmania;
 
 import dungeonmania.exceptions.InvalidActionException;
+import dungeonmania.response.models.BattleResponse;
 import dungeonmania.response.models.DungeonResponse;
+import dungeonmania.response.models.EntityResponse;
+import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 
@@ -13,6 +16,8 @@ import java.util.List;
 public class DungeonManiaController {
 
     public GameController game;
+    public String dungeonName;
+
 
     public String getSkin() {
         return "default";
@@ -41,6 +46,7 @@ public class DungeonManiaController {
      */
     public DungeonResponse newGame(String dungeonName, String configName) throws IllegalArgumentException {
 
+        this.dungeonName = dungeonName;
         this.game = new GameController();
         
         this.game.newGame(dungeonName,configName);
@@ -52,7 +58,13 @@ public class DungeonManiaController {
      * /game/dungeonResponseModel
      */
     public DungeonResponse getDungeonResponseModel() {
-        return null;
+
+        List<EntityResponse> entityResponses= game.getEntityResponses();
+        List<ItemResponse> itemResponses = new ArrayList<ItemResponse>();
+        List<BattleResponse> battleResponses = new ArrayList<BattleResponse>();
+        List<String> buildalesList = new ArrayList<String>();
+
+        return new DungeonResponse("1", this.dungeonName, entityResponses, itemResponses, battleResponses, buildalesList, "g");
     }
 
     /**

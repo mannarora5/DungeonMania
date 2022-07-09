@@ -1,5 +1,6 @@
 package dungeonmania;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import org.json.JSONObject;
 
 import dungeonmania.Entities.*;
 import dungeonmania.Goals.Goal;
+import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Position;
 
 
@@ -31,7 +33,11 @@ public class GameController {
 
     }
 
-
+    public List<EntityResponse> getEntityResponses(){
+        List<EntityResponse> responses = new ArrayList<EntityResponse>();
+        this.entities.forEach(entity -> {responses.add(entity.getEntityResponse());});
+        return responses;
+    }
 
 
     /// Getters and Setters///
