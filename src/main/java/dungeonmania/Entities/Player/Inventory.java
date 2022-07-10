@@ -148,6 +148,10 @@ public class Inventory {
         return this.items.stream().filter(e -> e instanceof Key).count() == 1;
     }
 
+    public Key getKey(){
+        return this.items.stream().filter(e -> e instanceof Key).map(e -> (Key) e).findFirst().orElse(null);
+    }
+
 
 
     // Getters and Setters//

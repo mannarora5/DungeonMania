@@ -41,7 +41,7 @@ public class Player extends Entity {
 
             if (entity instanceof Wall) {
                 return;
-                
+
             } else if (entity instanceof Boulder) {
 
                 Boulder b = (Boulder) entity;
@@ -76,9 +76,16 @@ public class Player extends Entity {
                 return;
 
             } if (entity instanceof Door) {
-                super.setPosition(nextPosition);
-                //More stuff down the line
-                // TODO:
+
+                if (entity.getType() == "door_open"){
+                    super.setPosition(nextPosition);
+                    return;
+                }
+                Door d = (Door) entity;
+                Boolean doorOpened = d.openDoor(this.inventory);
+                if (doorOpened){
+                    super.setPosition(nextPosition);
+                } 
                 return;
 
             } if (entity instanceof zombieSpawner) {

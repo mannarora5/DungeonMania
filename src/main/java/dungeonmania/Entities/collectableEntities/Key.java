@@ -8,4 +8,14 @@ public class Key extends Collectable{
         super(Id, "key", position);
         this.digit = digit;
     }
+
+    public Integer getDigit() {
+        return this.digit;
+    }
+
+    public void setDigit(Integer digit) {
+        this.digit = digit;
+    }
+
+
 }
