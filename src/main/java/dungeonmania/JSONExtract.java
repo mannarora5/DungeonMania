@@ -7,7 +7,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import dungeonmania.Entities.Entity;
+import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.staticEntities.Boulder;
+import dungeonmania.Entities.staticEntities.Door;
+import dungeonmania.Entities.staticEntities.Exit;
+import dungeonmania.Entities.staticEntities.Portal;
+import dungeonmania.Entities.staticEntities.Switch;
 import dungeonmania.Entities.staticEntities.Wall;
+import dungeonmania.Entities.staticEntities.zombieSpawner;
 import dungeonmania.Goals.Goal;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
@@ -32,6 +39,7 @@ public class JSONExtract {
         try {
             return new JSONObject(FileLoader.loadResourceFile("/dungeons/" + dungeonName + ".json")).getJSONArray("entities");
         } catch (Exception e) {
+            System.out.print(e);
             throw new IllegalArgumentException(dungeonName);
         }
 
@@ -101,6 +109,9 @@ public class JSONExtract {
 
         // For classes with vars like health that changes during run time also need a current health var
 
+
+        int zombie_spawn_rate = (Integer) configs.get("zombie_spawn_rate");
+        zombieSpawner.setSpawnRate(zombie_spawn_rate);
     }
 
     /**
@@ -139,9 +150,35 @@ public class JSONExtract {
             //     setEntities_created(getEntities_created() + 1);
             // }
 
+            if (entityType.equals("wall")){
+                entitiesList.add(new Wall(Id, position));
+
+            } else if (entityType.equals("zombie_toast_spawner")){
+                entitiesList.add(new zombieSpawner(Id, position));
+                
+            } else if (entityType.equals("switch")){
+                entitiesList.add(new Switch(Id, position));
+    
+            } else if (entityType.equals("exit")){
+                entitiesList.add(new Exit(Id, position));
+    
+            } else if (entityType.equals("boulder")){
+                entitiesList.add(new Boulder(Id, position));
+    
+            } else if (entityType.equals("door")){
+                Integer key = (Integer) entityInfo.get("key");
+                entitiesList.add(new Door(Id, position, key));
+    
+            } else if (entityType.equals("portal")){
+                String colour = (String) entityInfo.get("colour");
+                entitiesList.add(new Portal(Id, position, colour));
+    
+            } else if (entityType.equals("player")){
+                entitiesList.add(new Player(Id, position));
+            }
+
+            setEntities_created(getEntities_created() + 1);
         }
-
-
 
         return entitiesList;
     }
