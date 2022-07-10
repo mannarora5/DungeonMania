@@ -13,10 +13,11 @@ public final class FileLoader {
      * for example `/dungeons/maze.json`. Will add a `/` prefix to path if it's not
      * specified.
      * 
+     * @precondiction path exists as a file
      * @param path Relative to resources/ will add an implicit `/` prefix if not
      *             given.
      * @return The textual content of the given file.
-     * @throws IOException If the file doesn't exist / some other IO exception.
+     * @throws IOException If some other IO exception.
      */
     public static String loadResourceFile(String path) throws IOException {
         if (!path.startsWith("/"))
