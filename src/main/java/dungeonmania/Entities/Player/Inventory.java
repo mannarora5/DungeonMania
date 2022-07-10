@@ -3,18 +3,27 @@ package dungeonmania.Entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+import dungeonmania.Entities.collectableEntities.Arrow;
 import dungeonmania.Entities.collectableEntities.Collectable;
+import dungeonmania.Entities.collectableEntities.Key;
+import dungeonmania.Entities.collectableEntities.Treasure;
+import dungeonmania.Entities.collectableEntities.Wood;
 import dungeonmania.response.models.ItemResponse;
-import dungeonmania.util.Position;
 
 public class Inventory {
     private List<Collectable> items;
+
+
+    public Inventory(){
+        this.items = new ArrayList<Collectable>();
+    }
 
     /**
      * @param item a collectable entity
      * Adds collectable entity to list of items in inventory
      */
     public void addItem(Collectable item) {
+        this.items.add(item);
     }
 
     /**
@@ -22,14 +31,16 @@ public class Inventory {
      * Adds collectable entity to list of items in inventory
      */
     public void addItems(List<Collectable> items) {
+        this.items.addAll(items);
     }
 
     /**
      * @param Id  a certain id of a collectable entity
      * Removes collectable entity to list of items in inventory with matching Id
      */
-    public boolean removeItem(String Id) {
-        return true;
+    public void removeItem(String Id) {
+
+        this.items.removeIf(item ->item.getId() == Id);
     }
 
     /**
@@ -38,6 +49,13 @@ public class Inventory {
      * Removes collectable entity to list of items in inventory with matching Id
      */
     public boolean removeMultipleItems(String type, Integer quantity) {
+
+        if (this.quantity(type) < quantity){
+            return false;
+        } else {
+            this.items.removeIf(item -> (item.getType() == type));
+        }
+
         return true;
     }
 
@@ -47,7 +65,7 @@ public class Inventory {
      */
     public Collectable getItem(String Id){
 
-        return new Collectable("1", "Blank", new Position(99, 99));
+        return this.items.stream().filter(item -> (item.getId() == Id)).findFirst().orElse(null);
 
     }
     
@@ -56,8 +74,9 @@ public class Inventory {
      * @param Type  type of  collectable entity
      * Returns number of collectable entities of given type
      */
-    public Integer quantity(String type) {
-        return 1;
+    public int quantity(String type) {
+
+        return (int) this.items.stream().filter(item ->(item.getType() == type)).count();
     }
 
 
@@ -65,7 +84,35 @@ public class Inventory {
      * @return all the types of buildables that can be built given current inventory
      */
     public List<String> buildables() {
-        return new ArrayList<String>();
+
+        List<String> builds = new ArrayList<String>();
+
+        Integer noWood = 0;
+        Integer noArrows = 0;
+        Integer noKey = 0;
+        Integer noTreasure = 0;
+
+        for (Collectable item: items){
+
+            if (item instanceof Wood) {
+                noWood++;
+            } else if (item instanceof Arrow) {
+                noArrows++;
+            } else if (item instanceof Key) {
+                noKey++;
+            } else if (item instanceof Treasure) {
+                noTreasure++;
+            }
+        }
+
+        if (noWood >= 1 && noArrows >= 3) {
+            builds.add("bow");
+        }
+        if (noWood >= 2 && (noTreasure >= 1 || noKey >= 1)) {
+            builds.add("shield");
+        }
+
+        return builds;
     }
 
 
@@ -73,7 +120,13 @@ public class Inventory {
      * @return ItemRespnse objects for entities in inventory
      */
     public List<ItemResponse> InfoItemResponses() {
-        return new ArrayList<ItemResponse>();
+        List<ItemResponse> responses = new ArrayList<ItemResponse>();
+
+        this.items.forEach(item -> {
+            responses.add(new ItemResponse(item.getId(), item.getType()));
+        });
+
+        return responses;
     }
 
 

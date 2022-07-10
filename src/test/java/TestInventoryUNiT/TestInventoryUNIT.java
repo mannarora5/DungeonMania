@@ -7,6 +7,7 @@ import java.util.List;
 
 import dungeonmania.Entities.Player.Inventory;
 import dungeonmania.Entities.collectableEntities.Arrow;
+import dungeonmania.Entities.collectableEntities.Key;
 import dungeonmania.Entities.collectableEntities.Wood;
 import dungeonmania.util.Position;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +25,7 @@ public class TestInventoryUNIT {
 
         inv.addItem(w);
 
-        assertEquals(w,inv.getItems().indexOf(0));
+        assertEquals(w,inv.getItems().get(0));
     }
 
     @Test
@@ -36,7 +37,7 @@ public class TestInventoryUNIT {
 
         inv.addItem(w);
 
-        assertEquals(w,inv.getItems().indexOf(0));
+        assertEquals(w,inv.getItems().get(0));
 
         inv.removeItem("1");
 
@@ -104,6 +105,9 @@ public class TestInventoryUNIT {
         Arrow a3 = new Arrow("3", new Position(1, 1));
         Arrow a4 = new Arrow("4", new Position(1, 1));
 
+
+        Key k = new Key("4", new Position(1, 1),1);
+
         inv.addItem(w1);
         inv.addItem(w2);
         inv.addItem(w4);
@@ -113,13 +117,14 @@ public class TestInventoryUNIT {
         inv.addItem(a2);
         inv.addItem(a4);
         inv.addItem(a3);
+        inv.addItem(k);
 
-        assertEquals(8,inv.getItems().size());
+        assertEquals(9,inv.getItems().size());
 
         List<String> actual_builables = new ArrayList<String>();
 
         actual_builables.add("bow");
-        actual_builables.add("sheild");
+        actual_builables.add("shield");
 
         assertEquals(actual_builables, inv.buildables());
 
@@ -129,6 +134,7 @@ public class TestInventoryUNIT {
         actual_builables.remove("bow");
 
         assertEquals(actual_builables, inv.buildables());
+
 
     }
 

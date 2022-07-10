@@ -46,7 +46,7 @@ public abstract class Entity {
      * @return
      */
     public String getType() {
-        return type;
+        return this.type;
     }
 
     /**
