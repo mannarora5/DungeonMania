@@ -178,7 +178,6 @@ public class JSONExtract {
             }
 
             setEntities_created(getEntities_created() + 1);
-
         }
 
         return entitiesList;

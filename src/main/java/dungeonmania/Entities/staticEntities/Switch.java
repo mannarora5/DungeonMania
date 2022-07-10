@@ -14,17 +14,6 @@ public class Switch extends Static {
         
     }
     
-    // /**
-    //  * Check if boulder has made floor switch triggered
-    //  * @param game
-    //  * @return
-    //  */
-    // public boolean switchActivated(GameController game) {
-    //     List<Entity> entities = game.entitiesSamePosition(this.getPosition());
-    //     return entities.stream().anyMatch(Entity -> (Entity instanceof Boulder));
-    // }
-
-
     public Boolean isActivated() {
         return this.activated;
     }

@@ -23,5 +23,17 @@ public class Door extends Static {
         this.key = key;
     }
 
+    public boolean isOpen() {
+        return this.open;
+    }
+
+    public boolean getOpen() {
+        return this.open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
     
 }
