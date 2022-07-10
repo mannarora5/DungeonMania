@@ -18,6 +18,13 @@ public class Inventory {
     }
 
     /**
+     * @param item a collectable entity
+     * Adds collectable entity to list of items in inventory
+     */
+    public void addItems(List<Collectable> items) {
+    }
+
+    /**
      * @param Id  a certain id of a collectable entity
      * Removes collectable entity to list of items in inventory with matching Id
      */

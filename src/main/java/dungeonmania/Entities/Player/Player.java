@@ -12,6 +12,8 @@ import dungeonmania.util.Position;
 
 public class Player extends Entity {
 
+    public Inventory inventory;
+
     public Player(String id,Position position) {
         super(id, "player", position, false);
     }
