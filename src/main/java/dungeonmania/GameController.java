@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.staticEntities.Portal;
 import dungeonmania.Goals.Goal;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
@@ -49,11 +50,24 @@ public class GameController {
         return responses;
     }
 
+    public final List<Entity> entitiesSamePosition(Position position) {
+        return entities.stream().
+            filter(Object -> Object.getPosition().equals(position)).
+            collect(Collectors.toList());
+    }
+
+    public final List<Portal> portalsInGame() {
+        return entities.stream().
+            filter(entity -> entity instanceof Portal)
+            .map(entity -> (Portal) entity).collect(Collectors.toList());
+    }
+
+
 
     /// Getters and Setters///
 
     public Player findPlayer(){
-        return entities.stream().filter(e -> e instanceof Player).map(e -> (Player) e).findFirst().orElse(null);
+        return entities.stream().filter(entity -> entity instanceof Player).map(entity -> (Player) entity).findFirst().orElse(null);
     }
 
     public List<Entity> getEntities() {
@@ -72,9 +86,5 @@ public class GameController {
         this.goals = goals;
     }
 
-    public final List<Entity> entitiesSamePosition(Position position) {
-        return entities.stream().
-            filter(Object -> Object.getPosition().equals(position)).
-            collect(Collectors.toList());
-    }
+
 }

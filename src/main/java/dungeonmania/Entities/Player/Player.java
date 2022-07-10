@@ -59,7 +59,16 @@ public class Player extends Entity {
                 return;
 
             } else if (entity instanceof Portal) {
-                // TODO:
+
+                Portal curPortal = (Portal) entity;
+                List<Portal> portals = game.portalsInGame();
+
+                for(Portal p: portals){
+                    if(p.getPos() != curPortal.getPos() && p.getColour().equals(curPortal.getColour())){
+                        super.setPosition(p.getPos());
+                    }
+                }
+                game.tickMovement(direction);
                 return;
 
             } if (entity instanceof Door) {
@@ -69,6 +78,7 @@ public class Player extends Entity {
                 return;
 
             } if ( entity instanceof zombieSpawner) {
+                //TODO:
                 super.setPosition(nextPosition);
                 return;
             }

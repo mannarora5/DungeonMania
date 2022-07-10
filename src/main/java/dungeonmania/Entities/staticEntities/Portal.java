@@ -11,6 +11,17 @@ public class Portal extends Static {
         this.colour = colour; 
     }
     
+
+    public String getColour() {
+        return this.colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
     
+    public Position getPos(){
+        return super.getPos();
+    }
 
 }
