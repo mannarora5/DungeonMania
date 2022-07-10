@@ -28,6 +28,10 @@ public class OrGoal implements GoalComponent {
 
     @Override
     public String toString() {
-        return "OR";
+        String goalOR = "";
+        for (GoalComponent goal: goals) {
+            goalOR += goal.toString();
+        }
+        return goalOR;
     }
 }

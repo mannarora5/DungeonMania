@@ -50,6 +50,10 @@ public class AndGoal implements GoalComponent {
     
     @Override
     public String toString() {
-        return "AND";
+        String goalAND = "";
+        for (GoalComponent goal: goals) {
+            goalAND += goal.toString();
+        }
+        return goalAND;
     }
 }
