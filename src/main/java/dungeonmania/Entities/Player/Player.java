@@ -46,6 +46,14 @@ public class Player extends Entity {
                     return;
                 }
             
+            } else if (entity instanceof Switch ){
+
+                Switch s = (Switch) entity;
+                if(!s.isActivated()){
+                    super.setPosition(nextPosition);
+                    return;
+                }
+
             } else if (entity instanceof Exit) {
                 //TODO:
                 return;
@@ -60,10 +68,11 @@ public class Player extends Entity {
                 // TODO:
                 return;
 
-            } if (entity instanceof Switch || entity instanceof zombieSpawner) {
+            } if ( entity instanceof zombieSpawner) {
                 super.setPosition(nextPosition);
                 return;
             }
+
 
         }
 

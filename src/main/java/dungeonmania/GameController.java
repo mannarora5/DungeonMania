@@ -53,12 +53,7 @@ public class GameController {
     /// Getters and Setters///
 
     public Player findPlayer(){
-        return entities
-            .stream()
-            .filter(e -> e instanceof Player)
-            .map(e -> (Player) e)
-            .findFirst()
-            .orElse(null);
+        return entities.stream().filter(e -> e instanceof Player).map(e -> (Player) e).findFirst().orElse(null);
     }
 
     public List<Entity> getEntities() {

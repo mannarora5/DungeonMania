@@ -59,6 +59,8 @@ public class DungeonManiaController {
     public DungeonResponse getDungeonResponseModel() {
 
         List<EntityResponse> entityResponses= game.getEntityResponses();
+
+        // Not implemented yet
         List<ItemResponse> itemResponses = new ArrayList<ItemResponse>();
         List<BattleResponse> battleResponses = new ArrayList<BattleResponse>();
         List<String> buildalesList = new ArrayList<String>();
