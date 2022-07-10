@@ -63,7 +63,9 @@ public class TestInventoryUNIT {
 
         assertEquals(4,inv.getItems().size());
 
-        inv.removeMultipleItems("wood",3);
+       assertEquals(false,  inv.removeMultipleItems("wood",5));
+
+       assertEquals(true,  inv.removeMultipleItems("wood",3));
 
         assertEquals(1,inv.getItems().size());
 

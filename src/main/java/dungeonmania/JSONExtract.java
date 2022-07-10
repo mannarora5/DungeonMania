@@ -175,7 +175,7 @@ public class JSONExtract {
     
             } else if (entityType.equals("player")){
                 entitiesList.add(new Player(Id, position));
-            }
+            } 
 
             setEntities_created(getEntities_created() + 1);
         }

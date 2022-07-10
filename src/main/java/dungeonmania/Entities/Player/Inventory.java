@@ -3,6 +3,8 @@ package dungeonmania.Entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jetty.websocket.api.CloseException;
+
 import dungeonmania.Entities.collectableEntities.Arrow;
 import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.Entities.collectableEntities.Key;
@@ -53,7 +55,20 @@ public class Inventory {
         if (this.quantity(type) < quantity){
             return false;
         } else {
-            this.items.removeIf(item -> (item.getType() == type));
+            Integer count = 0;
+            List<Collectable> collectables = new ArrayList<Collectable>();
+
+            for (Collectable item: this.items){
+                if (count < quantity && item.getType() == type) {
+                    collectables.add(item);
+                    count++;
+                }
+            }
+
+            for (Collectable item: collectables){
+                this.items.remove(item);
+            }
+
         }
 
         return true;
