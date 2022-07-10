@@ -217,7 +217,7 @@ public class JSONExtract {
             if (goal.toString() == "boulder") {
                 listGoals.add(new BouldersGoal());
             }
-            else if (goal.toString() == "enemy") {
+            else if (goal.toString() == "enemies") {
                 listGoals.add(new EnemyGoal());
             }
             else if (goal.toString() == "exit") {

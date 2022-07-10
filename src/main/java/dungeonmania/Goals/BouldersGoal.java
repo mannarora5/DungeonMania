@@ -28,7 +28,7 @@ public class BouldersGoal implements GoalComponent{
 
     @Override
     public String toString() {
-        return "boulder";
+        return ":boulder";
     }
 
 }

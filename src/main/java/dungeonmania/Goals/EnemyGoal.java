@@ -32,5 +32,9 @@ public class EnemyGoal implements GoalComponent {
         return false; 
     }
     
+    @Override
+    public String toString() {
+        return ":enemies";
+    }
 
 }

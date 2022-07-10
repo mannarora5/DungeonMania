@@ -19,5 +19,9 @@ public class TreasureGoal implements GoalComponent{
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "treasure";
+    }
     
 }

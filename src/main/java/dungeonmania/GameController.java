@@ -86,5 +86,17 @@ public class GameController {
         this.goals = goals;
     }
 
+    /**
+     * Constructor for goal string
+     * @param goals
+     * @return
+     */
+    public String goalsString(List<GoalComponent> goals) {
+        String goalString = "";
+        for (GoalComponent goal: goals) {
+            goalString = goalString + goal.toString();
+        }
+        return goalString;
+    }
 
 }

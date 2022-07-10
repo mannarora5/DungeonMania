@@ -20,4 +20,8 @@ public class ExitGoal implements GoalComponent{
         
     }
 
+    @Override
+    public String toString() {
+        return ":exit";
+    }
 }

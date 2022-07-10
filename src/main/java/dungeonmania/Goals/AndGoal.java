@@ -48,4 +48,8 @@ public class AndGoal implements GoalComponent {
         goals.add(goal);
     }
     
+    @Override
+    public String toString() {
+        return "AND";
+    }
 }

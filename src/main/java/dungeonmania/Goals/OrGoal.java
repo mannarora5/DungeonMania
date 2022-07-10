@@ -26,4 +26,8 @@ public class OrGoal implements GoalComponent {
         goals.add(goal);
     }
 
+    @Override
+    public String toString() {
+        return "OR";
+    }
 }
