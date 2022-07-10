@@ -8,9 +8,7 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DungeonManiaController {
@@ -73,7 +71,7 @@ public class DungeonManiaController {
      * /game/tick/item
      */
     public DungeonResponse tick(String itemUsedId) throws IllegalArgumentException, InvalidActionException {
-        return null;
+        return getDungeonResponseModel();
     }
 
     /**

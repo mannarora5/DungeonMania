@@ -75,7 +75,7 @@ public class Player extends Entity {
                 game.tickMovement(direction);
                 return;
 
-            } if (entity instanceof Door) {
+            } else if (entity instanceof Door) {
 
                 if (entity.getType() == "door_open"){
                     super.setPosition(nextPosition);
@@ -93,7 +93,6 @@ public class Player extends Entity {
                 super.setPosition(nextPosition);
                 return;
             }
-
 
         }
 
