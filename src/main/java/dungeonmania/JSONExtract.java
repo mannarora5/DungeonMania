@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONML;
 import org.json.JSONObject;
+
+import com.google.gson.JsonArray;
 
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.Player.Player;
@@ -15,9 +18,16 @@ import dungeonmania.Entities.staticEntities.Portal;
 import dungeonmania.Entities.staticEntities.Switch;
 import dungeonmania.Entities.staticEntities.Wall;
 import dungeonmania.Entities.staticEntities.zombieSpawner;
-import dungeonmania.Goals.Goal;
+import dungeonmania.Goals.AndGoal;
+import dungeonmania.Goals.BouldersGoal;
+import dungeonmania.Goals.EnemyGoal;
+import dungeonmania.Goals.ExitGoal;
+import dungeonmania.Goals.GoalComponent;
+import dungeonmania.Goals.OrGoal;
+import dungeonmania.Goals.TreasureGoal;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
+import javassist.expr.NewArray;
 
 
 public class JSONExtract {
@@ -109,9 +119,16 @@ public class JSONExtract {
 
         // For classes with vars like health that changes during run time also need a current health var
 
-
+        
         int zombie_spawn_rate = (Integer) configs.get("zombie_spawn_rate");
         zombieSpawner.setSpawnRate(zombie_spawn_rate);
+
+        int totalEnemies = (Integer) configs.get("enemy_goal");
+        EnemyGoal.settotalEnemies(totalEnemies);
+
+        int totalTreasure = (Integer) configs.get("treasure_goal");
+        TreasureGoal.settotalTreasure(totalTreasure);
+
     }
 
     /**
@@ -191,15 +208,37 @@ public class JSONExtract {
      * @return List of goals to be completed as List<Goal>
      *
      */
-    public static List<Goal> createGoalClasses(JSONArray goals) {
-        return new ArrayList<Goal>();
-    }
+    public static List<GoalComponent> createGoalClasses(JSONArray goals) {
+        //Create an List of Goals
+        List<GoalComponent> listGoals = new ArrayList<>();
 
-
-
-
-
-
+        for (int i = 0; i < goals.length(); i++) {
+           Object goal = goals.get(i);
+            if (goal.toString() == "boulder") {
+                listGoals.add(new BouldersGoal());
+            }
+            else if (goal.toString() == "enemy") {
+                listGoals.add(new EnemyGoal());
+            }
+            else if (goal.toString() == "exit") {
+                listGoals.add(new ExitGoal());
+            }
+            else if (goal.toString() == "treasure") {
+                listGoals.add(new TreasureGoal());
+            }
+            else if (goal.toString() == "AND") {
+                AndGoal and = new AndGoal(new ArrayList<>());
+                JSONArray andsubGoals = JSONML.toJSONArray("subgoals");
+                and.goals.addAll(createGoalClasses(andsubGoals));
+            }
+            else if (goal.toString() == "OR") {
+                OrGoal or = new OrGoal(new ArrayList<>());
+                JSONArray andsubGoals = JSONML.toJSONArray("subgoals");
+                or.goals.addAll(createGoalClasses(andsubGoals));
+            }
+        }
+            return listGoals;
+        }
 
 
     

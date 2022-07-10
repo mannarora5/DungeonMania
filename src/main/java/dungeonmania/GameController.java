@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.staticEntities.Portal;
-import dungeonmania.Goals.Goal;
+import dungeonmania.Goals.GoalComponent;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -19,7 +19,7 @@ import dungeonmania.util.Position;
 public class GameController {
     
     public List<Entity> entities;
-    public List<Goal> goals;
+    public List<GoalComponent> goals;
 
     public void newGame(String dungeonName, String config) throws IllegalArgumentException {
 
@@ -78,11 +78,11 @@ public class GameController {
         this.entities = entities;
     }
 
-    public List<Goal> getGoals() {
+    public List<GoalComponent> getGoals() {
         return this.goals;
     }
 
-    public void setGoals(List<Goal> goals) {
+    public void setGoals(List<GoalComponent> goals) {
         this.goals = goals;
     }
 

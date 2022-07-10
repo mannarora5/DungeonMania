@@ -11,9 +11,11 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public class Player extends Entity {
-
+    public int enemiesDestroyed;
+    
     public Player(String id,Position position) {
         super(id, "player", position, false);
+        this.enemiesDestroyed = 0;
     }
     
     public void movement(Direction direction, GameController game) {
