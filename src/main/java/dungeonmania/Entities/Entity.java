@@ -1,6 +1,11 @@
 package dungeonmania.Entities;
 import dungeonmania.util.Position;
 
+import org.json.JSONObject;
+
+import dungeonmania.response.models.EntityResponse;
+import dungeonmania.util.Position;
+
 public abstract class Entity {
     private String id;
     private String type;
@@ -14,6 +19,10 @@ public abstract class Entity {
         this.type = type;
         this.position = position;
         this.isInterctable = isInterctable;
+    }
+
+    public EntityResponse getEntityResponse() {
+        return new EntityResponse(this.id, this.type, this.position, this.isInterctable);
     }
 
     /**
