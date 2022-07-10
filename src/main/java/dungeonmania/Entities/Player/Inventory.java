@@ -3,7 +3,6 @@ package dungeonmania.Entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jetty.websocket.api.CloseException;
 
 import dungeonmania.Entities.collectableEntities.Arrow;
 import dungeonmania.Entities.collectableEntities.Collectable;
@@ -142,6 +141,11 @@ public class Inventory {
         });
 
         return responses;
+    }
+
+
+    public boolean hasKey(){
+        return this.items.stream().filter(e -> e instanceof Key).count() == 1;
     }
 
 

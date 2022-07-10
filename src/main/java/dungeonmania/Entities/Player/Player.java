@@ -6,6 +6,7 @@ import java.util.List;
 import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.collectableEntities.Collectable;
+import dungeonmania.Entities.collectableEntities.Key;
 import dungeonmania.Entities.staticEntities.*;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -16,6 +17,7 @@ public class Player extends Entity {
 
     public Player(String id,Position position) {
         super(id, "player", position, false);
+        this.inventory = new Inventory();
     }
     
     public void movement(Direction direction, GameController game) {
@@ -39,13 +41,13 @@ public class Player extends Entity {
 
             if (entity instanceof Wall) {
                 return;
+                
             } else if (entity instanceof Boulder) {
 
                 Boulder b = (Boulder) entity;
                 boolean boulderMoved = b.move(direction,game);
                 if (boulderMoved) {
                     super.setPosition(nextPosition);
-                    return;
                 }
             
             } else if (entity instanceof Switch ){
@@ -79,7 +81,7 @@ public class Player extends Entity {
                 // TODO:
                 return;
 
-            } if ( entity instanceof zombieSpawner) {
+            } if (entity instanceof zombieSpawner) {
                 //TODO:
                 super.setPosition(nextPosition);
                 return;
@@ -89,11 +91,41 @@ public class Player extends Entity {
         }
 
         for  (Entity entity : entities) {
-            if (entity instanceof Collectable) {
+
+
+            if (entity instanceof Collectable && !(entity instanceof Key)) {
+
+                Collectable item = (Collectable) entity;
+                this.inventory.addItem(item);
+                game.removeEntity(entity.getId());
+                super.setPosition(nextPosition);
+
+            } else if (entity instanceof Key){
+                
+                if (!this.inventory.hasKey()){
+
+                    Collectable item = (Collectable) entity;
+                    this.inventory.addItem(item);
+                    game.removeEntity(entity.getId());
+                    super.setPosition(nextPosition);
+                } 
+
+                super.setPosition(nextPosition);
 
             }
+
+
         }
 
+    }
+
+
+    public Inventory getInventory() {
+        return this.inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
 
