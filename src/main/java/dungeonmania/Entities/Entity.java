@@ -1,9 +1,8 @@
 package dungeonmania.Entities;
+import dungeonmania.util.Position;
 
-import org.json.JSONObject;
 
 import dungeonmania.response.models.EntityResponse;
-import dungeonmania.util.Position;
 
 public abstract class Entity {
     private String id;
@@ -45,7 +44,7 @@ public abstract class Entity {
      * @return
      */
     public String getType() {
-        return type;
+        return this.type;
     }
 
     /**
@@ -102,18 +101,5 @@ public abstract class Entity {
      */
     public int getY() {
         return this.position.getY();
-    }
-    
-    /**
-     * Convert entity to a JSON object
-     * @return
-     */
-    public JSONObject toJSON() {
-        JSONObject Entities = new JSONObject();
-        Entities.put("type", getType());
-        Entities.put("id", getId());
-        Entities.put("x", (position != null) ? getX() : 0);
-        Entities.put("y", (position != null) ? getY() : 0);
-        return Entities;
     }
 }

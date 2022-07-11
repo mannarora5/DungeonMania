@@ -8,9 +8,7 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DungeonManiaController {
@@ -58,21 +56,22 @@ public class DungeonManiaController {
      */
     public DungeonResponse getDungeonResponseModel() {
 
-        List<EntityResponse> entityResponses= game.getEntityResponses();
+        List<EntityResponse> entityResponses= this.game.getEntityResponses();
+        List<ItemResponse> itemResponses = this.game.findPlayer().getInventory().InfoItemResponses();
+        List<String> buildalesList = this.game.findPlayer().getInventory().buildables();
 
         // Not implemented yet
-        List<ItemResponse> itemResponses = new ArrayList<ItemResponse>();
         List<BattleResponse> battleResponses = new ArrayList<BattleResponse>();
-        List<String> buildalesList = new ArrayList<String>();
+        //Goals
 
-        return new DungeonResponse("1", this.dungeonName, entityResponses, itemResponses, battleResponses, buildalesList, "g");
+        return new DungeonResponse("1", this.dungeonName, entityResponses, itemResponses, battleResponses, buildalesList, "not implemented");
     }
 
     /**
      * /game/tick/item
      */
     public DungeonResponse tick(String itemUsedId) throws IllegalArgumentException, InvalidActionException {
-        return null;
+        return getDungeonResponseModel();
     }
 
     /**
