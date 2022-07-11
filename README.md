@@ -30,6 +30,7 @@ This specification is broken into four parts:
 - Tue 5 Jul 7pm - Fix wording of complex goals in 3.7.2
 - Tue 5 Jul 10pm - Fix provided config files for allies
 - Sun 10 Jul 9am - Fix confusing exception and add precondiction in the JavaDoc for `FileLoader.loadResourceFile()`
+- Mon 11 Jul 1pm - Fix `getEntitiesStream` in `TestUtils` to check prefixes instead of entire entity type
 
 ## 1. Aims
 
