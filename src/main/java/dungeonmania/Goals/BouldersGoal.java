@@ -10,7 +10,7 @@ public class BouldersGoal implements GoalComponent{
     public boolean goalcompleted(GameController game) {
         int numSwitchNotActivated = 0;
         //Check if a switch is not activated
-    
+
         for (Entity entity: game.entities) {
             if (entity instanceof Switch) {
                 Switch s = (Switch) entity;

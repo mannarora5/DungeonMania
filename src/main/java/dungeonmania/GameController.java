@@ -25,7 +25,7 @@ public class GameController {
 
         JSONArray entityArray = JSONExtract.extractEntitiesJSON(dungeonName);
         JSONObject configsDict = JSONExtract.extractConfigJSON(config);
-        JSONArray goalsArray = JSONExtract.extractGoalsJSON(dungeonName);
+        JSONObject goalsArray = JSONExtract.extractGoalsJSON(dungeonName);
 
 
         JSONExtract.setConfig(configsDict);

@@ -63,10 +63,10 @@ public class JSONExtract {
      *
      * @throws IllegalArgumentException if dungeon cannot be found
      */
-    public static JSONArray extractGoalsJSON(String dungeonName) throws IllegalArgumentException{
+    public static JSONObject extractGoalsJSON(String dungeonName) throws IllegalArgumentException{
 
         try {
-            return new JSONObject(FileLoader.loadResourceFile("/dungeons/" + dungeonName + ".json")).getJSONArray("goal-condition");
+            return new JSONObject(FileLoader.loadResourceFile("/dungeons/" + dungeonName + ".json")).getJSONObject("goal-condition");
         } catch (Exception e) {
             throw new IllegalArgumentException(dungeonName);
         }
@@ -208,37 +208,14 @@ public class JSONExtract {
      * @return List of goals to be completed as List<Goal>
      *
      */
-    public static List<GoalComponent> createGoalClasses(JSONArray goals) {
+    public static List<GoalComponent> createGoalClasses(JSONObject goals) {
         //Create an List of Goals
         List<GoalComponent> listGoals = new ArrayList<>();
+        JSONObject goalCondition = goals.getJSONObject("goal");
+        if (goalCondition.)   
+        
 
-        for (int i = 0; i < goals.length(); i++) {
-           Object goal = goals.get(i);
-            if (goal.toString() == "boulder") {
-                listGoals.add(new BouldersGoal());
-            }
-            else if (goal.toString() == "enemies") {
-                listGoals.add(new EnemyGoal());
-            }
-            else if (goal.toString() == "exit") {
-                listGoals.add(new ExitGoal());
-            }
-            else if (goal.toString() == "treasure") {
-                listGoals.add(new TreasureGoal());
-            }
-            else if (goal.toString() == "AND") {
-                AndGoal and = new AndGoal(new ArrayList<>());
-                JSONArray andsubGoals = JSONML.toJSONArray("subgoals");
-                and.goals.addAll(createGoalClasses(andsubGoals));
-            }
-            else if (goal.toString() == "OR") {
-                OrGoal or = new OrGoal(new ArrayList<>());
-                JSONArray andsubGoals = JSONML.toJSONArray("subgoals");
-                or.goals.addAll(createGoalClasses(andsubGoals));
-            }
-        }
-            return listGoals;
-        }
+
 
 
     
