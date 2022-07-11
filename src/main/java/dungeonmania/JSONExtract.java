@@ -211,11 +211,41 @@ public class JSONExtract {
     public static List<GoalComponent> createGoalClasses(JSONObject goals) {
         //Create an List of Goals
         List<GoalComponent> listGoals = new ArrayList<>();
-        JSONObject goalCondition = goals.getJSONObject("goal");
-        if (goalCondition.)   
         
-
-
+        if (goals.getString("goal") == "boulder") {
+            listGoals.add(new BouldersGoal());
+        }
+        else if (goals.getString("goal") == "enemy") {
+            listGoals.add(new EnemyGoal());
+        }
+        else if (goals.getString("goal") == "exit") {
+            listGoals.add(new ExitGoal());
+        }
+        else if (goals.getString("goals") == "treasure") {
+            listGoals.add(new TreasureGoal());
+        }
+        else if (goals.getString("goals") == "OR") {
+            JSONArray subgoals = goals.getJSONArray("subgoals");
+            OrGoal or = new OrGoal(new ArrayList<>());
+            for (int i = 0; i < subgoals.length(); i++) {
+                JSONObject subgoal = subgoals.getJSONObject(i);
+                List<GoalComponent> subgoal_List =  createGoalClasses(subgoal);
+                or.getgoals().addAll(subgoal_List);
+                listGoals.addAll(subgoal_List);
+            }
+        }
+        else if (goals.getString("goals") == "AND") {
+            JSONArray subgoals = goals.getJSONArray("subgoals");
+            AndGoal and = new AndGoal(new ArrayList<>());
+            for (int i = 0; i < subgoals.length(); i++) {
+                JSONObject subgoal = subgoals.getJSONObject(i);
+                List<GoalComponent> subgoal_List =  createGoalClasses(subgoal);
+                and.getgoals().addAll(subgoal_List);
+                listGoals.addAll(subgoal_List);
+            }
+        }    
+        return listGoals;
+    }
 
 
     
