@@ -45,6 +45,9 @@ public class GameController {
     }
 
 
+
+    
+
     public List<EntityResponse> getEntityResponses(){
         List<EntityResponse> responses = new ArrayList<EntityResponse>();
         this.entities.forEach(entity -> {responses.add(entity.getEntityResponse());});

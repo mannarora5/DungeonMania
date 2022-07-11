@@ -66,7 +66,9 @@ public class DungeonManiaController {
         List<BattleResponse> battleResponses = new ArrayList<BattleResponse>();
         //Goals
 
-        return new DungeonResponse("1", this.dungeonName, entityResponses, itemResponses, battleResponses, buildalesList, goalString);
+        return new DungeonResponse("1", this.dungeonName, 
+        
+        entityResponses, itemResponses, battleResponses, buildalesList, goalString);
     }
 
     /**

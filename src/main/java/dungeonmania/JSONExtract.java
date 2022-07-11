@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONML;
+
 import org.json.JSONObject;
 
-import com.google.gson.JsonArray;
+
 
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.Player.Player;
@@ -35,7 +35,7 @@ import dungeonmania.Goals.OrGoal;
 import dungeonmania.Goals.TreasureGoal;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
-import javassist.expr.NewArray;
+
 
 
 public class JSONExtract {
