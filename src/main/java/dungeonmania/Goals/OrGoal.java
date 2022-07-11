@@ -29,7 +29,13 @@ public class OrGoal implements GoalComponent {
     @Override
     public String toString() {
         String goalOR = "";
+        int i = 0;
         for (GoalComponent goal: goals) {
+            if (i == 0) {
+                goalOR += goal.toString();
+                goalOR += " || ";
+                i = 1;
+            }
             goalOR += goal.toString();
         }
         return goalOR;

@@ -41,6 +41,7 @@ public class GameController {
     public void tickMovement(Direction movementDirection){
         
         findPlayer().movement(movementDirection, this);
+        
     }
 
 
@@ -94,7 +95,9 @@ public class GameController {
     public String goalsString(List<GoalComponent> goals) {
         String goalString = "";
         for (GoalComponent goal: goals) {
-            goalString = goalString + goal.toString();
+            if (!goal.goalcompleted(this)) {
+                goalString = goalString + goal.toString();
+            }
         }
         return goalString;
     }

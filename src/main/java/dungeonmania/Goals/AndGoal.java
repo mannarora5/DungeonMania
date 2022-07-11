@@ -8,10 +8,20 @@ import dungeonmania.GameController;
 import dungeonmania.Entities.staticEntities.Exit;
 
 public class AndGoal implements GoalComponent {
-    public List<GoalComponent> goals = new ArrayList<>();
+    public List<GoalComponent> goals;
 
-    public AndGoal(List<GoalComponent> goals) {
+    public List<GoalComponent> getGoals() {
+        return goals;
+    }
+
+
+    public void setGoals(List<GoalComponent> goals) {
         this.goals = goals;
+    }
+
+
+    public AndGoal() {
+        this.goals = new ArrayList<>();
     }
 
     
@@ -47,13 +57,15 @@ public class AndGoal implements GoalComponent {
     public void addgoals(GoalComponent goal) {
         goals.add(goal);
     }
-    
+     
     @Override
     public String toString() {
         String goalAND = "";
-        for (GoalComponent goal: goals) {
-            goalAND += goal.toString();
+        for (GoalComponent goal: goals) {    
+            goalAND += goal.toString() + " ";
         }
+        
         return goalAND;
     }
+    
 }

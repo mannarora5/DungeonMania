@@ -66,7 +66,8 @@ public class JSONExtract {
     public static JSONObject extractGoalsJSON(String dungeonName) throws IllegalArgumentException{
 
         try {
-            return new JSONObject(FileLoader.loadResourceFile("/dungeons/" + dungeonName + ".json")).getJSONObject("goal-condition");
+            JSONObject dungeon = new JSONObject(FileLoader.loadResourceFile("/dungeons/" + dungeonName + ".json"));
+            return dungeon.getJSONObject("goal-condition");
         } catch (Exception e) {
             throw new IllegalArgumentException(dungeonName);
         }
@@ -211,39 +212,41 @@ public class JSONExtract {
     public static List<GoalComponent> createGoalClasses(JSONObject goals) {
         //Create an List of Goals
         List<GoalComponent> listGoals = new ArrayList<>();
-        
-        if (goals.getString("goal") == "boulder") {
+        if ("boulder".equals(goals.getString("goal"))) {
             listGoals.add(new BouldersGoal());
         }
-        else if (goals.getString("goal") == "enemy") {
+        if ("enemy".equals(goals.getString("goal"))) {
             listGoals.add(new EnemyGoal());
         }
-        else if (goals.getString("goal") == "exit") {
+        if ("exit".equals(goals.getString("goal"))) {
             listGoals.add(new ExitGoal());
         }
-        else if (goals.getString("goals") == "treasure") {
+        if ("treasure".equals(goals.getString("goal"))) {
             listGoals.add(new TreasureGoal());
         }
-        else if (goals.getString("goals") == "OR") {
+        if ("OR".equals(goals.getString("goal"))) {
             JSONArray subgoals = goals.getJSONArray("subgoals");
             OrGoal or = new OrGoal(new ArrayList<>());
             for (int i = 0; i < subgoals.length(); i++) {
                 JSONObject subgoal = subgoals.getJSONObject(i);
                 List<GoalComponent> subgoal_List =  createGoalClasses(subgoal);
                 or.getgoals().addAll(subgoal_List);
-                listGoals.addAll(subgoal_List);
+                
             }
+            listGoals.add(or);
         }
-        else if (goals.getString("goals") == "AND") {
+        if ("AND".equals(goals.getString("goal"))) {
             JSONArray subgoals = goals.getJSONArray("subgoals");
-            AndGoal and = new AndGoal(new ArrayList<>());
+            AndGoal and = new AndGoal();
             for (int i = 0; i < subgoals.length(); i++) {
                 JSONObject subgoal = subgoals.getJSONObject(i);
                 List<GoalComponent> subgoal_List =  createGoalClasses(subgoal);
                 and.getgoals().addAll(subgoal_List);
-                listGoals.addAll(subgoal_List);
             }
-        }    
+            listGoals.add(and);
+            
+        }
+        
         return listGoals;
     }
 

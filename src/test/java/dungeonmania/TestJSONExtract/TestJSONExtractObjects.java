@@ -1,8 +1,10 @@
 package dungeonmania.TestJSONExtract;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.lang.IllegalArgumentException;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,6 +12,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import dungeonmania.JSONExtract;
+import dungeonmania.Goals.ExitGoal;
+import dungeonmania.Goals.GoalComponent;
 
 
 
@@ -80,8 +84,35 @@ public class TestJSONExtractObjects {
         assertEquals(5, test.get("spider_attack"));
     }
 
+    @Test
+    @DisplayName("Test goal list for JSON extract")
+    public void testSimpleGoal() {
+        JSONObject testgoals = JSONExtract.extractGoalsJSON("d_battleTest_basicMercenary");
+        List<GoalComponent> goals = JSONExtract.createGoalClasses(testgoals);
+        assertEquals(1,goals.size());
+        assertEquals(":exit", goals.get(0).toString());
+        
+    }
 
+    @Test
+    @DisplayName("Test Complex goal from JSON extract")
+    public void testComplexGoal() {
+        JSONObject testgoals = JSONExtract.extractGoalsJSON("d_complexGoalsTest_andAll");
+        List<GoalComponent>goals = JSONExtract.createGoalClasses(testgoals);
+        System.out.println(goals);
+        assertEquals(1, goals.size());
+        System.out.println(goals.get(0));
+        System.out.println(goals.get(0).toString());
+        
+    }
 
-
+    @Test
+    @DisplayName("SIngle AND goal")
+    public void singleANDGoal() {
+        JSONObject testgoals = JSONExtract.extractGoalsJSON("d_singleandgoal");
+        List<GoalComponent>goals = JSONExtract.createGoalClasses(testgoals);
+        assertEquals(1, goals.size());
+        assertEquals(":enemies :treasure", goals.get(0).toString());
+    }
     
 }
