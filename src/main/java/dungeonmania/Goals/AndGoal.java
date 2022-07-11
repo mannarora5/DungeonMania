@@ -2,10 +2,10 @@ package dungeonmania.Goals;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
+
 
 import dungeonmania.GameController;
-import dungeonmania.Entities.staticEntities.Exit;
+
 
 public class AndGoal implements GoalComponent {
     public List<GoalComponent> goals;

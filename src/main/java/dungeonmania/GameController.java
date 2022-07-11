@@ -64,6 +64,10 @@ public class GameController {
     }
 
 
+    public void removeEntity(String Id){
+        this.entities.removeIf(e ->e.getId() == Id);
+    }
+
 
     /// Getters and Setters///
 

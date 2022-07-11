@@ -11,6 +11,14 @@ import com.google.gson.JsonArray;
 
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.collectableEntities.Arrow;
+import dungeonmania.Entities.collectableEntities.Bomb;
+import dungeonmania.Entities.collectableEntities.Invincibility;
+import dungeonmania.Entities.collectableEntities.Invisibility;
+import dungeonmania.Entities.collectableEntities.Key;
+import dungeonmania.Entities.collectableEntities.Sword;
+import dungeonmania.Entities.collectableEntities.Treasure;
+import dungeonmania.Entities.collectableEntities.Wood;
 import dungeonmania.Entities.staticEntities.Boulder;
 import dungeonmania.Entities.staticEntities.Door;
 import dungeonmania.Entities.staticEntities.Exit;
@@ -129,6 +137,19 @@ public class JSONExtract {
 
         int totalTreasure = (Integer) configs.get("treasure_goal");
         TreasureGoal.settotalTreasure(totalTreasure);
+        Integer swordAttack = (Integer) configs.get("sword_attack");
+        Sword.setSwordAttack(swordAttack);
+
+        Integer swordDuration= (Integer) configs.get("sword_durability");
+        Sword.setSwordAttack(swordDuration);
+
+
+        Integer invisDuration = (Integer) configs.get("invincibility_potion_duration");
+        Invisibility.setPotionDuration(invisDuration);
+
+        Integer invinDuration = (Integer) configs.get("invisibility_potion_duration");
+        Invisibility.setPotionDuration(invinDuration);
+
 
     }
 
@@ -193,7 +214,33 @@ public class JSONExtract {
     
             } else if (entityType.equals("player")){
                 entitiesList.add(new Player(Id, position));
+
+            } else if (entityType.equals("arrow")){
+                entitiesList.add(new Arrow(Id, position));
+
+            } else if (entityType.equals("bomb")){
+                entitiesList.add(new Bomb(Id, position));
+
+            } else if (entityType.equals("invincibility_potion")){
+                entitiesList.add(new Invincibility(Id, position));
+
+            } else if (entityType.equals("invisibility_potion")){
+                entitiesList.add(new Invisibility(Id, position));
+
+            } else if (entityType.equals("key")){
+                Integer key = (Integer) entityInfo.get("key");
+                entitiesList.add(new Key(Id, position,key));
+            } else if (entityType.equals("sword")){
+                entitiesList.add(new Sword(Id, position));
+
+            } else if (entityType.equals("treasure")){
+                entitiesList.add(new Treasure(Id, position));
+
+            } else if (entityType.equals("wood")){
+                entitiesList.add(new Wood(Id, position));
+
             }
+
 
             setEntities_created(getEntities_created() + 1);
         }
