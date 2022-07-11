@@ -212,19 +212,21 @@ public class JSONExtract {
     public static List<GoalComponent> createGoalClasses(JSONObject goals) {
         //Create an List of Goals
         List<GoalComponent> listGoals = new ArrayList<>();
-        if ("boulder".equals(goals.getString("goal"))) {
+
+        if ("boulders".equals(goals.getString("goal"))) {
             listGoals.add(new BouldersGoal());
-        }
-        if ("enemy".equals(goals.getString("goal"))) {
+
+        } else if ("enemies".equals(goals.getString("goal"))) {
             listGoals.add(new EnemyGoal());
-        }
-        if ("exit".equals(goals.getString("goal"))) {
+
+        } else if ("exit".equals(goals.getString("goal"))) {
             listGoals.add(new ExitGoal());
-        }
-        if ("treasure".equals(goals.getString("goal"))) {
+
+        } else if ("treasure".equals(goals.getString("goal"))) {
             listGoals.add(new TreasureGoal());
-        }
-        if ("OR".equals(goals.getString("goal"))) {
+
+        } else if ("OR".equals(goals.getString("goal"))) {
+
             JSONArray subgoals = goals.getJSONArray("subgoals");
             OrGoal or = new OrGoal(new ArrayList<>());
             for (int i = 0; i < subgoals.length(); i++) {
@@ -234,8 +236,9 @@ public class JSONExtract {
                 
             }
             listGoals.add(or);
-        }
-        if ("AND".equals(goals.getString("goal"))) {
+
+
+        } else if ("AND".equals(goals.getString("goal"))) {
             JSONArray subgoals = goals.getJSONArray("subgoals");
             AndGoal and = new AndGoal();
             for (int i = 0; i < subgoals.length(); i++) {
@@ -246,7 +249,7 @@ public class JSONExtract {
             listGoals.add(and);
             
         }
-        
+
         return listGoals;
     }
 

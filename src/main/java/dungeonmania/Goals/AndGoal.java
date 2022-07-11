@@ -28,7 +28,7 @@ public class AndGoal implements GoalComponent {
     @Override
     public boolean goalcompleted(GameController game) {
         for (GoalComponent goal : getgoals()) {
-            if (goal.toString() == "exit") {
+            if (goal.toString() == ":exit") {
                 GoalComponent goal2 = isNotExit();
                 if (goal2.goalcompleted(game) == true && goal.goalcompleted(game) == true) {
                     return true; 
@@ -54,17 +54,17 @@ public class AndGoal implements GoalComponent {
         return goals;
     }
 
-    public void addgoals(GoalComponent goal) {
-        goals.add(goal);
+    public void addgoals(List<GoalComponent> goals) {
+        goals.addAll(goals);
     }
      
     @Override
     public String toString() {
-        String goalAND = "";
-        for (GoalComponent goal: goals) {    
-            goalAND += goal.toString() + " ";
-        }
-        
+        String goalAND = "(";
+
+        goalAND += goals.get(0).toString() + " && ";
+        goalAND += goals.get(1).toString() + ")";
+
         return goalAND;
     }
     

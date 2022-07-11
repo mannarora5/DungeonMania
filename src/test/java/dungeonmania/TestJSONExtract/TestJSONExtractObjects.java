@@ -68,11 +68,6 @@ public class TestJSONExtractObjects {
     }
 
     @Test
-    @DisplayName("Test Correct goals extracted from dungeon")
-    public void testCorrectGoals(){
-
-    }
-    @Test
     @DisplayName("Test Correct configs extracted from config file")
     public void testCorrectConfigs(){
 
@@ -83,6 +78,8 @@ public class TestJSONExtractObjects {
         assertEquals(1, test.get("enemy_goal"));
         assertEquals(5, test.get("spider_attack"));
     }
+
+
 
     @Test
     @DisplayName("Test goal list for JSON extract")
@@ -99,11 +96,17 @@ public class TestJSONExtractObjects {
     public void testComplexGoal() {
         JSONObject testgoals = JSONExtract.extractGoalsJSON("d_complexGoalsTest_andAll");
         List<GoalComponent>goals = JSONExtract.createGoalClasses(testgoals);
-        System.out.println(goals);
         assertEquals(1, goals.size());
-        System.out.println(goals.get(0));
-        System.out.println(goals.get(0).toString());
-        
+        assertEquals("((:exit && :treasure) && (:boulders && :enemies))", goals.get(0).toString());
+    }
+
+    @Test
+    @DisplayName("Test Complex goal OR from JSON extract")
+    public void testComplexGoalOR() {
+        JSONObject testgoals = JSONExtract.extractGoalsJSON("d_complexGoalsTest_orAll");
+        List<GoalComponent>goals = JSONExtract.createGoalClasses(testgoals);
+        assertEquals(1, goals.size());
+        assertEquals("((:exit || :treasure) || (:boulders || :enemies))", goals.get(0).toString());
     }
 
     @Test
@@ -112,7 +115,8 @@ public class TestJSONExtractObjects {
         JSONObject testgoals = JSONExtract.extractGoalsJSON("d_singleandgoal");
         List<GoalComponent>goals = JSONExtract.createGoalClasses(testgoals);
         assertEquals(1, goals.size());
-        assertEquals(":enemies :treasure", goals.get(0).toString());
+        System.out.println(goals);
+        assertEquals("(:enemies && :treasure)", goals.get(0).toString());
     }
     
 }

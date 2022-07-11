@@ -92,7 +92,10 @@ public class GameController {
      * @param goals
      * @return
      */
-    public String goalsString(List<GoalComponent> goals) {
+    public String goalsString() {
+        
+        List<GoalComponent> goals = this.getGoals();
+
         String goalString = "";
         for (GoalComponent goal: goals) {
             if (!goal.goalcompleted(this)) {
