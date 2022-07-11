@@ -137,6 +137,7 @@ public class JSONExtract {
 
         int totalTreasure = (Integer) configs.get("treasure_goal");
         TreasureGoal.settotalTreasure(totalTreasure);
+        
         Integer swordAttack = (Integer) configs.get("sword_attack");
         Sword.setSwordAttack(swordAttack);
 

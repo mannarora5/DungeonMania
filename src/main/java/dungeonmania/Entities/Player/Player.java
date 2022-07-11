@@ -61,7 +61,7 @@ public class Player extends Entity {
                 }
 
             } else if (entity instanceof Exit) {
-                //TODO:
+                super.setPosition(nextPosition);
                 return;
 
             } else if (entity instanceof Portal) {

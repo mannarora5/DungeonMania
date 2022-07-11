@@ -8,10 +8,9 @@ public class ExitGoal implements GoalComponent{
     
     @Override
     public boolean goalcompleted(GameController game) {
-        for (Entity entity : game.entities) {
+        for (Entity entity : game.getEntities()) {
             if (entity instanceof Exit) {
-                Exit e = (Exit) entity;
-                if (e.getPosition() == game.findPlayer().getPosition()) {
+                if (entity.getPosition().equals(game.findPlayer().getPosition())) {
                     return true;
                 }
             }
