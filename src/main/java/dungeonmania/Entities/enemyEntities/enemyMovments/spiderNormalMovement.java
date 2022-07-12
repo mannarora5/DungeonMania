@@ -19,8 +19,32 @@ public class spiderNormalMovement implements enemyMovementState{
 
     public void move(){
 
-        int movementTick = this.getTicks();
-        
+        int movementTick = this.ticks % 8 ;
+
+        if (movementTick == 0 || movementTick == 1) {
+
+            this.spider.getPos().translateBy(1, 0);
+
+        } else if (movementTick == 2 || movementTick == 3) {
+
+            this.spider.getPos().translateBy(0, 1);
+
+
+        } else if (movementTick == 4 || movementTick == 5) {
+
+            this.spider.getPos().translateBy(-1, 0);
+
+
+        } else if (movementTick == 6 || movementTick == 7 || movementTick == 0) {
+
+            this.spider.getPos().translateBy(0, -1);
+
+
+        } 
+
+
+
+        this.ticks += 1;
 
     }
     

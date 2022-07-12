@@ -33,6 +33,7 @@ public class TestSpiderMovmentsUNIT {
 
         // Test entire movment
         spiderNormalMovement.move();
+        System.out.println(spider.getPos());
         assert(spider.getPos().equals(new Position(0, -1)));
 
 
@@ -80,7 +81,7 @@ public class TestSpiderMovmentsUNIT {
 
     }
 
-    
+
 
 
     
