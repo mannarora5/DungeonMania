@@ -9,4 +9,17 @@ public class Enemy extends Entity{
         super(id, type, position, isInterctable);
     }
     
+    public Enemy(String id, String type, Position position) {
+        super(id, type, position, false);
+    }
+    
+
+    public void setpos(Position pos){
+        super.setPosition(pos);
+    }
+
+    public Position getpos(){
+        return super.getPosition();
+    }
+
 }
