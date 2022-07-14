@@ -19,7 +19,7 @@ public class Mercenary extends Enemy {
 
     
 
-    public Mercenary(String id, Position position, int damageMultiplier) {
+    public Mercenary(String id, Position position) {
             
         super(id, "mecenary", position, true);
         this.mercenaryBribed = false;
@@ -68,7 +68,7 @@ public class Mercenary extends Enemy {
        if (quantity < bribeAmount) {
         throw new InvalidActionException("Not enough treasure for bribe");
        }
-       
+       // checks if player is in radius of enemy
        if ((Position.calculatePositionBetween(player.getPosition(), getPosition()).getX() < bribeRadius) && 
             (Position.calculatePositionBetween(player.getPosition(), getPosition()).getY() < bribeRadius)) {
                 player.getInventory().removeMultipleItems("treasure", quantity);
@@ -87,15 +87,5 @@ public class Mercenary extends Enemy {
     public boolean isMercenaryBribed() {
         return mercenaryBribed;
     }
-
-   
-
-    
-
-
-
-
-
-
     
 }

@@ -15,6 +15,7 @@ public class DungeonManiaController {
 
     public GameController game;
     public String dungeonName;
+    public static int tickCounter = 0;
 
 
     public String getSkin() {
@@ -83,6 +84,9 @@ public class DungeonManiaController {
      */
     public DungeonResponse tick(Direction movementDirection) {
         this.game.tickMovement(movementDirection);
+        this.game.tickSpawn(tickCounter);
+        tickCounter += 1;
+
         return getDungeonResponseModel();
     }
 
@@ -99,4 +103,6 @@ public class DungeonManiaController {
     public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
         return null;
     }
+
+
 }

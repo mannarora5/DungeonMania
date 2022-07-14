@@ -8,10 +8,10 @@ public class ZombieToast extends Enemy {
     private static int EnemyHealth;
     private static int EnemyAttack;
 
-    public ZombieToast(String id, Position position, int damageMultiplier) {
+    public ZombieToast(String Id, Position position) {
         
-        super(id, "ZombieToast", position, true);
-        //TODO Auto-generated constructor stub
+        super(Id, "ZombieToast", position, true);
+        
     }
 
     public static void setZombieToastAttack(int enemyAttack) {
@@ -27,5 +27,7 @@ public class ZombieToast extends Enemy {
         // TODO Auto-generated method stub
         
     }
+
+
     
 }

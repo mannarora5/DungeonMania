@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.staticEntities.Portal;
+import dungeonmania.Entities.staticEntities.zombieSpawner;
 import dungeonmania.Goals.GoalComponent;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
@@ -20,6 +21,7 @@ public class GameController {
     
     public List<Entity> entities;
     public List<GoalComponent> goals;
+    public int ticks;
 
     public void newGame(String dungeonName, String config) throws IllegalArgumentException {
 
@@ -42,6 +44,13 @@ public class GameController {
         
         findPlayer().movement(movementDirection, this);
         
+    }
+
+    public void tickSpawn(int tickCounter) {
+        List<zombieSpawner> zombie_list = findZombieSpawner();
+        for (zombieSpawner zombie : zombie_list) {
+            zombie.spawn(tickCounter, this);
+        }
     }
 
 
@@ -78,6 +87,10 @@ public class GameController {
         return entities.stream().filter(entity -> entity instanceof Player).map(entity -> (Player) entity).findFirst().orElse(null);
     }
 
+    public List<zombieSpawner> findZombieSpawner(){
+        return entities.stream().filter(entity -> entity instanceof zombieSpawner).map(entity -> (zombieSpawner) entity).collect(Collectors.toList());
+    }
+
     public List<Entity> getEntities() {
         return this.entities;
     }
@@ -111,5 +124,7 @@ public class GameController {
         }
         return goalString;
     }
+
+    
 
 }

@@ -280,7 +280,17 @@ public class JSONExtract {
             } else if (entityType.equals("wood")){
                 entitiesList.add(new Wood(Id, position));
 
+            } else if (entityType.equals("zombie_toast")) {
+                entitiesList.add(new ZombieToast(Id, position));
+
+            } else if (entityType.equals("mercenary")) {
+                entitiesList.add(new Mercenary(Id, position));
+
+            } else if (entityType.equals("spider")) {
+                entitiesList.add(new Spider(Id, position));
             }
+
+
 
 
             setEntities_created(getEntities_created() + 1);

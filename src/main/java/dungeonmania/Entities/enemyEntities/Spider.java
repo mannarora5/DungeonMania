@@ -11,7 +11,7 @@ public class Spider extends Enemy {
     private static int EnemyAttack;
     
 
-    public Spider(String id, Position position, int damageMultiplier, int spider_health, int spider_attack) {
+    public Spider(String id, Position position) {
         super(id, "spider", position, false);
     }
 
