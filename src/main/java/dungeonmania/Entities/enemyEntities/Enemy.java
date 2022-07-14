@@ -8,14 +8,16 @@ import dungeonmania.util.Position;
 public abstract class Enemy extends Entity{
     // private int attackDamage;
     // private int damageMultiplier;
-    private boolean EnemyState;
+    private String EnemyState;
     
 
+
+    
 
     // enemy id, type, position, health, attack damage, multiplier and interactable 
     public Enemy(String id, String type, Position position, Boolean isInterctable) {
         super(id, type, position, isInterctable);
-        this.EnemyState = false;
+        this.EnemyState = "normal";
     }
 
     // returns the damage of the enemy 
@@ -33,22 +35,14 @@ public abstract class Enemy extends Entity{
     // enemy movement
     public abstract void movement(Direction direction, GameController game);
 
-    // returns state of enemy 
-    public boolean isEnemyState() {
+    public String getEnemyState() {
         return EnemyState;
     }
 
-    // /**
-    //  * Set enemy attack
-    //  * @param enemyAttack
-    //  */
-    // public abstract void setEnemyAttack(int enemyAttack);
-
-    // /**
-    //  * Set Enemy health
-    //  * @param enemyHealth
-    //  */
-    // public abstract void setEnemyHealth(int enemyHealth);
+    public void setEnemyState(String enemyState) {
+        EnemyState = enemyState;
+    }
+    
     
   
 

@@ -68,6 +68,7 @@ public class Mercenary extends Enemy {
        if (quantity < bribeAmount) {
         throw new InvalidActionException("Not enough treasure for bribe");
        }
+       
        if ((Position.calculatePositionBetween(player.getPosition(), getPosition()).getX() < bribeRadius) && 
             (Position.calculatePositionBetween(player.getPosition(), getPosition()).getY() < bribeRadius)) {
                 player.getInventory().removeMultipleItems("treasure", quantity);

@@ -10,8 +10,4 @@ public class Collectable extends Entity{
         super(id, type, position, false);
     }
 
-    
-
-
-
 }
