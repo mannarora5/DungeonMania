@@ -19,6 +19,10 @@ import dungeonmania.Entities.collectableEntities.Key;
 import dungeonmania.Entities.collectableEntities.Sword;
 import dungeonmania.Entities.collectableEntities.Treasure;
 import dungeonmania.Entities.collectableEntities.Wood;
+import dungeonmania.Entities.enemyEntities.Enemy;
+import dungeonmania.Entities.enemyEntities.Mercenary;
+import dungeonmania.Entities.enemyEntities.Spider;
+import dungeonmania.Entities.enemyEntities.ZombieToast;
 import dungeonmania.Entities.staticEntities.Boulder;
 import dungeonmania.Entities.staticEntities.Door;
 import dungeonmania.Entities.staticEntities.Exit;
@@ -35,6 +39,7 @@ import dungeonmania.Goals.OrGoal;
 import dungeonmania.Goals.TreasureGoal;
 import dungeonmania.util.FileLoader;
 import dungeonmania.util.Position;
+
 
 
 
@@ -150,6 +155,41 @@ public class JSONExtract {
 
         Integer invinDuration = (Integer) configs.get("invisibility_potion_duration");
         Invisibility.setPotionDuration(invinDuration);
+
+        Integer spider_health = (Integer) configs.get("spider_health");
+        Spider.setSpiderHealth(spider_health);
+
+        Integer spider_attack = (Integer) configs.get("spider_attack");
+        Spider.setSpiderAttack(spider_attack);
+
+        Integer mercenary_attack = (Integer) configs.get("mercenary_attack");
+        Mercenary.setMecenaryAttack(mercenary_attack);
+
+        Integer mercenary_health = (Integer) configs.get("mercenary_health");
+        Mercenary.setMecenaryHealth(mercenary_health);
+
+        Integer zombie_attack = (Integer) configs.get("zombie_attack");
+        ZombieToast.setZombieToastAttack(zombie_attack);
+
+        Integer zombie_health = (Integer) configs.get("zombie_health");
+        ZombieToast.setZombieToastHealth(zombie_health);
+
+        Integer bribe_amount = (Integer) configs.get("bribe_amount");
+        Mercenary.setBribe_amount(bribe_amount);
+
+        Integer bribe_radius = (Integer) configs.get("bribe_radius");
+        Mercenary.setBribe_radius(bribe_radius);
+
+
+
+
+        
+        
+        
+        
+        
+
+        
 
 
     }
