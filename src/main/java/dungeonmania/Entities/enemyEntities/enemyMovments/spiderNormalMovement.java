@@ -5,21 +5,17 @@ import dungeonmania.Entities.enemyEntities.Spider;
 public class spiderNormalMovement implements enemyMovementState{
 
 
-
     Spider spider;
-    int ticks;
+    int currentPostick;
 
     public spiderNormalMovement(Spider spider){
         this.spider = spider;
-        this.ticks = 0;
-
+        this.currentPostick = 0;
     }
 
 
 
     public void move(){
-
-        int movementTick = this.ticks % 8 ;
 
         if (movementTick == 0 || movementTick == 1) {
 
@@ -42,9 +38,7 @@ public class spiderNormalMovement implements enemyMovementState{
 
         } 
 
-
-
-        this.ticks += 1;
+        this.currentPostick += 1;
 
     }
     
@@ -57,14 +51,13 @@ public class spiderNormalMovement implements enemyMovementState{
         this.spider = spider;
     }
 
-    public int getTicks() {
-        return this.ticks;
+
+    public int getCurrentPostick() {
+        return this.currentPostick;
     }
 
-    public void setTicks(int ticks) {
-        this.ticks = ticks;
+    public void setCurrentPostick(int currentPostick) {
+        this.currentPostick = currentPostick;
     }
-
-
 
 }
