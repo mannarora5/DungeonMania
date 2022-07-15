@@ -34,7 +34,15 @@ public class Spider extends Enemy {
         // TODO Auto-generated method stub
         
     }
-        
+    
+    // Getters and Setters
+    public void setPos(Position pos){
+        super.setPosition(pos);
+    }
+
+    public Position getPos(){
+        return super.getPosition();
+    }
     
     
 }
