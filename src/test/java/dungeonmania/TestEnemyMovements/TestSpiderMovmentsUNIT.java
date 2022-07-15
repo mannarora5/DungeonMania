@@ -25,44 +25,44 @@ public class TestSpiderMovmentsUNIT {
 
 
         // Test entire movment
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(0, -1)));
 
 
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(1, -1)));
 
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(1, 0)));
 
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(1, 1)));
 
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(0, 1)));
 
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(-1, 1)));
 
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(-1, 0)));
 
-        spider.move();
+        spider.movement();
         System.out.println(spider.getPos());
 
         assert(spider.getPos().equals(new Position(-1, -1)));
 
-        // Movement goes around in circles again
+        // Movementment goes around in circles again
 
 
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(0, -1)));
 
 
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(1, -1)));
 
-        spider.move();
+        spider.movement();
         assert(spider.getPos().equals(new Position(1, 0)));
 
 
