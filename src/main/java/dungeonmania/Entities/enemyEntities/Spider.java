@@ -8,24 +8,25 @@ import dungeonmania.util.Position;
 
 public class Spider extends Enemy {
 
-    public static int EnemyHealth;
-    public static int EnemyAttack;
+    public static int spiderHealth;
+    public static int spiderAttack;
 
-    public int 
+    public int currentSpiderHealth;
 
     
 
     public Spider(String id, Position position) {
         super(id, "spider", position, false);
+        this.currentSpiderHealth = Spider.spiderHealth;
     }
 
-    public static void setSpiderAttack(int enemyAttack) {
-        Spider.EnemyAttack = enemyAttack;
+    public static void setSpiderAttack(int spiderAttack) {
+        Spider.spiderAttack = spiderAttack;
         
     }
 
-    public static void setSpiderHealth(int enemyHealth) {
-        Spider.EnemyHealth = enemyHealth;
+    public static void setSpiderHealth(int spiderHealth) {
+        Spider.spiderHealth = spiderHealth;
     }
 
     @Override

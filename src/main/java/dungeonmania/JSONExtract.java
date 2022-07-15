@@ -21,6 +21,7 @@ import dungeonmania.Entities.collectableEntities.Treasure;
 import dungeonmania.Entities.collectableEntities.Wood;
 import dungeonmania.Entities.enemyEntities.Mercenary;
 import dungeonmania.Entities.enemyEntities.Spider;
+import dungeonmania.Entities.enemyEntities.SpiderSpawnner;
 import dungeonmania.Entities.enemyEntities.ZombieToast;
 import dungeonmania.Entities.staticEntities.Boulder;
 import dungeonmania.Entities.staticEntities.Door;
@@ -178,6 +179,9 @@ public class JSONExtract {
 
         Integer bribe_radius = (Integer) configs.get("bribe_radius");
         Mercenary.setBribe_radius(bribe_radius);
+
+        Integer spider_spawn_rate = (Integer) configs.get("spider_spawn_rate");
+        SpiderSpawnner.setSpawnRate(spider_spawn_rate);
 
 
 

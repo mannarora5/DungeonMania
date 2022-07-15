@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.enemyEntities.SpiderSpawnner;
 import dungeonmania.Entities.staticEntities.Portal;
 import dungeonmania.Entities.staticEntities.zombieSpawner;
 import dungeonmania.Goals.GoalComponent;
@@ -29,15 +30,11 @@ public class GameController {
         JSONObject configsDict = JSONExtract.extractConfigJSON(config);
         JSONObject goalsArray = JSONExtract.extractGoalsJSON(dungeonName);
 
-
         JSONExtract.setConfig(configsDict);
-
         setEntities(JSONExtract.createEntityClasses(entityArray));
-        
         setGoals(JSONExtract.createGoalClasses(goalsArray));
 
         this.ticks = 0;
-
     }
 
 
@@ -62,6 +59,10 @@ public class GameController {
             }
         }
 
+        // Spawn spider if spider is allowed to spawn and it should spawn on this tick
+        if (SpiderSpawnner.spawnRate != 0 && this.getTicks() % SpiderSpawnner.spawnRate == 0){
+            SpiderSpawnner.spawn(this);
+        }
 
     }
 

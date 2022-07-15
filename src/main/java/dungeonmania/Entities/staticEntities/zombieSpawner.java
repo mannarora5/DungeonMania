@@ -18,9 +18,6 @@ public class zombieSpawner extends Static {
         super(Id, "zombie_toast_spawner", position, true);
     }
     
-    public static void setSpawnRate(Integer rate){
-        zombieSpawner.spawnRate = rate;
-    }    
 
     // given a certain number of ticks add a zombie on a specific tick
     public void spawn( GameController game) {
@@ -63,6 +60,11 @@ public class zombieSpawner extends Static {
     
 
     }
+
+
+    public static void setSpawnRate(Integer rate){
+        zombieSpawner.spawnRate = rate;
+    }    
 
 
 }
