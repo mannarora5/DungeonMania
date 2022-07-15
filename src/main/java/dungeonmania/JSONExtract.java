@@ -19,7 +19,6 @@ import dungeonmania.Entities.collectableEntities.Key;
 import dungeonmania.Entities.collectableEntities.Sword;
 import dungeonmania.Entities.collectableEntities.Treasure;
 import dungeonmania.Entities.collectableEntities.Wood;
-import dungeonmania.Entities.enemyEntities.Enemy;
 import dungeonmania.Entities.enemyEntities.Mercenary;
 import dungeonmania.Entities.enemyEntities.Spider;
 import dungeonmania.Entities.enemyEntities.ZombieToast;
@@ -181,15 +180,6 @@ public class JSONExtract {
         Mercenary.setBribe_radius(bribe_radius);
 
 
-
-
-        
-        
-        
-        
-        
-
-        
 
 
     }
@@ -373,6 +363,9 @@ public class JSONExtract {
         JSONExtract.items_created = items_created;
     }
 
+    public static void increaseEntitiesCreates(){
+        JSONExtract.entities_created += 1;
+    }
     
 
 }

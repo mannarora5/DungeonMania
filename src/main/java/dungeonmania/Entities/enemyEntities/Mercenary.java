@@ -1,21 +1,23 @@
 package dungeonmania.Entities.enemyEntities;
 
-import java.util.List;
 
 import dungeonmania.GameController;
 import dungeonmania.Entities.Player.Player;
-import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
-import javassist.bytecode.CodeIterator.Gap;
 
 public class Mercenary extends Enemy {
-    private static int EnemyHealth;
-    private static int EnemyAttack;
-    private static int bribeAmount;
-    private static int bribeRadius;
-    private boolean mercenaryBribed;
+
+    public static int mercenaryHealth;
+    public static int mercenaryAttack;
+
+    public static int bribeAmount;
+    public static int bribeRadius;
+
+    public boolean mercenaryBribed;
+
+    public int currentMercenaryHealth;
 
     
 
@@ -23,15 +25,17 @@ public class Mercenary extends Enemy {
             
         super(id, "mecenary", position, true);
         this.mercenaryBribed = false;
+
+        this.currentMercenaryHealth = Mercenary.mercenaryHealth;
         
     }
 
     public static void setMecenaryAttack(int enemyAttack) {
-        Mercenary.EnemyAttack = enemyAttack;
+        Mercenary.mercenaryAttack = enemyAttack;
     }
 
     public static void setMecenaryHealth(int enemyHealth) {
-        Mercenary.EnemyHealth = enemyHealth;
+        Mercenary.mercenaryHealth = enemyHealth;
     }
 
     @Override
@@ -87,5 +91,23 @@ public class Mercenary extends Enemy {
     public boolean isMercenaryBribed() {
         return mercenaryBribed;
     }
+
+
+    public boolean getMercenaryBribed() {
+        return this.mercenaryBribed;
+    }
+
+    public void setMercenaryBribed(boolean mercenaryBribed) {
+        this.mercenaryBribed = mercenaryBribed;
+    }
+
+    public int getCurrentHealth() {
+        return this.currentMercenaryHealth;
+    }
+
+    public void setCurrentHealth(int currentHealth) {
+        this.currentMercenaryHealth = currentHealth;
+    }
+
     
 }

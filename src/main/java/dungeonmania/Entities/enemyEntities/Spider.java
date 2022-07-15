@@ -7,8 +7,12 @@ import dungeonmania.util.Position;
 // extract  spider health + base damage
 
 public class Spider extends Enemy {
-    private static int EnemyHealth;
-    private static int EnemyAttack;
+
+    public static int EnemyHealth;
+    public static int EnemyAttack;
+
+    public int 
+
     
 
     public Spider(String id, Position position) {

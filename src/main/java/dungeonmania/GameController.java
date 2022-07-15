@@ -36,21 +36,33 @@ public class GameController {
         
         setGoals(JSONExtract.createGoalClasses(goalsArray));
 
+        this.ticks = 0;
+
     }
 
 
 
     public void tickMovement(Direction movementDirection){
         
-        findPlayer().movement(movementDirection, this);
+        increasetick();
         
+        findPlayer().movement(movementDirection, this);
+
+        tickSpawn();
     }
 
-    public void tickSpawn(int tickCounter) {
-        List<zombieSpawner> zombie_list = findZombieSpawner();
-        for (zombieSpawner zombie : zombie_list) {
-            zombie.spawn(tickCounter, this);
+    
+    public void tickSpawn() {
+
+        // Spawn Zombie if zombies are allowed to spawn and it should spawn on this tick
+        if (zombieSpawner.spawnRate != 0 && this.getTicks() % zombieSpawner.spawnRate == 0) {
+            List<zombieSpawner> zombie_list = findZombieSpawner();
+            for (zombieSpawner zombie_Spawner : zombie_list) {
+                zombie_Spawner.spawn(this);
+            }
         }
+
+
     }
 
 
@@ -83,6 +95,10 @@ public class GameController {
 
     /// Getters and Setters///
 
+    public void increasetick(){
+        this.ticks += 1;
+    }
+
     public Player findPlayer(){
         return entities.stream().filter(entity -> entity instanceof Player).map(entity -> (Player) entity).findFirst().orElse(null);
     }
@@ -106,6 +122,21 @@ public class GameController {
     public void setGoals(List<GoalComponent> goals) {
         this.goals = goals;
     }
+
+    public void addentity(Entity entity){
+        this.entities.add(entity);
+    }
+
+
+
+    public int getTicks() {
+        return this.ticks;
+    }
+
+    public void setTicks(int ticks) {
+        this.ticks = ticks;
+    }
+
 
     /**
      * Constructor for goal string

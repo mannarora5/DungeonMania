@@ -5,27 +5,47 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public class ZombieToast extends Enemy {
-    private static int EnemyHealth;
-    private static int EnemyAttack;
+
+    private static int zombieHealth;
+    private static int zombieAttack;
+
+    private  int currentzombieHealth;
 
     public ZombieToast(String Id, Position position) {
         
-        super(Id, "ZombieToast", position, true);
+        super(Id, "zombie_toast", position, true);
+
+        this.currentzombieHealth = ZombieToast.zombieHealth;
         
-    }
-
-    public static void setZombieToastAttack(int enemyAttack) {
-        ZombieToast.EnemyAttack = enemyAttack;
-    }
-
-    public static void setZombieToastHealth(int enemyHealth) {
-        ZombieToast.EnemyHealth = enemyHealth;
     }
 
     @Override
     public void movement(Direction direction, GameController game) {
         // TODO Auto-generated method stub
         
+    }
+
+
+    public static void setZombieToastAttack(int enemyAttack) {
+        ZombieToast.zombieAttack = enemyAttack;
+    }
+
+    public static void setZombieToastHealth(int enemyHealth) {
+        ZombieToast.zombieHealth = enemyHealth;
+    }
+
+
+
+    public int getCurrentzombieHealth() {
+        return this.currentzombieHealth;
+    }
+
+    public void setCurrentzombieHealth(int currentzombieHealth) {
+        this.currentzombieHealth = currentzombieHealth;
+    }
+
+    public int getZombieAttack(){
+        return ZombieToast.zombieAttack;
     }
 
 

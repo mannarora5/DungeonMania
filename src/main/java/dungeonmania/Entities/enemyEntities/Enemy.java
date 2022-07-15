@@ -43,10 +43,4 @@ public abstract class Enemy extends Entity{
         EnemyState = enemyState;
     }
     
-    
-  
-
-    
-        
-    
 }

@@ -8,7 +8,6 @@ import dungeonmania.JSONExtract;
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.enemyEntities.ZombieToast;
 import dungeonmania.util.Position;
-import dungeonmania.util.*;
 
 public class zombieSpawner extends Static {
 
@@ -24,38 +23,44 @@ public class zombieSpawner extends Static {
     }    
 
     // given a certain number of ticks add a zombie on a specific tick
-    public void spawn(int ticks, GameController game) {
+    public void spawn( GameController game) {
+
         List<Entity> ListEntities = game.getEntities();
         List<Position> illegalPositions = new ArrayList<>();
-        List<Position> adjacentPositions = getPosition().getAdjacentPositions();
+        List<Position> cardinalpPositions = new ArrayList<>();
+
+        cardinalpPositions.add(new Position(getX()  , getY()-1));
+        cardinalpPositions.add(new Position(getX()-1  , getY()));
+        cardinalpPositions.add(new Position(getX()  , getY()+1));
+        cardinalpPositions.add(new Position(getX()+1  , getY()));
         
         // 1. ticks mod spawnrate (if == 0) (then spawn) (get tick from game.getticks)
         // 2. check position of zombie spawner (check up down left right for any wall, boulders, door)
         // 3. new zombie object and then add to game with the correct position 
-        if (ticks % spawnRate == 0)  {
-            for (Entity entity : ListEntities) {
-                if (Position.isAdjacent(entity.getPosition(), getPos()) == true) {
-                    if ((entity instanceof Wall) || (entity instanceof Boulder) || (entity instanceof Door)) {
-                        illegalPositions.add(entity.getPosition());
-                    }
-                    adjacentPositions.removeAll(illegalPositions);
+
+        for (Entity entity : ListEntities) {
+
+            if (Position.isAdjacent(entity.getPosition(), getPos()) == true) {
+                if ((entity instanceof Wall) || (entity instanceof Boulder) || (entity instanceof Door)) {
+                    illegalPositions.add(entity.getPosition());
                 }
-                
-                int zombie_id = JSONExtract.getEntities_created() + 1;
-                String id = Integer.toString(zombie_id);
-            
-                ZombieToast zombie  = new ZombieToast(id , adjacentPositions.get(1));
-                JSONExtract.setEntities_created(JSONExtract.getEntities_created() + 1);
-                game.entities.add(zombie);
-
             }
-
-
-            
+        
         }
 
-        
+        cardinalpPositions.removeAll(illegalPositions);
 
+        if (cardinalpPositions.isEmpty()){
+            return;
+        }
+
+        String zombie_id = JSONExtract.entities_created.toString();
+        JSONExtract.increaseEntitiesCreates();
+
+        ZombieToast zombie  = new ZombieToast(zombie_id ,cardinalpPositions.get(1));
+        game.addentity(zombie);
+
+    
 
     }
 
