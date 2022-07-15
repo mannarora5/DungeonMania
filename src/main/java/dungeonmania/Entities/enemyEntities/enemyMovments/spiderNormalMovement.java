@@ -1,12 +1,13 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
 import dungeonmania.Entities.enemyEntities.Spider;
+import dungeonmania.util.Position;
 
 public class spiderNormalMovement implements enemyMovementState{
 
 
-    Spider spider;
-    int currentPostick;
+    public Spider spider;
+    public int currentPostick;
 
     public spiderNormalMovement(Spider spider){
         this.spider = spider;
@@ -17,28 +18,37 @@ public class spiderNormalMovement implements enemyMovementState{
 
     public void move(){
 
-        if (movementTick == 0 || movementTick == 1) {
+        int tick = getCurrentPostick();
 
-            this.spider.getPos().translateBy(1, 0);
+        Position spider_position = this.spider.getPosition();
 
-        } else if (movementTick == 2 || movementTick == 3) {
+        int xVal = spider_position.getX();
+        int yVal = spider_position.getY();
 
-            this.spider.getPos().translateBy(0, 1);
+        if (tick == 1 || tick == 8) {
+
+            this.spider.setPos(new Position(xVal + 1, yVal));
+
+        } else if (tick == 2 || tick == 3) {
+
+            this.spider.setPos(new Position(xVal, yVal + 1));
 
 
-        } else if (movementTick == 4 || movementTick == 5) {
+        } else if (tick == 4 || tick == 5) {
 
-            this.spider.getPos().translateBy(-1, 0);
+            this.spider.setPos(new Position(xVal - 1 , yVal));
 
+        } else if (tick == 6 || tick == 7 || tick == 0) {
 
-        } else if (movementTick == 6 || movementTick == 7 || movementTick == 0) {
-
-            this.spider.getPos().translateBy(0, -1);
-
+            this.spider.setPos(new Position(xVal, yVal - 1));
 
         } 
 
         this.currentPostick += 1;
+
+        if (this.currentPostick == 9) {
+            this.currentPostick = 1;
+        }
 
     }
     

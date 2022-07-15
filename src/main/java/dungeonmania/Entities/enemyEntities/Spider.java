@@ -19,6 +19,9 @@ public class Spider extends Enemy {
         this.currentState = normalState;
     }
     
+    public void move(){
+        this.currentState.move();
+    }
 
     // Getters and Setters
     public void setPos(Position pos){
