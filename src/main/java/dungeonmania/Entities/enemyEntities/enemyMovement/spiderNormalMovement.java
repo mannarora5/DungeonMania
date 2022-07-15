@@ -17,7 +17,9 @@ public class spiderNormalMovement implements enemyMovementState{
     }
 
 
-
+    /**
+     * Move the spider
+     */
     public void move(GameController game){
 
         int movementTick = this.ticks % 8 ;
@@ -49,19 +51,34 @@ public class spiderNormalMovement implements enemyMovementState{
 
     }
     
-
+    /**
+     * Get spider
+     * @return
+     */
     public Spider getSpider() {
         return this.spider;
     }
 
+    /**
+     * Set spider
+     * @param spider
+     */
     public void setSpider(Spider spider) {
         this.spider = spider;
     }
 
+    /**
+     * Get ticks
+     * @return
+     */
     public int getTicks() {
         return this.ticks;
     }
 
+    /**
+     * Set ticks
+     * @param ticks
+     */
     public void setTicks(int ticks) {
         this.ticks = ticks;
     }

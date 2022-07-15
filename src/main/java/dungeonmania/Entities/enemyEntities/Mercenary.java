@@ -30,14 +30,25 @@ public class Mercenary extends Enemy {
         
     }
 
+    /**
+     * Set attack damage of mercenary
+     * @param enemyAttack
+     */
     public static void setMecenaryAttack(int enemyAttack) {
         Mercenary.mercenaryAttack = enemyAttack;
     }
 
+    /**
+     * Set Mercenary Health
+     * @param enemyHealth
+     */
     public static void setMecenaryHealth(int enemyHealth) {
         Mercenary.mercenaryHealth = enemyHealth;
     }
 
+    /**
+     * Move for mercenary
+     */
     public void move(GameController game) {
     }
 
@@ -90,19 +101,34 @@ public class Mercenary extends Enemy {
         return mercenaryBribed;
     }
 
-
+    /**
+     * Return bribed boolean
+     * @return
+     */
     public boolean getMercenaryBribed() {
         return this.mercenaryBribed;
     }
 
+    /**
+     * Set whether mercenary is bribed or not
+     * @param mercenaryBribed
+     */
     public void setMercenaryBribed(boolean mercenaryBribed) {
         this.mercenaryBribed = mercenaryBribed;
     }
 
+    /**
+     * Return health of mercenary
+     * @return
+     */
     public int getCurrentHealth() {
         return this.currentMercenaryHealth;
     }
 
+    /**
+     * Set health of mercenary
+     * @param currentHealth
+     */
     public void setCurrentHealth(int currentHealth) {
         this.currentMercenaryHealth = currentHealth;
     }

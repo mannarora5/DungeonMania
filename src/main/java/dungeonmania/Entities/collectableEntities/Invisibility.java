@@ -12,11 +12,18 @@ public class Invisibility extends Collectable {
         super(Id, "invisibility_potion", position);
     }
 
-
+    /**
+     * Set the duration of the potion
+     * @param duration
+     */
     public static void setPotionDuration(Integer duration){
         Invisibility.potionDuration = duration;
     } 
 
+    /**
+     * Return the duration of the potion
+     * @return
+     */
     public Integer getPotionDuration(){
         return Invisibility.potionDuration;
     }    

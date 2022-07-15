@@ -23,7 +23,9 @@ public class zombieRandomMovmentState implements enemyMovementState{
         this.zombie = zombie;
     }
 
-
+    /**
+     * Move the zombie 
+     */
     public void move(GameController game){
     Position zombieCurrentPosition = zombie.getPosition();
     List<Entity> entities = game.getEntities();

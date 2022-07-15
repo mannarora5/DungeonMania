@@ -11,12 +11,20 @@ public class Sword extends Collectable{
         super(Id, "sword", position);
     }
 
+    /**
+     * Set duration of sword
+     * @param duration
+     */
     public static void setSwordDuration(Integer duration){
 
         Sword.swordDuration = duration;
 
     }
 
+    /**
+     * set sword damage 
+     * @param attack
+     */
     public static void setSwordAttack(Integer attack){
 
         Sword.swordAttack = attack;

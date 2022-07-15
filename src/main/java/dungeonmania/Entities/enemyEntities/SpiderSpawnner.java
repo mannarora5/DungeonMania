@@ -38,7 +38,9 @@ public class SpiderSpawnner {
 
     }
 
-
+    /**
+     * Set spawn rate of zombie toaster
+     */
     public static void setSpawnRate(Integer rate){
         SpiderSpawnner.spawnRate = rate;
     }  

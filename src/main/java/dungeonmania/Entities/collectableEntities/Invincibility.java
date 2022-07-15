@@ -13,12 +13,18 @@ public class Invincibility extends Collectable {
         super(Id, "invincibility_potion", position);
     }
 
-
-
+    /**
+     * Set the duration of the potion
+     * @param duration
+     */
     public static void setPotionDuration(Integer duration){
         Invincibility.potionDuration = duration;
     } 
 
+    /**
+     * Return the duration of the potion
+     * @return
+     */
     public Integer getPotionDuration(){
         return Invincibility.potionDuration;
     }    
