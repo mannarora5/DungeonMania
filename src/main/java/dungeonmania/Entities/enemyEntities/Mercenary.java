@@ -38,9 +38,7 @@ public class Mercenary extends Enemy {
         Mercenary.mercenaryHealth = enemyHealth;
     }
 
-    @Override
-    public void movement(Direction direction, GameController game) {
-        
+    public void move() {
     }
 
     /**

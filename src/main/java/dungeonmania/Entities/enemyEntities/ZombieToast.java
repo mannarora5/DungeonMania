@@ -19,10 +19,8 @@ public class ZombieToast extends Enemy {
         
     }
 
-    @Override
-    public void movement(Direction direction, GameController game) {
+    public void move() {
         // TODO Auto-generated method stub
-        
     }
 
 

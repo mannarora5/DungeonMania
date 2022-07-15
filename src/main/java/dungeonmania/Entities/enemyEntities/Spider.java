@@ -13,8 +13,6 @@ public class Spider extends Enemy {
 
     public int currentSpiderHealth;
 
-    
-
     public Spider(String id, Position position) {
         super(id, "spider", position, false);
         this.currentSpiderHealth = Spider.spiderHealth;
@@ -29,8 +27,7 @@ public class Spider extends Enemy {
         Spider.spiderHealth = spiderHealth;
     }
 
-    @Override
-    public void movement(Direction direction, GameController game) {
+    public void move() {
         // TODO Auto-generated method stub
         
     }
