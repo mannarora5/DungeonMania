@@ -19,7 +19,9 @@ public class Invincibility extends Collectable {
         Invincibility.potionDuration = duration;
     } 
 
-
+    public Integer getPotionDuration(){
+        return Invincibility.potionDuration;
+    }    
 
 
 }

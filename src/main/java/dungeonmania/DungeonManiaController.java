@@ -16,7 +16,6 @@ public class DungeonManiaController {
     public GameController game;
     public String dungeonName;
 
-
     public String getSkin() {
         return "default";
     }
@@ -56,7 +55,9 @@ public class DungeonManiaController {
      */
     public DungeonResponse getDungeonResponseModel() {
 
-        List<EntityResponse> entityResponses= this.game.getEntityResponses();
+        List<EntityResponse> entityResponses= game.getEntityResponses();
+        String goalString = game.goalsString();
+
         List<ItemResponse> itemResponses = this.game.findPlayer().getInventory().InfoItemResponses();
         List<String> buildalesList = this.game.findPlayer().getInventory().buildables();
 
@@ -64,13 +65,16 @@ public class DungeonManiaController {
         List<BattleResponse> battleResponses = new ArrayList<BattleResponse>();
         //Goals
 
-        return new DungeonResponse("1", this.dungeonName, entityResponses, itemResponses, battleResponses, buildalesList, "not implemented");
+        return new DungeonResponse("1", this.dungeonName, 
+        
+        entityResponses, itemResponses, battleResponses, buildalesList, goalString);
     }
 
     /**
      * /game/tick/item
      */
     public DungeonResponse tick(String itemUsedId) throws IllegalArgumentException, InvalidActionException {
+        
         return getDungeonResponseModel();
     }
 
@@ -79,6 +83,7 @@ public class DungeonManiaController {
      */
     public DungeonResponse tick(Direction movementDirection) {
         this.game.tickMovement(movementDirection);
+
         return getDungeonResponseModel();
     }
 
@@ -95,4 +100,6 @@ public class DungeonManiaController {
     public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
         return null;
     }
+
+
 }

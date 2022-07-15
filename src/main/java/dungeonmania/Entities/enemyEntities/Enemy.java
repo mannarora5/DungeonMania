@@ -3,16 +3,19 @@ package dungeonmania.Entities.enemyEntities;
 import dungeonmania.Entities.Entity;
 import dungeonmania.util.Position;
 
-public class Enemy extends Entity{
+public abstract class Enemy extends Entity{
 
-    public Enemy(String id, String type, Position position, boolean isInterctable) {
+    // enemy id, type, position, health, attack damage, multiplier and interactable 
+    public Enemy(String id, String type, Position position, Boolean isInterctable) {
         super(id, type, position, isInterctable);
     }
-    
+
     public Enemy(String id, String type, Position position) {
         super(id, type, position, false);
     }
-    
+    // enemy movement
+    public abstract void move();
+        
 
     public void setpos(Position pos){
         super.setPosition(pos);

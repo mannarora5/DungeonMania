@@ -7,6 +7,11 @@ import dungeonmania.util.Position;
 
 public class Spider extends Enemy {
 
+    public static int spiderHealth;
+    public static int spiderAttack;
+
+    public int currentSpiderHealth;
+
     enemyMovementState normalState;
     enemyMovementState reverselState;
     enemyMovementState currentState;
@@ -18,11 +23,22 @@ public class Spider extends Enemy {
         this.reverselState = new spiderReverseMovement(this);
         this.currentState = normalState;
     }
-    
-    public void move(){
-        this.currentState.move();
+
+    // extract  spider health + base damage
+    public static void setSpiderAttack(int spiderAttack) {
+        Spider.spiderAttack = spiderAttack;
+        
     }
 
+    public static void setSpiderHealth(int spiderHealth) {
+        Spider.spiderHealth = spiderHealth;
+    }
+
+    public void move() {
+        // TODO Auto-generated method stub
+        
+    }
+    
     // Getters and Setters
     public void setPos(Position pos){
         super.setPosition(pos);

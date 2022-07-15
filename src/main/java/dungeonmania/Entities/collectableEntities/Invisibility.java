@@ -17,6 +17,8 @@ public class Invisibility extends Collectable {
         Invisibility.potionDuration = duration;
     } 
 
-
+    public Integer getPotionDuration(){
+        return Invisibility.potionDuration;
+    }    
 
 }

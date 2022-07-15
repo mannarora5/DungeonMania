@@ -12,11 +12,13 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public class Player extends Entity {
-
+    public int enemiesDestroyed;
     public Inventory inventory;
 
+    
     public Player(String id,Position position) {
         super(id, "player", position, false);
+        this.enemiesDestroyed = 0;
         this.inventory = new Inventory();
     }
     
@@ -59,7 +61,7 @@ public class Player extends Entity {
                 }
 
             } else if (entity instanceof Exit) {
-                //TODO:
+                super.setPosition(nextPosition);
                 return;
 
             } else if (entity instanceof Portal) {
