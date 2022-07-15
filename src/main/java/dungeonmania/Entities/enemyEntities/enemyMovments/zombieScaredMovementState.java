@@ -1,5 +1,6 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
+import dungeonmania.GameController;
 import dungeonmania.Entities.enemyEntities.ZombieToast;
 
 public class zombieScaredMovementState implements enemyMovementState{
@@ -13,6 +14,6 @@ public class zombieScaredMovementState implements enemyMovementState{
     }
 
 
-    public void move(){}
+    public void move(GameController game){}
    
 }

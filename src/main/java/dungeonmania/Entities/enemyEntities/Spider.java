@@ -1,5 +1,6 @@
 package dungeonmania.Entities.enemyEntities;
 
+import dungeonmania.GameController;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.spiderNormalMovement;
 import dungeonmania.Entities.enemyEntities.enemyMovments.spiderReverseMovement;
@@ -34,9 +35,8 @@ public class Spider extends Enemy {
         Spider.spiderHealth = spiderHealth;
     }
 
-    public void move() {
-        // TODO Auto-generated method stub
-        
+    public void move(GameController game) {
+        this.currentState.move(game);
     }
     
     // Getters and Setters

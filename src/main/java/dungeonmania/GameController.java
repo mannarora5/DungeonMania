@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.enemyEntities.Enemy;
 import dungeonmania.Entities.enemyEntities.SpiderSpawnner;
 import dungeonmania.Entities.staticEntities.Portal;
 import dungeonmania.Entities.staticEntities.zombieSpawner;
@@ -46,6 +47,8 @@ public class GameController {
         findPlayer().movement(movementDirection, this);
 
         tickSpawn();
+
+        tickEnemyMove();
     }
 
     
@@ -64,6 +67,15 @@ public class GameController {
             SpiderSpawnner.spawn(this);
         }
 
+    }
+
+    public void tickEnemyMove(){
+        for (Entity entity: this.entities){
+            if (entity instanceof Enemy){
+                Enemy enemy = (Enemy) entity;
+                enemy.move(this);
+            }
+        }
     }
 
 

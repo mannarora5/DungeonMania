@@ -1,5 +1,6 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
+import dungeonmania.GameController;
 import dungeonmania.Entities.enemyEntities.Mercenary;
 
 public class mercenaryScaredMovementState implements enemyMovementState{
@@ -12,7 +13,7 @@ public class mercenaryScaredMovementState implements enemyMovementState{
     }
 
 
-    public void move(){}
+    public void move(GameController game){}
 
     
 }

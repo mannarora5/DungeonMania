@@ -1,5 +1,6 @@
 package dungeonmania.Entities.enemyEntities;
 
+import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
 import dungeonmania.util.Position;
 
@@ -14,7 +15,7 @@ public abstract class Enemy extends Entity{
         super(id, type, position, false);
     }
     // enemy movement
-    public abstract void move();
+    public abstract void move(GameController game);
         
 
     public void setpos(Position pos){

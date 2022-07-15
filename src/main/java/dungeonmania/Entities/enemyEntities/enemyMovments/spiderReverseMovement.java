@@ -1,5 +1,6 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
+import dungeonmania.GameController;
 import dungeonmania.Entities.enemyEntities.Spider;
 
 public class spiderReverseMovement implements enemyMovementState{
@@ -15,7 +16,7 @@ public class spiderReverseMovement implements enemyMovementState{
     }
 
 
-    public void move(){}
+    public void move(GameController game){}
 
 
 

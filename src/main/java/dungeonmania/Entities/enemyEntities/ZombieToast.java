@@ -19,7 +19,7 @@ public class ZombieToast extends Enemy {
         
     }
 
-    public void move() {
+    public void move(GameController game) {
         // TODO Auto-generated method stub
     }
 

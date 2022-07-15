@@ -38,7 +38,7 @@ public class Mercenary extends Enemy {
         Mercenary.mercenaryHealth = enemyHealth;
     }
 
-    public void move() {
+    public void move(GameController game) {
     }
 
     /**

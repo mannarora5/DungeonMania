@@ -1,5 +1,6 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
+import dungeonmania.GameController;
 import dungeonmania.Entities.enemyEntities.Spider;
 import dungeonmania.util.Position;
 
@@ -16,7 +17,7 @@ public class spiderNormalMovement implements enemyMovementState{
 
 
 
-    public void move(){
+    public void move(GameController game){
 
         int tick = getCurrentPostick();
 
