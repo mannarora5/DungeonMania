@@ -6,6 +6,7 @@ import java.util.List;
 import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.collectableEntities.Collectable;
+import dungeonmania.Entities.collectableEntities.Invincibility;
 import dungeonmania.Entities.collectableEntities.Key;
 import dungeonmania.Entities.staticEntities.*;
 import dungeonmania.util.Direction;
@@ -14,10 +15,64 @@ import dungeonmania.util.Position;
 public class Player extends Entity {
 
     public Inventory inventory;
+    public PlayerState state;
+    public PlayerState normalState = new NormalState();
+    public PlayerState invincibleState = new InvincibleState();
+    public PlayerState invisibleState = new InvisibleState();
+    public List<Collectable> potionQueue = new ArrayList<Collectable>();
+    private int potionTimer = 0;
 
-    public Player(String id,Position position) {
+    public Player(String id, Position position) {
         super(id, "player", position, false);
         this.inventory = new Inventory();
+        this.state = normalState;
+    }
+
+    public PlayerState getState() {
+        return this.state;
+    }
+
+    // Uses the given potion
+    public void usePotion(Collectable potion) {
+
+        // Remove the potion from the inventory
+        inventory.removeItem(potion.getId());
+
+        // Set the length of the potion's effects
+        potionTimer = potion.getPotionDuration();
+
+        // Switch the player's state
+        if (potion instanceof Invincibility) {
+            state = invincibleState;
+        } else if (potion instanceof Invisibility) {
+            state = invisibleState;
+        }
+
+    }
+
+    public void queuePotion(Collectable potion) {
+        potionQueue.add(potion);
+    }
+
+    // potionTick() should be called every tick
+    // Keeps track of potion use
+    public void potionTick() {
+
+        if (potionTimer > 0) {
+            potionTimer--;
+
+            // If the currently used potion has just worn off, use the next potion in the queue
+            if (potionTimer == 0) {
+                if (potionQueue.size() > 0) {
+                    Collectable newPotion = potionQueue.get(0);
+                    potionQueue.remove(newPotion);
+                    newPotion.use();
+                } else {
+                    state = normalState;
+                }
+            }
+        }
+
     }
     
     public void movement(Direction direction, GameController game) {

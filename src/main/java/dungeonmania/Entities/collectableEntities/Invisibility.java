@@ -17,6 +17,18 @@ public class Invisibility extends Collectable {
         Invisibility.potionDuration = duration;
     } 
 
+    public int getPotionDuration() {
+        return potionDuration;
+    }
 
+    public void use() {
+        /*
+        if (playerState == NormalState) {
+            player.usePotion(this);
+        } else {
+            player.queuePotion(this);
+        }
+         */
+    }
 
 }

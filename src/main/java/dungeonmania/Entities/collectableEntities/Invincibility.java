@@ -19,7 +19,19 @@ public class Invincibility extends Collectable {
         Invincibility.potionDuration = duration;
     } 
 
+    public int getPotionDuration() {
+        return potionDuration;
+    }
 
+    public void use() {
+        /*
+        if (playerState == NormalState) {
+            player.usePotion(this);
+        } else {
+            player.queuePotion(this);
+        }
+         */
+    }
 
 
 }
