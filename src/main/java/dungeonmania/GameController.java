@@ -9,7 +9,9 @@ import org.json.JSONObject;
 
 import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.enemyEntities.SpiderSpawnner;
 import dungeonmania.Entities.staticEntities.Portal;
+import dungeonmania.Entities.staticEntities.zombieSpawner;
 import dungeonmania.Goals.GoalComponent;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
@@ -20,6 +22,7 @@ public class GameController {
     
     public List<Entity> entities;
     public List<GoalComponent> goals;
+    public int ticks;
 
     public void newGame(String dungeonName, String config) throws IllegalArgumentException {
 
@@ -27,21 +30,40 @@ public class GameController {
         JSONObject configsDict = JSONExtract.extractConfigJSON(config);
         JSONObject goalsArray = JSONExtract.extractGoalsJSON(dungeonName);
 
-
         JSONExtract.setConfig(configsDict);
-
         setEntities(JSONExtract.createEntityClasses(entityArray));
-        
         setGoals(JSONExtract.createGoalClasses(goalsArray));
 
+        this.ticks = 0;
     }
 
 
 
     public void tickMovement(Direction movementDirection){
         
-        findPlayer().movement(movementDirection, this);
+        increasetick();
         
+        findPlayer().movement(movementDirection, this);
+
+        tickSpawn();
+    }
+
+    
+    public void tickSpawn() {
+
+        // Spawn Zombie if zombies are allowed to spawn and it should spawn on this tick
+        if (zombieSpawner.spawnRate != 0 && this.getTicks() % zombieSpawner.spawnRate == 0) {
+            List<zombieSpawner> zombie_list = findZombieSpawner();
+            for (zombieSpawner zombie_Spawner : zombie_list) {
+                zombie_Spawner.spawn(this);
+            }
+        }
+
+        // Spawn spider if spider is allowed to spawn and it should spawn on this tick
+        if (SpiderSpawnner.spawnRate != 0 && this.getTicks() % SpiderSpawnner.spawnRate == 0){
+            SpiderSpawnner.spawn(this);
+        }
+
     }
 
 
@@ -74,8 +96,16 @@ public class GameController {
 
     /// Getters and Setters///
 
+    public void increasetick(){
+        this.ticks += 1;
+    }
+
     public Player findPlayer(){
         return entities.stream().filter(entity -> entity instanceof Player).map(entity -> (Player) entity).findFirst().orElse(null);
+    }
+
+    public List<zombieSpawner> findZombieSpawner(){
+        return entities.stream().filter(entity -> entity instanceof zombieSpawner).map(entity -> (zombieSpawner) entity).collect(Collectors.toList());
     }
 
     public List<Entity> getEntities() {
@@ -94,6 +124,21 @@ public class GameController {
         this.goals = goals;
     }
 
+    public void addentity(Entity entity){
+        this.entities.add(entity);
+    }
+
+
+
+    public int getTicks() {
+        return this.ticks;
+    }
+
+    public void setTicks(int ticks) {
+        this.ticks = ticks;
+    }
+
+
     /**
      * Constructor for goal string
      * @param goals
@@ -111,5 +156,7 @@ public class GameController {
         }
         return goalString;
     }
+
+    
 
 }
