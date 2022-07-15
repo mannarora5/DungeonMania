@@ -4,7 +4,6 @@ package dungeonmania.Entities.enemyEntities;
 import dungeonmania.GameController;
 import dungeonmania.Entities.Player.Player;
 import dungeonmania.exceptions.InvalidActionException;
-import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public class Mercenary extends Enemy {

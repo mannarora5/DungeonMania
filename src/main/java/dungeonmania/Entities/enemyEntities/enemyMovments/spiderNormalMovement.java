@@ -17,7 +17,7 @@ public class spiderNormalMovement implements enemyMovementState{
 
 
 
-    public void move(GameController game){
+    public void move(GameController game) {
 
         int tick = getCurrentPostick();
 
