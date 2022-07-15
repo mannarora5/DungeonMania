@@ -27,7 +27,7 @@ public class Spider extends Enemy {
         Spider.spiderHealth = spiderHealth;
     }
 
-    public void move() {
+    public void move(GameController game) {
         // TODO Auto-generated method stub
         
     }

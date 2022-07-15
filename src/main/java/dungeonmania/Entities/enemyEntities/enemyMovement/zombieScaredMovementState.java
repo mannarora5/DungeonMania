@@ -70,11 +70,6 @@ public class zombieScaredMovementState implements enemyMovementState{
     }
 
 
-    @Override
-    public void move() {
-        // TODO Auto-generated method stub
-        
-    }
 
     public void checkEntities(List<Entity> entities,List<Position> adjacentPositions) {
         for (Entity entity : entities) {

@@ -47,11 +47,5 @@ public class zombieRandomMovmentState implements enemyMovementState{
     zombie.setPosition(newPosition);
     }
 
-
-    @Override
-    public void move() {
-        // TODO Auto-generated method stub
-        
-    }
 }
 

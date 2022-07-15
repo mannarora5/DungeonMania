@@ -1,5 +1,6 @@
 package dungeonmania.Entities.enemyEntities.enemyMovement;
 
+import dungeonmania.GameController;
 import dungeonmania.Entities.enemyEntities.Spider;
 
 public class spiderNormalMovement implements enemyMovementState{
@@ -17,7 +18,7 @@ public class spiderNormalMovement implements enemyMovementState{
 
 
 
-    public void move(){
+    public void move(GameController game){
 
         int movementTick = this.ticks % 8 ;
 
