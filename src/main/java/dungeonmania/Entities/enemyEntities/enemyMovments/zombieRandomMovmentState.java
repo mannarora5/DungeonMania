@@ -30,6 +30,12 @@ public class zombieRandomMovmentState implements enemyMovementState{
     List<Entity> entities = game.getEntities();
     List<Position> AdjacentPositions = zombieCurrentPosition.getAdjacentPositions();
 
+    //Delete all diagonally adjacent cells
+    AdjacentPositions.remove(zombie.getPosition().translateBy(1, 1));
+    AdjacentPositions.remove(zombie.getPosition().translateBy(1, -1));
+    AdjacentPositions.remove(zombie.getPosition().translateBy(-1, -1));
+    AdjacentPositions.remove(zombie.getPosition().translateBy(-1, 1));
+
     for(Entity entity: entities) {
         if (AdjacentPositions.contains(entity.getPosition()) == true) {
             if (entity instanceof Boulder || entity instanceof Portal || entity instanceof Wall || entity instanceof Door) {
