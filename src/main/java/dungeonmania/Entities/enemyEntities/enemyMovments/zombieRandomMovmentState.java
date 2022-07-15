@@ -1,5 +1,6 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -41,6 +42,10 @@ public class zombieRandomMovmentState implements enemyMovementState{
             }
         }
     }
+
+
+
+
     //Move zombie in random direction
     int randomIndex = rand.nextInt(AdjacentPositions.size());
     Position newPosition = AdjacentPositions.get(randomIndex);
