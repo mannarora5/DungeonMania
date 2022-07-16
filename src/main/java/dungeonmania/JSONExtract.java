@@ -284,9 +284,6 @@ public class JSONExtract {
                 entitiesList.add(new Spider(Id, position));
             }
 
-
-
-
             setEntities_created(getEntities_created() + 1);
         }
 

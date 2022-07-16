@@ -3,6 +3,7 @@ package dungeonmania.TestEnemyMovements;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import dungeonmania.GameController;
 import dungeonmania.Entities.enemyEntities.Spider;
 import dungeonmania.util.Position;
 
@@ -18,6 +19,8 @@ public class TestSpiderMovmentsUNIT {
     @DisplayName("Normal Movement")
     public void normalSpiderMovmenttest(){
 
+        GameController g = new GameController();
+
         Spider spider = new Spider("1",new Position(0, 0));
 
         // No Movement
@@ -25,29 +28,29 @@ public class TestSpiderMovmentsUNIT {
 
 
         // Test entire movment
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(0, -1)));
 
 
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(1, -1)));
 
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(1, 0)));
 
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(1, 1)));
 
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(0, 1)));
 
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(-1, 1)));
 
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(-1, 0)));
 
-        spider.move();
+        spider.move(g);
         System.out.println(spider.getPos());
 
         assert(spider.getPos().equals(new Position(-1, -1)));
@@ -55,14 +58,14 @@ public class TestSpiderMovmentsUNIT {
         // movement goes around in circles again
 
 
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(0, -1)));
 
 
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(1, -1)));
 
-        spider.move();
+        spider.move(g);
         assert(spider.getPos().equals(new Position(1, 0)));
 
 
@@ -74,9 +77,6 @@ public class TestSpiderMovmentsUNIT {
     public void reverseSpiderMovementtest(){
 
     }
-
-
-
 
     
 }

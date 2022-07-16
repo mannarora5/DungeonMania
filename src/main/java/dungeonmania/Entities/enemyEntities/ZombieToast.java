@@ -4,7 +4,6 @@ import dungeonmania.GameController;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.zombieRandomMovmentState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.zombieScaredMovementState;
-import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 public class ZombieToast extends Enemy {
