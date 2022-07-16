@@ -17,12 +17,16 @@ public class Spider extends Enemy {
     enemyMovementState reverselState;
     enemyMovementState currentState;
 
+    public int currentPostick;
+
 
     public Spider(String Id, Position position) {
         super(Id, "spider", position);
         this.normalState = new spiderNormalMovement(this);
         this.reverselState = new spiderReverseMovement(this);
         this.currentState = normalState;
+        this.currentPostick = 0;
+
     }
 
     // extract  spider health + base damage
@@ -47,4 +51,54 @@ public class Spider extends Enemy {
     public Position getPos(){
         return super.getPosition();
     }
+
+    public int getCurrentSpiderHealth() {
+        return this.currentSpiderHealth;
+    }
+
+    public void setCurrentSpiderHealth(int currentSpiderHealth) {
+        this.currentSpiderHealth = currentSpiderHealth;
+    }
+
+    public enemyMovementState getNormalState() {
+        return this.normalState;
+    }
+
+    public void setNormalState(enemyMovementState normalState) {
+        this.normalState = normalState;
+    }
+
+    public enemyMovementState getReverselState() {
+        return this.reverselState;
+    }
+
+    public void setReverselState(enemyMovementState reverselState) {
+        this.reverselState = reverselState;
+    }
+
+    public enemyMovementState getCurrentState() {
+        return this.currentState;
+    }
+
+    public void setCurrentState(enemyMovementState currentState) {
+        this.currentState = currentState;
+    }
+
+    public int getCurrentPostick() {
+        return this.currentPostick;
+    }
+
+    public void setCurrentPostick(int currentPostick) {
+        this.currentPostick = currentPostick;
+    }
+
+    public void increasetick(){
+        this.currentPostick += 1;
+    }
+
+    public void decreasetick(){
+        this.currentPostick -= 1;
+    }
+
 }
+

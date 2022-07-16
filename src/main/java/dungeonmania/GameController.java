@@ -105,7 +105,6 @@ public class GameController {
         this.entities.removeIf(e ->e.getId() == Id);
     }
 
-
     /// Getters and Setters///
 
     public void increasetick(){
