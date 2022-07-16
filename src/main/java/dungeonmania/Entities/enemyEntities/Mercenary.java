@@ -6,6 +6,7 @@ import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryAllyMovementState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryNormalMovementState;
+import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryRandomMovementState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryScaredMovementState;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.Position;
@@ -25,6 +26,7 @@ public class Mercenary extends Enemy {
     enemyMovementState allyMercenarystate;
     enemyMovementState normalMercenarystate;
     enemyMovementState scaredMercenaryMovement;
+    enemyMovementState randomMercenaryMovement;
     enemyMovementState currentMovementState;
 
     public Mercenary(String id, Position position) {
@@ -36,7 +38,8 @@ public class Mercenary extends Enemy {
         this.allyMercenarystate = new mercenaryAllyMovementState(this);
         this.normalMercenarystate = new mercenaryNormalMovementState(this);
         this.scaredMercenaryMovement = new mercenaryScaredMovementState(this);
-        this.currentMovementState = this.normalMercenarystate;
+        this.randomMercenaryMovement = new mercenaryRandomMovementState(this);
+        this.currentMovementState = this.allyMercenarystate;
     }
 
     public static void setMecenaryAttack(int enemyAttack) {

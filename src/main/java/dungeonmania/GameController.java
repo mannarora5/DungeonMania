@@ -24,6 +24,7 @@ public class GameController {
     public List<Entity> entities;
     public List<GoalComponent> goals;
     public int ticks;
+    public List<Position> playerPositions = new ArrayList<>();
 
     public void newGame(String dungeonName, String config) throws IllegalArgumentException {
 
@@ -42,6 +43,8 @@ public class GameController {
 
     public void tickMovement(Direction movementDirection){
         
+        playerPositions.add(findPlayer().getPosition());
+
         increasetick();
         
         findPlayer().movement(movementDirection, this);
