@@ -133,7 +133,10 @@ public class Inventory {
     }
 
 
-
+    /**
+     * Built the bow using wood and arrow
+     * @throws InvalidActionException
+     */
     public void buildbow() throws InvalidActionException{
         
         int woodAmount = this.quantity("wood");
@@ -151,6 +154,10 @@ public class Inventory {
         }
     }
 
+    /**
+     * Build shield using wood, key and treausre
+     * @throws InvalidActionException
+     */
     public void buildshield() throws InvalidActionException{
 
         int woodAmount = this.quantity("wood");
@@ -195,11 +202,18 @@ public class Inventory {
         return responses;
     }
 
-
+    /**
+     * Check has hey
+     * @return
+     */
     public boolean hasKey(){
         return this.items.stream().filter(e -> e instanceof Key).count() == 1;
     }
 
+    /**
+     * Get key
+     * @return
+     */
     public Key getKey(){
         return this.items.stream().filter(e -> e instanceof Key).map(e -> (Key) e).findFirst().orElse(null);
     }
