@@ -59,6 +59,12 @@ public class mercenaryNormalMovementState implements enemyMovementState {
             distanceAndPositions.add(dist);
         }
 
+        
+        // Add current pos dist aswell
+        PositonDistance currDist = new PositonDistance(PositonDistance.distancebetweenposition(playerPostion, this.mercenary.getPosition()),
+         this.mercenary.getPosition());
+        distanceAndPositions.add(currDist);
+
         //Loop through and find the shortest distance between player and mercenary
         double shortestDistance = 1000;
         PositonDistance shortDistance = new PositonDistance(-1, UP);

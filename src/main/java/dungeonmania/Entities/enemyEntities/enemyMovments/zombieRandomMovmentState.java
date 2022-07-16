@@ -1,6 +1,5 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -11,7 +10,6 @@ import dungeonmania.Entities.staticEntities.Boulder;
 import dungeonmania.Entities.staticEntities.Door;
 import dungeonmania.Entities.staticEntities.Portal;
 import dungeonmania.Entities.staticEntities.Wall;
-import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Position;
 
 public class zombieRandomMovmentState implements enemyMovementState{

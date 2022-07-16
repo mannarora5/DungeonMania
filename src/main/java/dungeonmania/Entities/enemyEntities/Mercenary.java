@@ -39,7 +39,7 @@ public class Mercenary extends Enemy {
         this.normalMercenarystate = new mercenaryNormalMovementState(this);
         this.scaredMercenaryMovement = new mercenaryScaredMovementState(this);
         this.randomMercenaryMovement = new mercenaryRandomMovementState(this);
-        this.currentMovementState = this.allyMercenarystate;
+        this.currentMovementState = this.normalMercenarystate;
     }
 
     public static void setMecenaryAttack(int enemyAttack) {
