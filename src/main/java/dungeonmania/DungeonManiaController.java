@@ -1,9 +1,13 @@
 package dungeonmania;
 
+import dungeonmania.Entities.Entity;
+import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.collectableEntities.Bomb;
 import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.Entities.collectableEntities.Invincibility;
 import dungeonmania.Entities.collectableEntities.Invisibility;
+import dungeonmania.Entities.enemyEntities.Mercenary;
+import dungeonmania.Entities.staticEntities.zombieSpawner;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.BattleResponse;
 import dungeonmania.response.models.DungeonResponse;
@@ -128,7 +132,30 @@ public class DungeonManiaController {
      * /game/interact
      */
     public DungeonResponse interact(String entityId) throws IllegalArgumentException, InvalidActionException {
-        return null;
+
+        Entity entity = this.game.getEntity(entityId);
+
+        if (entity == null) {
+
+            throw new IllegalArgumentException("entityId is not a valid entity ID");
+
+        } else if (entity instanceof Mercenary) {
+
+            Mercenary mercenary = (Mercenary) entity;
+            Player p = this.game.findPlayer();
+            mercenary.bribe(this.game, p);
+
+        } else if (entity instanceof zombieSpawner) {
+
+            zombieSpawner spawner = (zombieSpawner) entity;
+            spawner.destroy(this.game, this.game.findPlayer());
+
+        } else {
+            throw new IllegalArgumentException("entityId is not a valid entity ID to interact with");   
+        }
+
+
+        return getDungeonResponseModel();
     }
 
 

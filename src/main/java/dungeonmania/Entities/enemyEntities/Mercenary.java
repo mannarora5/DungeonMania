@@ -10,6 +10,7 @@ import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryRandomMovement
 import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryScaredMovementState;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.Position;
+import dungeonmania.util.PositonDistance;
 
 public class Mercenary extends Enemy {
 
@@ -86,20 +87,31 @@ public class Mercenary extends Enemy {
      * @throws InvalidActionException
      */
     public void bribe(GameController game, Player player) throws InvalidActionException {
+
+        if (this.getMercenaryBribed()){
+            throw new InvalidActionException("Mercenary already bribed");
+        }
+
        int quantity = player.getInventory().quantity("treasure");
        // check if player has enough treasure to bribe mercenary 
-       if (quantity < bribeAmount) {
+       if (quantity < Mercenary.bribeAmount) {
         throw new InvalidActionException("Not enough treasure for bribe");
        }
+
+       double distance = PositonDistance.distancebetweenposition(player.getPosition(), this.getPosition());
+
        // checks if player is in radius of enemy
-       if ((Position.calculatePositionBetween(player.getPosition(), getPosition()).getX() < bribeRadius) && 
-            (Position.calculatePositionBetween(player.getPosition(), getPosition()).getY() < bribeRadius)) {
-                player.getInventory().removeMultipleItems("treasure", quantity);
-                this.mercenaryBribed = true;
+       if (distance <= Mercenary.bribeRadius) {
+
+            player.getInventory().removeMultipleItems("treasure", quantity);
+            this.setMercenaryBribed(true);
+            this.setCurrentMovementState(this.getAllyMercenarystate());
        }
        else {
         throw new InvalidActionException("Not in radius to bribe mercenary");
        }
+
+
     }
 
     
@@ -142,6 +154,56 @@ public class Mercenary extends Enemy {
     public void setCurrentHealth(int currentHealth) {
         this.currentMercenaryHealth = currentHealth;
     }
+
+
+    public int getCurrentMercenaryHealth() {
+        return this.currentMercenaryHealth;
+    }
+
+    public void setCurrentMercenaryHealth(int currentMercenaryHealth) {
+        this.currentMercenaryHealth = currentMercenaryHealth;
+    }
+
+    public enemyMovementState getAllyMercenarystate() {
+        return this.allyMercenarystate;
+    }
+
+    public void setAllyMercenarystate(enemyMovementState allyMercenarystate) {
+        this.allyMercenarystate = allyMercenarystate;
+    }
+
+    public enemyMovementState getNormalMercenarystate() {
+        return this.normalMercenarystate;
+    }
+
+    public void setNormalMercenarystate(enemyMovementState normalMercenarystate) {
+        this.normalMercenarystate = normalMercenarystate;
+    }
+
+    public enemyMovementState getScaredMercenaryMovement() {
+        return this.scaredMercenaryMovement;
+    }
+
+    public void setScaredMercenaryMovement(enemyMovementState scaredMercenaryMovement) {
+        this.scaredMercenaryMovement = scaredMercenaryMovement;
+    }
+
+    public enemyMovementState getRandomMercenaryMovement() {
+        return this.randomMercenaryMovement;
+    }
+
+    public void setRandomMercenaryMovement(enemyMovementState randomMercenaryMovement) {
+        this.randomMercenaryMovement = randomMercenaryMovement;
+    }
+
+    public enemyMovementState getCurrentMovementState() {
+        return this.currentMovementState;
+    }
+
+    public void setCurrentMovementState(enemyMovementState currentMovementState) {
+        this.currentMovementState = currentMovementState;
+    }
+
 
     
 }

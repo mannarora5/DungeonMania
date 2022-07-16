@@ -160,6 +160,10 @@ public class GameController {
         this.ticks = ticks;
     }
 
+    public Entity getEntity(String Id) {
+        return this.entities.stream().filter(e -> (e.getId().equals(Id))).findFirst().orElse(null);
+    }
+
 
     /**
      * Constructor for goal string
