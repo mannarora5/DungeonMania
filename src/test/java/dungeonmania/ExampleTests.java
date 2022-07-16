@@ -190,8 +190,8 @@ public class ExampleTests {
         double enemyAttack = Double.parseDouble(getValueFromConfigFile(enemyType + "_attack", configFilePath));
 
         for (RoundResponse round : rounds) {
-            assertEquals(round.getDeltaCharacterHealth(), -(enemyAttack / 10));
-            assertEquals(round.getDeltaEnemyHealth(), -(playerAttack / 5));
+            assertEquals(-(enemyAttack / 10), round.getDeltaCharacterHealth(), 0.001);
+            assertEquals(-(playerAttack / 5), round.getDeltaEnemyHealth(), 0.001);
             enemyHealth += round.getDeltaEnemyHealth();
             playerHealth += round.getDeltaCharacterHealth();
         }

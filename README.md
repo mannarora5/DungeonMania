@@ -37,6 +37,8 @@ This specification is broken into four parts:
 - Tue 12 Jul 10pm - Improve wording of effects of bows in battles
 - Wed 13 Jul 9am - Fix the typo in the example battle test
 - Thu 14 Jul 6am - Add image for green portal
+- Thu 14 Jul 10pm - Fix triggering interactions multiple times from the front-end
+- Sat 16 Jul 9am - Add error tolerant to battle calculation
 
 ## 1. Aims
 
