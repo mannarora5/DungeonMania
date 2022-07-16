@@ -14,6 +14,12 @@ public class Boulder extends Static{
         super(Id,"boulder", position);
     }
 
+    /**
+     * Move the boulder
+     * @param direction
+     * @param game
+     * @return
+     */
     public boolean move(Direction direction, GameController game) {
 
         Position nextPosition = super.getPos().translateBy(direction.getOffset());

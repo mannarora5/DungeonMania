@@ -28,6 +28,11 @@ public class Player extends Entity {
         this.currentplayerHealth = Player.playerHealth;
     }
     
+    /**
+     * Move player in game
+     * @param direction
+     * @param game
+     */
     public void movement(Direction direction, GameController game) {
         //Get the nextPosition
         Position nextPosition = super.getPosition().translateBy(direction.getOffset());
@@ -133,40 +138,67 @@ public class Player extends Entity {
 
     }
 
-
+    /**
+     * Get the inventory
+     * @return
+     */
     public Inventory getInventory() {
         return this.inventory;
     }
 
+    /**
+     * Update inventory
+     * @param inventory
+     */
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
 
-
-
+    /**
+     * Get the enemies destroyed
+     * @return
+     */
     public int getEnemiesDestroyed() {
         return this.enemiesDestroyed;
     }
 
+    /**
+     * Updated enemies destroyed
+     * @param enemiesDestroyed
+     */
     public void setEnemiesDestroyed(int enemiesDestroyed) {
         this.enemiesDestroyed = enemiesDestroyed;
     }
 
+    /**
+     * Get current player health
+     * @return
+     */
     public Integer getCurrentplayerHealth() {
         return this.currentplayerHealth;
     }
 
+    /**
+     * Update current player health
+     * @param currentplayerHealth
+     */
     public void setCurrentplayerHealth(Integer currentplayerHealth) {
         this.currentplayerHealth = currentplayerHealth;
     }
 
+    /**
+     * Update player attack damage
+     * @param attack
+     */
     public static void setPlayerAttack(Integer attack){
         Player.playerAttack = attack;
     }
 
+    /**
+     * Update player health
+     * @param health
+     */
     public static void setPlayerHealth(Integer health){
         Player.playerHealth = health;
     }
-
-
 }

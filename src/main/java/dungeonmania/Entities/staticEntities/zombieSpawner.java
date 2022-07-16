@@ -19,7 +19,10 @@ public class zombieSpawner extends Static {
     }
     
 
-    // given a certain number of ticks add a zombie on a specific tick
+    /**
+     * Spawn the zomie
+     * @param game
+     */
     public void spawn( GameController game) {
 
         List<Entity> ListEntities = game.getEntities();
@@ -31,10 +34,6 @@ public class zombieSpawner extends Static {
         cardinalpPositions.add(new Position(getX()  , getY()+1));
         cardinalpPositions.add(new Position(getX()+1  , getY()));
         
-        // 1. ticks mod spawnrate (if == 0) (then spawn) (get tick from game.getticks)
-        // 2. check position of zombie spawner (check up down left right for any wall, boulders, door)
-        // 3. new zombie object and then add to game with the correct position 
-
         for (Entity entity : ListEntities) {
 
             if (Position.isAdjacent(entity.getPosition(), getPos()) == true) {
@@ -61,7 +60,10 @@ public class zombieSpawner extends Static {
 
     }
 
-
+    /**
+     * Set the spawn rate
+     * @param rate
+     */
     public static void setSpawnRate(Integer rate){
         zombieSpawner.spawnRate = rate;
     }    

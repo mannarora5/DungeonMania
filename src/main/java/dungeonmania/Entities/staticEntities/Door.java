@@ -15,6 +15,11 @@ public class Door extends Static {
         this.open = false;
     }
 
+    /**
+     * Open the door
+     * @param inventory
+     * @return
+     */
     public boolean openDoor(Inventory inventory){
 
         if(inventory.hasKey()){
@@ -31,23 +36,42 @@ public class Door extends Static {
         return false;
     }
 
-    // Getters and Setters
+    /**
+     * returns current key
+     * @return
+     */
     public Integer getKey() {
         return this.key;
     }
 
+    /**
+     * Update key
+     * @param key
+     */
     public void setKey(Integer key) {
         this.key = key;
     }
 
+    /**
+     * Check if door is open
+     * @return
+     */
     public boolean isOpen() {
         return this.open;
     }
 
+    /**
+     * Return whether door open
+     * @return
+     */
     public boolean getOpen() {
         return this.open;
     }
 
+    /**
+     * Update whether door is opened
+     * @param open
+     */
     public void setOpen(boolean open) {
         this.open = open;
     }

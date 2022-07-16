@@ -14,14 +14,26 @@ public class Switch extends Static {
         
     }
     
+    /**
+     * Return whether switch is activated
+     * @return
+     */
     public Boolean isActivated() {
         return this.activated;
     }
 
+    /**
+     * Return whether switch is activated
+     * @return
+     */
     public Boolean getActivated() {
         return this.activated;
     }
 
+    /**
+     * Update whether switch is activated
+     * @param activated
+     */
     public void setActivated(Boolean activated) {
         this.activated = activated;
     }

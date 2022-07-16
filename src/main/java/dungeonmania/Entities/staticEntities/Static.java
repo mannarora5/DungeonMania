@@ -13,10 +13,18 @@ public class Static extends Entity{
         super(id, type, position, isInterctable);
     }
 
+    /**
+     * Update position of static entity
+     * @param pos
+     */
     public void setPos(Position pos) {
         super.setPosition(pos);
     }
 
+    /**
+     * Return position of static entity
+     * @return
+     */
     public Position getPos() {
         return super.getPosition();
     }
