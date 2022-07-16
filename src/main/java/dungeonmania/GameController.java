@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.collectableEntities.Bomb;
 import dungeonmania.Entities.enemyEntities.Enemy;
 import dungeonmania.Entities.enemyEntities.SpiderSpawnner;
 import dungeonmania.Entities.staticEntities.Portal;
@@ -47,13 +48,28 @@ public class GameController {
         playerPositions.add(findPlayer().getPosition());
 
         increasetick();
-        
+
         findPlayer().movement(movementDirection, this);
+
+        tickBombExplode();
 
         tickSpawn();
 
         tickEnemyMove();
     }
+
+    public void tickItemUsed(){
+        
+        increasetick();
+
+        tickBombExplode();
+
+        tickSpawn();
+        
+        tickEnemyMove();
+    }
+
+
 
     
     public void tickSpawn() {
@@ -82,6 +98,18 @@ public class GameController {
         }
     }
 
+    public void tickBombExplode(){
+        List<Bomb> bombs = entities.stream().
+                            filter(e -> e instanceof Bomb).
+                            map(e -> (Bomb) e).
+                            collect(Collectors.toList());
+
+        for (Bomb bomb: bombs){
+            bomb.explode(this);
+        }
+    }
+
+    
 
     public void buildBow() throws InvalidActionException {
         this.findPlayer().getInventory().buildbow();

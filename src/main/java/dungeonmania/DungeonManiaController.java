@@ -83,13 +83,19 @@ public class DungeonManiaController {
      */
     public DungeonResponse tick(String itemUsedId) throws IllegalArgumentException, InvalidActionException {
 
-        Collectable item = this.game.findPlayer().getInventory().getItem(itemUsedId);
+        Player player = this.game.findPlayer();
+        Collectable item = player.getInventory().getItem(itemUsedId);
+
 
         if (item == null){
 
             throw new InvalidActionException("Item not in inventory");
 
         } else if (item instanceof Bomb) {
+
+            Bomb bomb = (Bomb) item;
+            bomb.place(player, this.game);
+            this.game.tickItemUsed();
 
         } else if (item instanceof Invincibility) {
 

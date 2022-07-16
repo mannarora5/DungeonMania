@@ -5,6 +5,7 @@ import java.util.List;
 
 import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
+import dungeonmania.Entities.collectableEntities.Bomb;
 import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.Entities.collectableEntities.Key;
 import dungeonmania.Entities.staticEntities.*;
@@ -102,7 +103,6 @@ public class Player extends Entity {
                 return;
 
             } if (entity instanceof zombieSpawner) {
-                //TODO:
                 super.setPosition(nextPosition);
                 return;
             }
@@ -113,6 +113,13 @@ public class Player extends Entity {
 
 
             if (entity instanceof Collectable && !(entity instanceof Key)) {
+
+                if (entity instanceof Bomb) {
+                    Bomb bomb = (Bomb) entity;
+                    if (bomb.isPlaced()){
+                        return;
+                    }
+                }
 
                 Collectable item = (Collectable) entity;
                 this.inventory.addItem(item);
