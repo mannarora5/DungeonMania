@@ -82,7 +82,7 @@ public class Inventory {
      */
     public Collectable getItem(String Id){
 
-        return this.items.stream().filter(item -> (item.getId() == Id)).findFirst().orElse(null);
+        return this.items.stream().filter(item -> (item.getId().equals(Id))).findFirst().orElse(null);
 
     }
     
