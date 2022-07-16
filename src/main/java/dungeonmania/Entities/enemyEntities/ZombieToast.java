@@ -1,13 +1,19 @@
 package dungeonmania.Entities.enemyEntities;
 
 import dungeonmania.GameController;
-import dungeonmania.util.Direction;
+import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
+import dungeonmania.Entities.enemyEntities.enemyMovments.zombieRandomMovmentState;
+import dungeonmania.Entities.enemyEntities.enemyMovments.zombieScaredMovementState;
 import dungeonmania.util.Position;
 
 public class ZombieToast extends Enemy {
 
     private static int zombieHealth;
     private static int zombieAttack;
+
+    enemyMovementState normalZombieMovement;
+    enemyMovementState scaredZombieMovement;
+    enemyMovementState currentMovementState;
 
     private  int currentzombieHealth;
 
@@ -16,14 +22,16 @@ public class ZombieToast extends Enemy {
         super(Id, "zombie_toast", position, true);
 
         this.currentzombieHealth = ZombieToast.zombieHealth;
+
+        this.normalZombieMovement = new zombieRandomMovmentState(this);
+        this.scaredZombieMovement = new zombieScaredMovementState(this);
+
+        this.currentMovementState = this.normalZombieMovement;
         
     }
 
-    /**
-     * Move zombie toast
-     */
     public void move(GameController game) {
-        // TODO Auto-generated method stub
+        this.currentMovementState.move(game);
     }
 
     /**

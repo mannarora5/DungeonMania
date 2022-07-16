@@ -1,7 +1,6 @@
-package dungeonmania.Entities.enemyEntities.enemyMovement;
+package dungeonmania.Entities.enemyEntities.enemyMovments;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import dungeonmania.GameController;
@@ -24,9 +23,6 @@ public class zombieScaredMovementState implements enemyMovementState{
     }
 
     
-    /**
-     * @param game
-     */
     public void move(GameController game){ 
         Position playerPosition = game.findPlayer().getPosition();
         List<Position> adjacentPositions = zombie.getPosition().getAdjacentPositions();
@@ -62,11 +58,16 @@ public class zombieScaredMovementState implements enemyMovementState{
         }
         //Set the new positon to the higest distance
         double highestdistance = 0;
+        PositonDistance furtheDistance = new PositonDistance(-1, UP);
         for (PositonDistance positonDistance: distanceAndPositions) {
             if (highestdistance < positonDistance.getDistance()) {
-                zombie.setPosition(positonDistance.getPosition());
+                furtheDistance = positonDistance;
+                highestdistance = positonDistance.getDistance();
             }
         }
+
+        //Set the new postion of the zombie_attack
+        zombie.setPosition(furtheDistance.getPosition());
     }
 
 
@@ -83,7 +84,6 @@ public class zombieScaredMovementState implements enemyMovementState{
                 adjacentPositions.remove(entity.getPosition());
             }    
         }
-    }
-    
-   
+    }   
 }
+

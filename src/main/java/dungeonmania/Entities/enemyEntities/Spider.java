@@ -1,10 +1,10 @@
 package dungeonmania.Entities.enemyEntities;
 
 import dungeonmania.GameController;
-import dungeonmania.util.Direction;
+import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
+import dungeonmania.Entities.enemyEntities.enemyMovments.spiderNormalMovement;
+import dungeonmania.Entities.enemyEntities.enemyMovments.spiderReverseMovement;
 import dungeonmania.util.Position;
-
-// extract  spider health + base damage
 
 public class Spider extends Enemy {
 
@@ -13,14 +13,23 @@ public class Spider extends Enemy {
 
     public int currentSpiderHealth;
 
-    public Spider(String id, Position position) {
-        super(id, "spider", position, false);
-        this.currentSpiderHealth = Spider.spiderHealth;
+    enemyMovementState normalState;
+    enemyMovementState reverselState;
+    enemyMovementState currentState;
+
+    public int currentPostick;
+
+
+    public Spider(String Id, Position position) {
+        super(Id, "spider", position);
+        this.normalState = new spiderNormalMovement(this);
+        this.reverselState = new spiderReverseMovement(this);
+        this.currentState = normalState;
+        this.currentPostick = 0;
+
     }
-    /**
-     * Set spider attack damage
-     * @param spiderAttack
-     */
+
+    // extract  spider health + base damage
     public static void setSpiderAttack(int spiderAttack) {
         Spider.spiderAttack = spiderAttack;
         
@@ -34,12 +43,8 @@ public class Spider extends Enemy {
         Spider.spiderHealth = spiderHealth;
     }
 
-    /**
-     * Move Spider
-     */
     public void move(GameController game) {
-        // TODO Auto-generated method stub
-        
+        this.currentState.move(game);
     }
     
     /**
@@ -57,6 +62,54 @@ public class Spider extends Enemy {
     public Position getPos(){
         return super.getPosition();
     }
-    
-    
+
+    public int getCurrentSpiderHealth() {
+        return this.currentSpiderHealth;
+    }
+
+    public void setCurrentSpiderHealth(int currentSpiderHealth) {
+        this.currentSpiderHealth = currentSpiderHealth;
+    }
+
+    public enemyMovementState getNormalState() {
+        return this.normalState;
+    }
+
+    public void setNormalState(enemyMovementState normalState) {
+        this.normalState = normalState;
+    }
+
+    public enemyMovementState getReverselState() {
+        return this.reverselState;
+    }
+
+    public void setReverselState(enemyMovementState reverselState) {
+        this.reverselState = reverselState;
+    }
+
+    public enemyMovementState getCurrentState() {
+        return this.currentState;
+    }
+
+    public void setCurrentState(enemyMovementState currentState) {
+        this.currentState = currentState;
+    }
+
+    public int getCurrentPostick() {
+        return this.currentPostick;
+    }
+
+    public void setCurrentPostick(int currentPostick) {
+        this.currentPostick = currentPostick;
+    }
+
+    public void increasetick(){
+        this.currentPostick += 1;
+    }
+
+    public void decreasetick(){
+        this.currentPostick -= 1;
+    }
+
 }
+

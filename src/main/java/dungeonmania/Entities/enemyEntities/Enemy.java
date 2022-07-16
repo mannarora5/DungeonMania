@@ -14,11 +14,16 @@ public abstract class Enemy extends Entity{
     public Enemy(String id, String type, Position position) {
         super(id, type, position, false);
     }
-    
-    /**
-     * Move enemy
-     * @param game
-     */
+    // enemy movement
     public abstract void move(GameController game);
-    
+        
+
+    public void setpos(Position pos){
+        super.setPosition(pos);
+    }
+
+    public Position getpos(){
+        return super.getPosition();
+    }
+
 }
