@@ -15,11 +15,17 @@ public class Player extends Entity {
     public int enemiesDestroyed;
     public Inventory inventory;
 
+    public static Integer playerHealth;
+    public static Integer playerAttack;
+
+    public Integer currentplayerHealth;
+
     
     public Player(String id,Position position) {
         super(id, "player", position, false);
         this.enemiesDestroyed = 0;
         this.inventory = new Inventory();
+        this.currentplayerHealth = Player.playerHealth;
     }
     
     public void movement(Direction direction, GameController game) {
@@ -134,6 +140,32 @@ public class Player extends Entity {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+
+
+    public int getEnemiesDestroyed() {
+        return this.enemiesDestroyed;
+    }
+
+    public void setEnemiesDestroyed(int enemiesDestroyed) {
+        this.enemiesDestroyed = enemiesDestroyed;
+    }
+
+    public Integer getCurrentplayerHealth() {
+        return this.currentplayerHealth;
+    }
+
+    public void setCurrentplayerHealth(Integer currentplayerHealth) {
+        this.currentplayerHealth = currentplayerHealth;
+    }
+
+    public static void setPlayerAttack(Integer attack){
+        Player.playerAttack = attack;
+    }
+
+    public static void setPlayerHealth(Integer health){
+        Player.playerHealth = health;
     }
 
 

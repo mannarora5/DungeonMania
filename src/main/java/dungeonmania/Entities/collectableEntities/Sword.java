@@ -7,8 +7,11 @@ public class Sword extends Collectable{
     public static Integer swordDuration;
     public static Integer swordAttack;
 
+    public Integer currentSwordDuration;
+
     public Sword(String Id, Position position) {
         super(Id, "sword", position);
+        this.currentSwordDuration = Sword.swordDuration;
     }
 
     /**

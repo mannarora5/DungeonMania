@@ -11,6 +11,8 @@ import org.json.JSONObject;
 
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.buildableEntities.Bow;
+import dungeonmania.Entities.buildableEntities.Shield;
 import dungeonmania.Entities.collectableEntities.Arrow;
 import dungeonmania.Entities.collectableEntities.Bomb;
 import dungeonmania.Entities.collectableEntities.Invincibility;
@@ -182,6 +184,24 @@ public class JSONExtract {
 
         Integer spider_spawn_rate = (Integer) configs.get("spider_spawn_rate");
         SpiderSpawnner.setSpawnRate(spider_spawn_rate);
+
+        Integer bow_durability = (Integer) configs.get("bow_durability");
+        Bow.setbowDuration(bow_durability);
+
+        Integer shield_defence  = (Integer) configs.get("shield_defence");
+        Shield.setSheildDefence(shield_defence);
+
+        Integer shield_durability  = (Integer) configs.get("shield_durability");
+        Shield.setShielduration(shield_durability);
+
+        Integer player_attack  = (Integer) configs.get("player_attack");
+        Player.setPlayerAttack(player_attack);
+
+        Integer player_health  = (Integer) configs.get("player_health");
+        Player.setPlayerHealth(player_health);
+
+        Integer bomb_radius  = (Integer) configs.get("bomb_radius");
+        Bomb.setRadius(bomb_radius);
 
 
 
