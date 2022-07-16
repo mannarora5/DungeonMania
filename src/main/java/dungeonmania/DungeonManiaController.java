@@ -1,5 +1,9 @@
 package dungeonmania;
 
+import dungeonmania.Entities.collectableEntities.Bomb;
+import dungeonmania.Entities.collectableEntities.Collectable;
+import dungeonmania.Entities.collectableEntities.Invincibility;
+import dungeonmania.Entities.collectableEntities.Invisibility;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.BattleResponse;
 import dungeonmania.response.models.DungeonResponse;
@@ -74,7 +78,23 @@ public class DungeonManiaController {
      * /game/tick/item
      */
     public DungeonResponse tick(String itemUsedId) throws IllegalArgumentException, InvalidActionException {
-        
+
+        Collectable item = this.game.findPlayer().getInventory().getItem(itemUsedId);
+
+        if (item == null){
+
+            throw new InvalidActionException("Item not in inventory");
+
+        } else if (item instanceof Bomb) {
+
+        } else if (item instanceof Invincibility) {
+
+        } else if (item instanceof Invisibility) {
+
+        } else {
+            throw new IllegalArgumentException("itemUsed is not a bomb, invincibility_potion, or an invisibility_potion");
+        }
+
         return getDungeonResponseModel();
     }
 
