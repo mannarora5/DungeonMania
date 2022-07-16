@@ -91,7 +91,17 @@ public class DungeonManiaController {
      * /game/build
      */
     public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
-        return null;
+
+        if (buildable.equals("bow")) {
+            this.game.buildBow();
+        } else if (buildable.equals("shield")) {
+            this.game.buildShield();
+        } else {
+            throw new IllegalArgumentException(buildable);
+        }
+
+
+        return getDungeonResponseModel();
     }
 
     /**

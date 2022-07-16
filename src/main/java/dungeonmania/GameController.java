@@ -14,6 +14,7 @@ import dungeonmania.Entities.enemyEntities.SpiderSpawnner;
 import dungeonmania.Entities.staticEntities.Portal;
 import dungeonmania.Entities.staticEntities.zombieSpawner;
 import dungeonmania.Goals.GoalComponent;
+import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -82,6 +83,13 @@ public class GameController {
     }
 
 
+    public void buildBow() throws InvalidActionException {
+        this.findPlayer().getInventory().buildbow();
+    }
+
+    public void buildShield() throws InvalidActionException {
+        this.findPlayer().getInventory().buildshield();
+    }
 
     
 
