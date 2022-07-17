@@ -44,7 +44,7 @@ public class GameController {
         // Add all enemies created on loading to player observer list
 
         List<EnemyObserver>  enemies = new ArrayList<EnemyObserver>();
-        
+
         for (Entity entity: this.entities) {
             if (entity instanceof Enemy){
                 EnemyObserver enemyObserver = (EnemyObserver) entity;
@@ -67,12 +67,13 @@ public class GameController {
 
         increasetick();
         
+        tickSpawn();
+
         player.potionTick();
         player.movement(movementDirection, this);
 
         tickBombExplode();
 
-        tickSpawn();
 
         tickEnemyMove();
     }
@@ -80,12 +81,11 @@ public class GameController {
     public void tickItemUsed(){
         
         increasetick();
+        tickSpawn();
 
         findPlayer().potionTick();
 
         tickBombExplode();
-
-        tickSpawn();
         
         tickEnemyMove();
     }

@@ -40,7 +40,7 @@ public class ZombieToast extends Enemy implements EnemyObserver{
 
 
     @Override
-    public void updateMovement(PlayerStateSubject player){
+    public void updateMovement(PlayerStateSubject player)  {
 
         PlayerState state = player.getState();
 

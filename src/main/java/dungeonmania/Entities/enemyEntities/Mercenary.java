@@ -70,7 +70,7 @@ public class Mercenary extends Enemy implements EnemyObserver{
 
 
     @Override
-    public void updateMovement(PlayerStateSubject player){
+    public void updateMovement(PlayerStateSubject player)  {
 
         PlayerState state = player.getState();
 
@@ -88,7 +88,7 @@ public class Mercenary extends Enemy implements EnemyObserver{
 
         } else if (state instanceof InvisibleState) {
             this.currentMovementState = this.randomMercenaryMovement;
-        }
+        } 
         
         
     }
