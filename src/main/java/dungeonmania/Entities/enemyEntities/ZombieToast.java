@@ -23,7 +23,7 @@ public class ZombieToast extends Enemy implements EnemyObserver{
 
     public ZombieToast(String Id, Position position) {
         
-        super(Id, "zombie_toast", position, true);
+        super(Id, "zombie_toast", position, true, ZombieToast.zombieHealth);
 
         this.currentzombieHealth = ZombieToast.zombieHealth;
 

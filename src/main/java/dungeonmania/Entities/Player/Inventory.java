@@ -8,6 +8,7 @@ import dungeonmania.Entities.buildableEntities.Shield;
 import dungeonmania.Entities.collectableEntities.Arrow;
 import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.Entities.collectableEntities.Key;
+import dungeonmania.Entities.collectableEntities.Sword;
 import dungeonmania.Entities.collectableEntities.Treasure;
 import dungeonmania.Entities.collectableEntities.Wood;
 import dungeonmania.exceptions.InvalidActionException;
@@ -186,6 +187,42 @@ public class Inventory {
             this.addItem(new Shield("1000", new Position(-1000, -1000)));
         }
         
+    }
+
+
+    public Bow getBow(){
+        
+        for (Collectable i: this.items) {
+            if (i instanceof Bow) {
+                return (Bow)i;
+            }
+        }
+
+        return null;
+    }
+
+    public Shield getShield(){
+
+        for (Collectable i: this.items) {
+            if (i instanceof Shield) {
+                return (Shield)i;
+            }
+        }
+
+        return null;
+
+    }
+
+    public Sword getSword(){
+
+        for (Collectable i: this.items) {
+            if (i instanceof Sword) {
+                return (Sword)i;
+            }
+        }
+
+        return null;   
+
     }
 
 

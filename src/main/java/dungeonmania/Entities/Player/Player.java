@@ -26,6 +26,8 @@ public class Player extends Entity implements PlayerStateSubject{
 
     public int enemiesDestroyed;
 
+    public int noAlly;
+
     public static Integer playerHealth;
     public static Integer playerAttack;
 
@@ -53,6 +55,7 @@ public class Player extends Entity implements PlayerStateSubject{
         this.currentplayerHealth = Player.playerHealth;
         this.potionQueue = new ArrayList<Collectable>();
         this.enemyObservers = new ArrayList<EnemyObserver>();
+        this.noAlly = 0;
 
     }
 
@@ -365,5 +368,10 @@ public class Player extends Entity implements PlayerStateSubject{
      */
     public static void setPlayerHealth(Integer health){
         Player.playerHealth = health;
+    }
+
+
+    public void increaseAlly(){
+        this.noAlly += 1;
     }
 }

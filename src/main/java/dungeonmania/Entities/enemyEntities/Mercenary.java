@@ -37,7 +37,7 @@ public class Mercenary extends Enemy implements EnemyObserver{
 
     public Mercenary(String id, Position position) {
             
-        super(id, "mercenary", position, true);
+        super(id, "mercenary", position, true, Mercenary.mercenaryAttack);
         this.mercenaryBribed = false;
 
         this.currentMercenaryHealth = Mercenary.mercenaryHealth;
@@ -136,6 +136,7 @@ public class Mercenary extends Enemy implements EnemyObserver{
             player.getInventory().removeMultipleItems("treasure", quantity);
             this.setMercenaryBribed(true);
             this.setCurrentMovementState(this.getAllyMercenarystate());
+            player.increaseAlly();
        }
        else {
         throw new InvalidActionException("Not in radius to bribe mercenary");

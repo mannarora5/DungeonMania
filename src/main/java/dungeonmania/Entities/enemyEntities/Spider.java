@@ -22,7 +22,7 @@ public class Spider extends Enemy implements EnemyObserver{
 
 
     public Spider(String Id, Position position) {
-        super(Id, "spider", position);
+        super(Id, "spider", position, false, Spider.spiderAttack);
         this.normalState = new spiderNormalMovement(this);
         this.reverselState = new spiderReverseMovement(this);
         this.currentState = normalState;

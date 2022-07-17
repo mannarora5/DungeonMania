@@ -76,6 +76,8 @@ public class GameController {
 
 
         tickEnemyMove();
+
+        tickBattle();
     }
 
     public void tickItemUsed(){
@@ -88,8 +90,13 @@ public class GameController {
         tickBombExplode();
         
         tickEnemyMove();
+
+        tickBattle();
     }
 
+    public void tickBattle(){
+
+    }
 
 
     
