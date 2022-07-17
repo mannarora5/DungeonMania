@@ -1,12 +1,16 @@
 package dungeonmania.Entities.enemyEntities;
 
 import dungeonmania.GameController;
+import dungeonmania.Entities.Player.PlayerStateSubject;
+import dungeonmania.Entities.Player.PlayerState.InvincibleState;
+import dungeonmania.Entities.Player.PlayerState.NormalState;
+import dungeonmania.Entities.Player.PlayerState.PlayerState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.zombieRandomMovmentState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.zombieScaredMovementState;
 import dungeonmania.util.Position;
 
-public class ZombieToast extends Enemy {
+public class ZombieToast extends Enemy implements EnemyObserver{
 
     private static int zombieHealth;
     private static int zombieAttack;
@@ -32,6 +36,22 @@ public class ZombieToast extends Enemy {
 
     public void move(GameController game) {
         this.currentMovementState.move(game);
+    }
+
+
+    @Override
+    public void updateMovement(PlayerStateSubject player){
+
+        PlayerState state = player.getState();
+
+        if (state instanceof NormalState) {
+            this.currentMovementState = this.normalZombieMovement;
+
+        } else if (state instanceof InvincibleState) {
+
+            this.currentMovementState = this.scaredZombieMovement;
+        }
+        
     }
 
     /**

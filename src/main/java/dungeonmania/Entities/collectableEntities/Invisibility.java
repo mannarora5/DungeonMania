@@ -5,7 +5,7 @@ import dungeonmania.util.Position;
 public class Invisibility extends Collectable {
 
 
-    private static Integer potionDuration;
+    public static Integer potionDuration;
 
 
     public Invisibility(String Id, Position position) {

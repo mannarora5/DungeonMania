@@ -5,7 +5,7 @@ import dungeonmania.util.Position;
 
 public class Invincibility extends Collectable {
     
-    private static Integer potionDuration;
+    public static Integer potionDuration;
 
 
 

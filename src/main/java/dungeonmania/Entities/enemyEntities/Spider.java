@@ -1,12 +1,13 @@
 package dungeonmania.Entities.enemyEntities;
 
 import dungeonmania.GameController;
+import dungeonmania.Entities.Player.PlayerStateSubject;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.spiderNormalMovement;
 import dungeonmania.Entities.enemyEntities.enemyMovments.spiderReverseMovement;
 import dungeonmania.util.Position;
 
-public class Spider extends Enemy {
+public class Spider extends Enemy implements EnemyObserver{
 
     public static int spiderHealth;
     public static int spiderAttack;
@@ -45,6 +46,12 @@ public class Spider extends Enemy {
 
     public void move(GameController game) {
         this.currentState.move(game);
+    }
+
+
+    @Override
+    public void updateMovement(PlayerStateSubject player){
+        
     }
     
     /**

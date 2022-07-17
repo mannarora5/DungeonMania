@@ -49,12 +49,34 @@ public class Player extends Entity implements PlayerStateSubject{
         this.enemiesDestroyed = 0;
         this.inventory = new Inventory();
         this.state = normalState;
-        this.potionTimer = -1;
+        this.potionTimer = -100;
         this.currentplayerHealth = Player.playerHealth;
 
     }
 
+    // potionTick() should be called every tick
+    // Keeps track of potion use
+    public void potionTick() {
 
+        if (this.potionTimer != 0) {
+            potionTimer -= 1;
+            return;
+        }
+
+        // If the currently used potion has just worn off, use the next potion in the queue
+        if (this.potionTimer == 0) {
+            if (this.potionQueue.size() > 0) {
+                
+                Collectable newPotion = this.potionQueue.get(0);
+                this.potionQueue.remove(newPotion);
+                this.usePotion(newPotion);
+
+            } else {
+                this.potionTimer = -100;
+                this.changeSate(this.getNormalState());
+            }
+        }
+    }
 
     // Uses the given potion
     public void usePotion(Collectable potion) {
@@ -63,17 +85,13 @@ public class Player extends Entity implements PlayerStateSubject{
         // Switch the player's state and set duration
         if (potion instanceof Invincibility) {
 
-            Invincibility p = (Invincibility) potion;
-            
-            this.setPotionTimer(p.getPotionDuration());
+            this.setPotionTimer(Invincibility.potionDuration.intValue());
 
             this.changeSate(this.getInvincibleState());
 
         } else if (potion instanceof Invisibility) {
 
-            Invisibility p = (Invisibility) potion;
-
-            this.setPotionTimer(p.getPotionDuration());
+            this.setPotionTimer(Invisibility.potionDuration.intValue());
 
             this.changeSate(this.getInvisibleState());
         }
@@ -88,28 +106,7 @@ public class Player extends Entity implements PlayerStateSubject{
         potionQueue.add(potion);
     }
 
-    // potionTick() should be called every tick
-    // Keeps track of potion use
-    public void potionTick() {
 
-        if (this.potionTimer != 0) {
-            potionTimer--;
-            return;
-        }
-
-        // If the currently used potion has just worn off, use the next potion in the queue
-        if (this.potionTimer == 0) {
-            if (this.potionQueue.size() > 0) {
-                
-                Collectable newPotion = this.potionQueue.get(0);
-                this.potionQueue.remove(newPotion);
-                this.usePotion(newPotion);
-
-            } else {
-                this.changeSate(this.getNormalState());
-            }
-        }
-    }
 
     @Override
     public void attach(EnemyObserver enemy) {
@@ -137,8 +134,9 @@ public class Player extends Entity implements PlayerStateSubject{
 
     public void changeSate(PlayerState state){
         // Notify enemies
-        this.notifyObservers();;
         this.setState(state);
+        System.err.println("hi");
+        this.notifyObservers();
     }
     
     /**

@@ -3,6 +3,11 @@ package dungeonmania.Entities.enemyEntities;
 
 import dungeonmania.GameController;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.Player.PlayerStateSubject;
+import dungeonmania.Entities.Player.PlayerState.InvincibleState;
+import dungeonmania.Entities.Player.PlayerState.InvisibleState;
+import dungeonmania.Entities.Player.PlayerState.NormalState;
+import dungeonmania.Entities.Player.PlayerState.PlayerState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryAllyMovementState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryNormalMovementState;
@@ -12,7 +17,7 @@ import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.Position;
 import dungeonmania.util.PositonDistance;
 
-public class Mercenary extends Enemy {
+public class Mercenary extends Enemy implements EnemyObserver{
 
     public static int mercenaryHealth;
     public static int mercenaryAttack;
@@ -61,6 +66,31 @@ public class Mercenary extends Enemy {
 
     public void move(GameController game) {
         this.currentMovementState.move(game);
+    }
+
+
+    @Override
+    public void updateMovement(PlayerStateSubject player){
+
+        PlayerState state = player.getState();
+
+        if (this.isMercenaryBribed()){
+            this.currentMovementState = this.allyMercenarystate;
+            return;
+        } 
+
+        if (state instanceof NormalState) {
+            this.currentMovementState = this.normalMercenarystate;
+
+        } else if (state instanceof InvincibleState) {
+
+            this.currentMovementState = this.scaredMercenaryMovement;
+
+        } else if (state instanceof InvisibleState) {
+            this.currentMovementState = this.randomMercenaryMovement;
+        }
+        
+        
     }
 
     /**

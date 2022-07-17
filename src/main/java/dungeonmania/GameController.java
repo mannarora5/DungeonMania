@@ -45,11 +45,14 @@ public class GameController {
 
     public void tickMovement(Direction movementDirection){
         
-        playerPositions.add(findPlayer().getPosition());
+        Player player = this.findPlayer();
+
+        playerPositions.add(player.getPosition());
 
         increasetick();
-
-        findPlayer().movement(movementDirection, this);
+        
+        player.potionTick();
+        player.movement(movementDirection, this);
 
         tickBombExplode();
 
@@ -61,6 +64,8 @@ public class GameController {
     public void tickItemUsed(){
         
         increasetick();
+
+        this.findPlayer().potionTick();
 
         tickBombExplode();
 

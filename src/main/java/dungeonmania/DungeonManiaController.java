@@ -97,9 +97,12 @@ public class DungeonManiaController {
             bomb.place(player, this.game);
             this.game.tickItemUsed();
 
-        } else if (item instanceof Invincibility) {
+        } else if (item instanceof Invincibility || item instanceof Invisibility) {
 
-        } else if (item instanceof Invisibility) {
+            Collectable potion = (Collectable) item;
+
+            player.queuePotion(potion);
+            this.game.tickItemUsed();
 
         } else {
             throw new IllegalArgumentException("itemUsed is not a bomb, invincibility_potion, or an invisibility_potion");
