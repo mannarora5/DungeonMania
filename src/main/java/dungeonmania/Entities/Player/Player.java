@@ -14,11 +14,12 @@ import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.Entities.collectableEntities.Invincibility;
 import dungeonmania.Entities.collectableEntities.Invisibility;
 import dungeonmania.Entities.collectableEntities.Key;
+import dungeonmania.Entities.enemyEntities.EnemyObserver;
 import dungeonmania.Entities.staticEntities.*;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
-public class Player extends Entity {
+public class Player extends Entity implements PlayerStateSubject{
 
     public Inventory inventory;
 
@@ -28,18 +29,19 @@ public class Player extends Entity {
     public PlayerState invisibleState = new InvisibleState();
 
     public List<Collectable> potionQueue = new ArrayList<Collectable>();
+
+    public List<EnemyObserver> enemyObservers = new ArrayList<EnemyObserver>();
     
-    private int potionTimer = -1;
+    private int potionTimer;
 
     public Player(String id, Position position) {
         super(id, "player", position, false);
         this.inventory = new Inventory();
         this.state = normalState;
+        this.potionTimer = -1;
     }
 
-    public PlayerState getState() {
-        return this.state;
-    }
+
 
     // Uses the given potion
     public void usePotion(Collectable potion) {
@@ -52,7 +54,7 @@ public class Player extends Entity {
             
             this.setPotionTimer(p.getPotionDuration());
 
-            this.setState(this.getInvincibleState());
+            this.changeSate(this.getInvincibleState());
 
         } else if (potion instanceof Invisibility) {
 
@@ -60,7 +62,7 @@ public class Player extends Entity {
 
             this.setPotionTimer(p.getPotionDuration());
 
-            this.setState(this.getInvisibleState());
+            this.changeSate(this.getInvisibleState());
         }
 
     }
@@ -91,9 +93,39 @@ public class Player extends Entity {
                 this.usePotion(newPotion);
 
             } else {
-                this.setState(this.getNormalState());
+                this.changeSate(this.getNormalState());
             }
         }
+    }
+
+    @Override
+    public void attach(EnemyObserver enemy) {
+        this.enemyObservers.add(enemy);
+    }
+
+    @Override
+	public void detach(EnemyObserver enemy){
+        this.enemyObservers.remove(enemy);
+
+    }
+
+    @Override
+	public void notifyObservers(){
+        for (EnemyObserver enemyObserver: this.enemyObservers){
+            enemyObserver.updateMovement(this);
+        }
+    }
+
+    @Override
+    public PlayerState getState() {
+        return this.state;
+    }
+
+
+    public void changeSate(PlayerState state){
+        // Notify enemies
+        this.notifyObservers();;
+        this.setState(state);
     }
     
     public void movement(Direction direction, GameController game) {
@@ -135,7 +167,7 @@ public class Player extends Entity {
                 }
 
             } else if (entity instanceof Exit) {
-                //TODO:
+                super.setPosition(nextPosition);
                 return;
 
             } else if (entity instanceof Portal) {
@@ -200,6 +232,8 @@ public class Player extends Entity {
         }
 
     }
+
+
 
 
     public Inventory getInventory() {
