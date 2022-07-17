@@ -3,13 +3,17 @@ package dungeonmania.Entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import dungeonmania.Entities.buildableEntities.Bow;
+import dungeonmania.Entities.buildableEntities.Shield;
 import dungeonmania.Entities.collectableEntities.Arrow;
 import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.Entities.collectableEntities.Key;
+import dungeonmania.Entities.collectableEntities.Sword;
 import dungeonmania.Entities.collectableEntities.Treasure;
 import dungeonmania.Entities.collectableEntities.Wood;
+import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.ItemResponse;
+import dungeonmania.util.Position;
 
 public class Inventory {
     private List<Collectable> items;
@@ -79,7 +83,7 @@ public class Inventory {
      */
     public Collectable getItem(String Id){
 
-        return this.items.stream().filter(item -> (item.getId() == Id)).findFirst().orElse(null);
+        return this.items.stream().filter(item -> (item.getId().equals(Id))).findFirst().orElse(null);
 
     }
     
@@ -130,6 +134,98 @@ public class Inventory {
     }
 
 
+    /**
+     * Built the bow using wood and arrow
+     * @throws InvalidActionException
+     */
+    public void buildbow() throws InvalidActionException{
+        
+        int woodAmount = this.quantity("wood");
+        int arrowAmount = this.quantity("arrow");
+
+        if (woodAmount < 1) {
+            throw new InvalidActionException("Not enough wood to build bow");
+        } else if (arrowAmount < 3) {
+            throw new InvalidActionException("Not enough arrows to build bow");
+        } else {
+            this.removeMultipleItems("wood", 1);
+            this.removeMultipleItems("arrow", 3);
+
+            this.addItem(new Bow("1000", new Position(-1000, -1000)));
+        }
+    }
+
+    /**
+     * Build shield using wood, key and treausre
+     * @throws InvalidActionException
+     */
+    public void buildshield() throws InvalidActionException{
+
+        int woodAmount = this.quantity("wood");
+        int keyAmount = this.quantity("key");
+        int treasureAmount = this.quantity("treasure");
+
+
+        if (woodAmount < 2) {
+
+            throw new InvalidActionException("Not enough wood to build shield");
+
+        } else if (keyAmount < 1 && treasureAmount < 1) {
+
+            throw new InvalidActionException("Not enough treasure or key to build shield");
+
+        } else {
+
+            this.removeMultipleItems("wood", 2);
+
+            if (treasureAmount > 0) {
+                this.removeMultipleItems("treasure", 1);
+            } else {
+                this.removeMultipleItems("key", 1);
+            }
+
+            this.addItem(new Shield("1000", new Position(-1000, -1000)));
+        }
+        
+    }
+
+
+    public Bow getBow(){
+        
+        for (Collectable i: this.items) {
+            if (i instanceof Bow) {
+                return (Bow)i;
+            }
+        }
+
+        return null;
+    }
+
+    public Shield getShield(){
+
+        for (Collectable i: this.items) {
+            if (i instanceof Shield) {
+                return (Shield)i;
+            }
+        }
+
+        return null;
+
+    }
+
+    public Sword getSword(){
+
+        for (Collectable i: this.items) {
+            if (i instanceof Sword) {
+                return (Sword)i;
+            }
+        }
+
+        return null;   
+
+    }
+
+
      /**
      * @return ItemRespnse objects for entities in inventory
      */
@@ -143,27 +239,35 @@ public class Inventory {
         return responses;
     }
 
-
+    /**
+     * Check has key
+     * @return
+     */
     public boolean hasKey(){
         return this.items.stream().filter(e -> e instanceof Key).count() == 1;
     }
 
+    /**
+     * Get key
+     * @return
+     */
     public Key getKey(){
         return this.items.stream().filter(e -> e instanceof Key).map(e -> (Key) e).findFirst().orElse(null);
     }
 
 
-
-    // Getters and Setters//
-
-
+    /**
+     * Get items
+     */
     public List<Collectable> getItems() {
         return this.items;
     }
 
+    /**
+     * Update items
+     * @param items
+     */
     public void setItems(List<Collectable> items) {
         this.items = items;
     }
-
-    
 }
