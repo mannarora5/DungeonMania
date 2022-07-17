@@ -11,6 +11,7 @@ import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.collectableEntities.Bomb;
 import dungeonmania.Entities.enemyEntities.Enemy;
+import dungeonmania.Entities.enemyEntities.EnemyObserver;
 import dungeonmania.Entities.enemyEntities.SpiderSpawnner;
 import dungeonmania.Entities.staticEntities.Portal;
 import dungeonmania.Entities.staticEntities.zombieSpawner;
@@ -37,6 +38,21 @@ public class GameController {
         JSONExtract.setConfig(configsDict);
         setEntities(JSONExtract.createEntityClasses(entityArray));
         setGoals(JSONExtract.createGoalClasses(goalsArray));
+
+
+
+        // Add all enemies created on loading to player observer list
+
+        List<EnemyObserver>  enemies = new ArrayList<EnemyObserver>();
+        
+        for (Entity entity: this.entities) {
+            if (entity instanceof Enemy){
+                EnemyObserver enemyObserver = (EnemyObserver) entity;
+                enemies.add(enemyObserver);
+            }
+        }
+
+        findPlayer().enemyObservers.addAll(enemies);
 
         this.ticks = 0;
     }
@@ -65,7 +81,7 @@ public class GameController {
         
         increasetick();
 
-        this.findPlayer().potionTick();
+        findPlayer().potionTick();
 
         tickBombExplode();
 

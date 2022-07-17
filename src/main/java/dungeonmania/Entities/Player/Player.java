@@ -59,7 +59,7 @@ public class Player extends Entity implements PlayerStateSubject{
     public void potionTick() {
 
         if (this.potionTimer != 0) {
-            potionTimer -= 1;
+            this.potionTimer -= 1;
             return;
         }
 
@@ -68,8 +68,8 @@ public class Player extends Entity implements PlayerStateSubject{
             if (this.potionQueue.size() > 0) {
                 
                 Collectable newPotion = this.potionQueue.get(0);
-                this.potionQueue.remove(newPotion);
                 this.usePotion(newPotion);
+                this.potionQueue.remove(newPotion);
 
             } else {
                 this.potionTimer = -100;
@@ -101,9 +101,9 @@ public class Player extends Entity implements PlayerStateSubject{
     public void queuePotion(Collectable potion) {
 
         // Remove the potion from the inventory
-        inventory.removeItem(potion.getId());
+        this.inventory.removeItem(potion.getId());
 
-        potionQueue.add(potion);
+        this.potionQueue.add(potion);
     }
 
 
@@ -135,7 +135,6 @@ public class Player extends Entity implements PlayerStateSubject{
     public void changeSate(PlayerState state){
         // Notify enemies
         this.setState(state);
-        System.err.println("hi");
         this.notifyObservers();
     }
     
