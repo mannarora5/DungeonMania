@@ -9,8 +9,13 @@ import org.json.JSONObject;
 
 import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.collectableEntities.Bomb;
+import dungeonmania.Entities.enemyEntities.Enemy;
+import dungeonmania.Entities.enemyEntities.SpiderSpawnner;
 import dungeonmania.Entities.staticEntities.Portal;
-import dungeonmania.Goals.Goal;
+import dungeonmania.Entities.staticEntities.zombieSpawner;
+import dungeonmania.Goals.GoalComponent;
+import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.EntityResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
@@ -19,30 +24,102 @@ import dungeonmania.util.Position;
 public class GameController {
     
     public List<Entity> entities;
-    public List<Goal> goals;
+    public List<GoalComponent> goals;
+    public int ticks;
+    public List<Position> playerPositions = new ArrayList<>();
 
     public void newGame(String dungeonName, String config) throws IllegalArgumentException {
 
         JSONArray entityArray = JSONExtract.extractEntitiesJSON(dungeonName);
         JSONObject configsDict = JSONExtract.extractConfigJSON(config);
-        //JSONArray goalsArray = JSONExtract.extractGoalsJSON(dungeonName);
-
+        JSONObject goalsArray = JSONExtract.extractGoalsJSON(dungeonName);
 
         JSONExtract.setConfig(configsDict);
-
         setEntities(JSONExtract.createEntityClasses(entityArray));
-        
-        //setGoals(JSONExtract.createGoalClasses(goalsArray));
+        setGoals(JSONExtract.createGoalClasses(goalsArray));
 
+        this.ticks = 0;
     }
 
 
 
     public void tickMovement(Direction movementDirection){
         
+        playerPositions.add(findPlayer().getPosition());
+
+        increasetick();
+
         findPlayer().movement(movementDirection, this);
+
+        tickBombExplode();
+
+        tickSpawn();
+
+        tickEnemyMove();
     }
 
+    public void tickItemUsed(){
+        
+        increasetick();
+
+        tickBombExplode();
+
+        tickSpawn();
+        
+        tickEnemyMove();
+    }
+
+
+
+    
+    public void tickSpawn() {
+
+        // Spawn Zombie if zombies are allowed to spawn and it should spawn on this tick
+        if (zombieSpawner.spawnRate != 0 && this.getTicks() % zombieSpawner.spawnRate == 0) {
+            List<zombieSpawner> zombie_list = findZombieSpawner();
+            for (zombieSpawner zombie_Spawner : zombie_list) {
+                zombie_Spawner.spawn(this);
+            }
+        }
+
+        // Spawn spider if spider is allowed to spawn and it should spawn on this tick
+        if (SpiderSpawnner.spawnRate != 0 && this.getTicks() % SpiderSpawnner.spawnRate == 0){
+            SpiderSpawnner.spawn(this);
+        }
+
+    }
+
+    public void tickEnemyMove(){
+        for (Entity entity: this.entities){
+            if (entity instanceof Enemy){
+                Enemy enemy = (Enemy) entity;
+                enemy.move(this);
+            }
+        }
+    }
+
+    public void tickBombExplode(){
+        List<Bomb> bombs = entities.stream().
+                            filter(e -> e instanceof Bomb).
+                            map(e -> (Bomb) e).
+                            collect(Collectors.toList());
+
+        for (Bomb bomb: bombs){
+            bomb.explode(this);
+        }
+    }
+
+    
+
+    public void buildBow() throws InvalidActionException {
+        this.findPlayer().getInventory().buildbow();
+    }
+
+    public void buildShield() throws InvalidActionException {
+        this.findPlayer().getInventory().buildshield();
+    }
+
+    
 
     public List<EntityResponse> getEntityResponses(){
         List<EntityResponse> responses = new ArrayList<EntityResponse>();
@@ -67,11 +144,18 @@ public class GameController {
         this.entities.removeIf(e ->e.getId() == Id);
     }
 
-
     /// Getters and Setters///
+
+    public void increasetick(){
+        this.ticks += 1;
+    }
 
     public Player findPlayer(){
         return entities.stream().filter(entity -> entity instanceof Player).map(entity -> (Player) entity).findFirst().orElse(null);
+    }
+
+    public List<zombieSpawner> findZombieSpawner(){
+        return entities.stream().filter(entity -> entity instanceof zombieSpawner).map(entity -> (zombieSpawner) entity).collect(Collectors.toList());
     }
 
     public List<Entity> getEntities() {
@@ -82,13 +166,51 @@ public class GameController {
         this.entities = entities;
     }
 
-    public List<Goal> getGoals() {
+    public List<GoalComponent> getGoals() {
         return this.goals;
     }
 
-    public void setGoals(List<Goal> goals) {
+    public void setGoals(List<GoalComponent> goals) {
         this.goals = goals;
     }
 
+    public void addentity(Entity entity){
+        this.entities.add(entity);
+    }
+
+
+
+    public int getTicks() {
+        return this.ticks;
+    }
+
+    public void setTicks(int ticks) {
+        this.ticks = ticks;
+    }
+
+    public Entity getEntity(String Id) {
+        return this.entities.stream().filter(e -> (e.getId().equals(Id))).findFirst().orElse(null);
+    }
+
+
+    /**
+     * Constructor for goal string
+     * @param goals
+     * @return
+     */
+    public String goalsString() {
+        
+        List<GoalComponent> goals = this.getGoals();
+
+        String goalString = "";
+        for (GoalComponent goal: goals) {
+            if (!goal.goalcompleted(this)) {
+                goalString = goalString + goal.toString();
+            }
+        }
+        return goalString;
+    }
+
+    
 
 }

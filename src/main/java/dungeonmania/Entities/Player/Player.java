@@ -10,6 +10,7 @@ import dungeonmania.Entities.Player.PlayerState.InvincibleState;
 import dungeonmania.Entities.Player.PlayerState.InvisibleState;
 import dungeonmania.Entities.Player.PlayerState.NormalState;
 import dungeonmania.Entities.Player.PlayerState.PlayerState;
+import dungeonmania.Entities.collectableEntities.Bomb;
 import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.Entities.collectableEntities.Invincibility;
 import dungeonmania.Entities.collectableEntities.Invisibility;
@@ -23,6 +24,13 @@ public class Player extends Entity implements PlayerStateSubject{
 
     public Inventory inventory;
 
+    public int enemiesDestroyed;
+
+    public static Integer playerHealth;
+    public static Integer playerAttack;
+
+    public Integer currentplayerHealth;
+
     public PlayerState state;
     public PlayerState normalState = new NormalState();
     public PlayerState invincibleState = new InvincibleState();
@@ -34,11 +42,16 @@ public class Player extends Entity implements PlayerStateSubject{
     
     private int potionTimer;
 
-    public Player(String id, Position position) {
+    
+    public Player(String id,Position position) {
+
         super(id, "player", position, false);
+        this.enemiesDestroyed = 0;
         this.inventory = new Inventory();
         this.state = normalState;
         this.potionTimer = -1;
+        this.currentplayerHealth = Player.playerHealth;
+
     }
 
 
@@ -128,6 +141,11 @@ public class Player extends Entity implements PlayerStateSubject{
         this.setState(state);
     }
     
+    /**
+     * Move player in game
+     * @param direction
+     * @param game
+     */
     public void movement(Direction direction, GameController game) {
         //Get the nextPosition
         Position nextPosition = super.getPosition().translateBy(direction.getOffset());
@@ -197,7 +215,6 @@ public class Player extends Entity implements PlayerStateSubject{
                 return;
 
             } if (entity instanceof zombieSpawner) {
-                //TODO:
                 super.setPosition(nextPosition);
                 return;
             }
@@ -208,6 +225,13 @@ public class Player extends Entity implements PlayerStateSubject{
 
 
             if (entity instanceof Collectable && !(entity instanceof Key)) {
+
+                if (entity instanceof Bomb) {
+                    Bomb bomb = (Bomb) entity;
+                    if (bomb.isPlaced()){
+                        return;
+                    }
+                }
 
                 Collectable item = (Collectable) entity;
                 this.inventory.addItem(item);
@@ -233,17 +257,29 @@ public class Player extends Entity implements PlayerStateSubject{
 
     }
 
-
-
-
+    /**
+     * Get the inventory
+     * @return
+     */
     public Inventory getInventory() {
         return this.inventory;
     }
 
+    /**
+     * Update inventory
+     * @param inventory
+     */
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
 
+    /**
+     * Get the enemies destroyed
+     * @return
+     */
+    public int getEnemiesDestroyed() {
+        return this.enemiesDestroyed;
+    }
 
     public void setState(PlayerState state) {
         this.state = state;
@@ -289,4 +325,43 @@ public class Player extends Entity implements PlayerStateSubject{
         this.potionTimer = potionTimer;
     }
 
+    /**
+     * Updated enemies destroyed
+     * @param enemiesDestroyed
+     */
+    public void setEnemiesDestroyed(int enemiesDestroyed) {
+        this.enemiesDestroyed = enemiesDestroyed;
+    }
+
+    /**
+     * Get current player health
+     * @return
+     */
+    public Integer getCurrentplayerHealth() {
+        return this.currentplayerHealth;
+    }
+
+    /**
+     * Update current player health
+     * @param currentplayerHealth
+     */
+    public void setCurrentplayerHealth(Integer currentplayerHealth) {
+        this.currentplayerHealth = currentplayerHealth;
+    }
+
+    /**
+     * Update player attack damage
+     * @param attack
+     */
+    public static void setPlayerAttack(Integer attack){
+        Player.playerAttack = attack;
+    }
+
+    /**
+     * Update player health
+     * @param health
+     */
+    public static void setPlayerHealth(Integer health){
+        Player.playerHealth = health;
+    }
 }
