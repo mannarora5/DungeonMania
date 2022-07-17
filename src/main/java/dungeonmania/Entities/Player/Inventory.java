@@ -240,7 +240,7 @@ public class Inventory {
     }
 
     /**
-     * Check has hey
+     * Check has key
      * @return
      */
     public boolean hasKey(){
@@ -256,17 +256,18 @@ public class Inventory {
     }
 
 
-
-    // Getters and Setters//
-
-
+    /**
+     * Get items
+     */
     public List<Collectable> getItems() {
         return this.items;
     }
 
+    /**
+     * Update items
+     * @param items
+     */
     public void setItems(List<Collectable> items) {
         this.items = items;
     }
-
-    
 }

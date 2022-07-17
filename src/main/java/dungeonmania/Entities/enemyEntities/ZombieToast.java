@@ -34,11 +34,17 @@ public class ZombieToast extends Enemy implements EnemyObserver{
         
     }
 
+    /**
+     * Move for zombie
+     */
     public void move(GameController game) {
         this.currentMovementState.move(game);
     }
 
 
+    /**
+     * Update movememnt ofzombie
+     */
     @Override
     public void updateMovement(PlayerStateSubject player)  {
 

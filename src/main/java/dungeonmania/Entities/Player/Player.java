@@ -286,46 +286,90 @@ public class Player extends Entity implements PlayerStateSubject{
         return this.enemiesDestroyed;
     }
 
+    /**
+     * Set state of player
+     * @param state
+     */
     public void setState(PlayerState state) {
         this.state = state;
     }
 
+    /**
+     * Get normal state of player
+     * @return
+     */
     public PlayerState getNormalState() {
         return this.normalState;
     }
 
+    /**
+     * Update normal state 
+     * @param normalState
+     */
     public void setNormalState(PlayerState normalState) {
         this.normalState = normalState;
     }
 
+    /**
+     * Return invincible stable
+     * @return
+     */
     public PlayerState getInvincibleState() {
         return this.invincibleState;
     }
 
+    /**
+     * Update invincible state
+     * @param invincibleState
+     */
     public void setInvincibleState(PlayerState invincibleState) {
         this.invincibleState = invincibleState;
     }
 
+    /**
+     * Return invisible state
+     * @return
+     */
     public PlayerState getInvisibleState() {
         return this.invisibleState;
     }
 
+    /**
+     * Update invisible state
+     * @param invisibleState
+     */
     public void setInvisibleState(PlayerState invisibleState) {
         this.invisibleState = invisibleState;
     }
 
+    /**
+     * Return potion queue
+     * @return
+     */
     public List<Collectable> getPotionQueue() {
         return this.potionQueue;
     }
 
+    /**
+     * Update potion queue
+     * @param potionQueue
+     */
     public void setPotionQueue(List<Collectable> potionQueue) {
         this.potionQueue = potionQueue;
     }
 
+    /**
+     * Return potion timer
+     * @return
+     */
     public int getPotionTimer() {
         return this.potionTimer;
     }
 
+    /**
+     * Update potion timer
+     * @param potionTimer
+     */
     public void setPotionTimer(int potionTimer) {
         this.potionTimer = potionTimer;
     }

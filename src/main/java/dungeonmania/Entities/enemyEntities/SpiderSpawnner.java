@@ -12,7 +12,10 @@ public class SpiderSpawnner {
     Random random = new Random();
     public static Integer spawnRate;
 
-    // given a certain number of ticks add a zombie on a specific tick
+    /**
+     * Spawn zombie
+     * @param game
+     */
     public static void spawn(GameController game) {
 
         // Get the current postion of player and spawn the spider in a random
