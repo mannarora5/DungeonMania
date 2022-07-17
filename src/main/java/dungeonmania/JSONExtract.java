@@ -152,11 +152,11 @@ public class JSONExtract {
         Sword.setSwordAttack(swordDuration);
 
 
-        Integer invisDuration = (Integer) configs.get("invincibility_potion_duration");
+        Integer invisDuration = (Integer) configs.get("invisibility_potion_duration");
         Invisibility.setPotionDuration(invisDuration);
 
-        Integer invinDuration = (Integer) configs.get("invisibility_potion_duration");
-        Invisibility.setPotionDuration(invinDuration);
+        Integer invinDuration = (Integer) configs.get("invincibility_potion_duration");
+        Invincibility.setPotionDuration(invinDuration);
 
         Integer spider_health = (Integer) configs.get("spider_health");
         Spider.setSpiderHealth(spider_health);

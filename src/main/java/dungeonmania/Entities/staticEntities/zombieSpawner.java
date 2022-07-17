@@ -7,6 +7,7 @@ import dungeonmania.GameController;
 import dungeonmania.JSONExtract;
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.Player.PlayerStateSubject;
 import dungeonmania.Entities.enemyEntities.EnemyObserver;
 import dungeonmania.Entities.enemyEntities.ZombieToast;
 import dungeonmania.exceptions.InvalidActionException;
@@ -57,7 +58,13 @@ public class zombieSpawner extends Static {
         String zombie_id = JSONExtract.entities_created.toString();
         JSONExtract.increaseEntitiesCreates();
 
+
         ZombieToast zombie  = new ZombieToast(zombie_id ,cardinalpPositions.get(1));
+
+        PlayerStateSubject player = (PlayerStateSubject) game.findPlayer();
+
+        zombie.updateMovement(player);
+
         EnemyObserver observer = (EnemyObserver) zombie;
         game.findPlayer().enemyObservers.add(observer);
         game.addentity(zombie);

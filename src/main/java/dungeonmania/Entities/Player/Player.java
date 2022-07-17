@@ -36,9 +36,9 @@ public class Player extends Entity implements PlayerStateSubject{
     public PlayerState invincibleState = new InvincibleState();
     public PlayerState invisibleState = new InvisibleState();
 
-    public List<Collectable> potionQueue = new ArrayList<Collectable>();
+    public List<Collectable> potionQueue;
 
-    public List<EnemyObserver> enemyObservers = new ArrayList<EnemyObserver>();
+    public List<EnemyObserver> enemyObservers;
     
     private int potionTimer;
 
@@ -49,8 +49,10 @@ public class Player extends Entity implements PlayerStateSubject{
         this.enemiesDestroyed = 0;
         this.inventory = new Inventory();
         this.state = normalState;
-        this.potionTimer = -100;
+        this.potionTimer = -10;
         this.currentplayerHealth = Player.playerHealth;
+        this.potionQueue = new ArrayList<Collectable>();
+        this.enemyObservers = new ArrayList<EnemyObserver>();
 
     }
 
@@ -58,13 +60,11 @@ public class Player extends Entity implements PlayerStateSubject{
     // Keeps track of potion use
     public void potionTick() {
 
-        if (this.potionTimer != 0) {
-            this.potionTimer -= 1;
-            return;
-        }
+        this.potionTimer = this.potionTimer - 1;
 
         // If the currently used potion has just worn off, use the next potion in the queue
-        if (this.potionTimer == 0) {
+        if (this.potionTimer <= 0) {
+
             if (this.potionQueue.size() > 0) {
                 
                 Collectable newPotion = this.potionQueue.get(0);
@@ -72,10 +72,14 @@ public class Player extends Entity implements PlayerStateSubject{
                 this.potionQueue.remove(newPotion);
 
             } else {
-                this.potionTimer = -100;
+                this.potionTimer = -10;
                 this.changeSate(this.getNormalState());
             }
+
+
         }
+
+
     }
 
     // Uses the given potion
@@ -83,6 +87,7 @@ public class Player extends Entity implements PlayerStateSubject{
 
 
         // Switch the player's state and set duration
+
         if (potion instanceof Invincibility) {
 
             this.setPotionTimer(Invincibility.potionDuration.intValue());
@@ -102,8 +107,8 @@ public class Player extends Entity implements PlayerStateSubject{
 
         // Remove the potion from the inventory
         this.inventory.removeItem(potion.getId());
-
         this.potionQueue.add(potion);
+
     }
 
 
