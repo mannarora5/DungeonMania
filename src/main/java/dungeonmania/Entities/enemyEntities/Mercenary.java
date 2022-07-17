@@ -27,7 +27,7 @@ public class Mercenary extends Enemy implements EnemyObserver{
 
     public boolean mercenaryBribed;
 
-    public int currentMercenaryHealth;
+    public double currentMercenaryHealth;
 
     enemyMovementState allyMercenarystate;
     enemyMovementState normalMercenarystate;
@@ -68,6 +68,15 @@ public class Mercenary extends Enemy implements EnemyObserver{
         this.currentMovementState.move(game);
     }
 
+    @Override
+    public double getEnemyHealth(){
+        return this.currentMercenaryHealth;
+    }
+
+    @Override
+    public double setEnemyHealth(double health){
+        return this.currentMercenaryHealth =  health;
+    }
 
     @Override
     public void updateMovement(PlayerStateSubject player)  {
@@ -174,7 +183,7 @@ public class Mercenary extends Enemy implements EnemyObserver{
      * Return health of mercenary
      * @return
      */
-    public int getCurrentHealth() {
+    public double getCurrentHealth() {
         return this.currentMercenaryHealth;
     }
 
@@ -187,7 +196,7 @@ public class Mercenary extends Enemy implements EnemyObserver{
     }
 
 
-    public int getCurrentMercenaryHealth() {
+    public double getCurrentMercenaryHealth() {
         return this.currentMercenaryHealth;
     }
 

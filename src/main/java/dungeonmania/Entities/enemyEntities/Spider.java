@@ -12,7 +12,7 @@ public class Spider extends Enemy implements EnemyObserver{
     public static int spiderHealth;
     public static int spiderAttack;
 
-    public int currentSpiderHealth;
+    public double currentSpiderHealth;
 
     enemyMovementState normalState;
     enemyMovementState reverselState;
@@ -48,6 +48,15 @@ public class Spider extends Enemy implements EnemyObserver{
         this.currentState.move(game);
     }
 
+    @Override
+    public double getEnemyHealth(){
+        return this.currentSpiderHealth;
+    }
+
+    @Override
+    public double setEnemyHealth(double health){
+        return this.currentSpiderHealth =  health;
+    }
 
     @Override
     public void updateMovement(PlayerStateSubject player){
@@ -70,7 +79,7 @@ public class Spider extends Enemy implements EnemyObserver{
         return super.getPosition();
     }
 
-    public int getCurrentSpiderHealth() {
+    public double getCurrentSpiderHealth() {
         return this.currentSpiderHealth;
     }
 

@@ -21,6 +21,11 @@ public abstract class Enemy extends Entity{
     public abstract void move(GameController game);
         
 
+    public abstract double getEnemyHealth();
+    public abstract double setEnemyHealth(double health);
+
+
+
     public void setpos(Position pos){
         super.setPosition(pos);
     }

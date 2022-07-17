@@ -149,7 +149,7 @@ public class JSONExtract {
         Sword.setSwordAttack(swordAttack);
 
         Integer swordDuration= (Integer) configs.get("sword_durability");
-        Sword.setSwordAttack(swordDuration);
+        Sword.setSwordDuration(swordDuration);
 
 
         Integer invisDuration = (Integer) configs.get("invisibility_potion_duration");

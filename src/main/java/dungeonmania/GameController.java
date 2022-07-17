@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import dungeonmania.Battle.BattleHelper;
 import dungeonmania.Entities.*;
 import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.collectableEntities.Bomb;
@@ -96,6 +97,7 @@ public class GameController {
 
     public void tickBattle(){
 
+        BattleHelper.battle(this, findPlayer());
     }
 
 

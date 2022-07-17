@@ -16,7 +16,6 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DungeonManiaController {
@@ -63,16 +62,17 @@ public class DungeonManiaController {
      */
     public DungeonResponse getDungeonResponseModel() {
 
+        Player player = this.game.findPlayer();
+
         List<EntityResponse> entityResponses= game.getEntityResponses();
         String goalString = game.goalsString();
 
-        List<ItemResponse> itemResponses = this.game.findPlayer().getInventory().InfoItemResponses();
-        List<String> buildalesList = this.game.findPlayer().getInventory().buildables();
+        List<ItemResponse> itemResponses = player.getInventory().InfoItemResponses();
+        List<String> buildalesList = player.getInventory().buildables();
 
         // Not implemented yet
-        List<BattleResponse> battleResponses = new ArrayList<BattleResponse>();
-        //Goals
-
+        List<BattleResponse> battleResponses = player.getBattleResponses();
+        
         return new DungeonResponse("1", this.dungeonName, 
         
         entityResponses, itemResponses, battleResponses, buildalesList, goalString);

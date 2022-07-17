@@ -19,11 +19,11 @@ public class ZombieToast extends Enemy implements EnemyObserver{
     enemyMovementState scaredZombieMovement;
     enemyMovementState currentMovementState;
 
-    private  int currentzombieHealth;
+    private  double currentzombieHealth;
 
     public ZombieToast(String Id, Position position) {
         
-        super(Id, "zombie_toast", position, true, ZombieToast.zombieHealth);
+        super(Id, "zombie_toast", position, true, ZombieToast.zombieAttack);
 
         this.currentzombieHealth = ZombieToast.zombieHealth;
 
@@ -41,6 +41,17 @@ public class ZombieToast extends Enemy implements EnemyObserver{
         this.currentMovementState.move(game);
     }
 
+
+
+    @Override
+    public double getEnemyHealth(){
+        return this.currentzombieHealth;
+    }
+
+    @Override
+    public double setEnemyHealth(double health){
+        return this.currentzombieHealth =  health;
+    }
 
     /**
      * Update movememnt ofzombie
@@ -80,7 +91,7 @@ public class ZombieToast extends Enemy implements EnemyObserver{
      * Get health of zombie
      * @return
      */
-    public int getCurrentzombieHealth() {
+    public double getCurrentzombieHealth() {
         return this.currentzombieHealth;
     }
 

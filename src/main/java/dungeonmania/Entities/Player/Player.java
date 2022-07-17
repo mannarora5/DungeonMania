@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dungeonmania.GameController;
+import dungeonmania.Battle.Battle;
+import dungeonmania.Battle.Round;
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.Player.PlayerState.InvincibleState;
 import dungeonmania.Entities.Player.PlayerState.InvisibleState;
@@ -17,6 +19,9 @@ import dungeonmania.Entities.collectableEntities.Invisibility;
 import dungeonmania.Entities.collectableEntities.Key;
 import dungeonmania.Entities.enemyEntities.EnemyObserver;
 import dungeonmania.Entities.staticEntities.*;
+import dungeonmania.response.models.BattleResponse;
+import dungeonmania.response.models.ItemResponse;
+import dungeonmania.response.models.RoundResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
@@ -31,7 +36,7 @@ public class Player extends Entity implements PlayerStateSubject{
     public static Integer playerHealth;
     public static Integer playerAttack;
 
-    public Integer currentplayerHealth;
+    public double currentplayerHealth;
 
     public PlayerState state;
     public PlayerState normalState = new NormalState();
@@ -43,6 +48,8 @@ public class Player extends Entity implements PlayerStateSubject{
     public List<EnemyObserver> enemyObservers;
     
     private int potionTimer;
+
+    public List<Battle> battles;
 
     
     public Player(String id,Position position) {
@@ -56,6 +63,7 @@ public class Player extends Entity implements PlayerStateSubject{
         this.potionQueue = new ArrayList<Collectable>();
         this.enemyObservers = new ArrayList<EnemyObserver>();
         this.noAlly = 0;
+        this.battles = new ArrayList<Battle>();
 
     }
 
@@ -262,6 +270,37 @@ public class Player extends Entity implements PlayerStateSubject{
 
     }
 
+
+    public List<BattleResponse> getBattleResponses(){
+
+        List<BattleResponse> responses = new ArrayList<BattleResponse>();
+
+        for (Battle battle: this.getBattles()){
+
+            List<RoundResponse> roundResponses = new ArrayList<RoundResponse>();
+
+            for (Round round: battle.rounds) {
+
+                List<ItemResponse> weaponryUsed  = new ArrayList<ItemResponse>();
+
+                for (Collectable c: round.getWeaponryUsed()){
+
+                    weaponryUsed.add(new ItemResponse(c.getId(), c.getType()));
+
+                }
+
+                roundResponses.add(new RoundResponse(round.getDeltaPlayerHealth(), round.getDeltaEnemyHealth(), weaponryUsed));
+
+            }
+
+            responses.add(new BattleResponse(battle.enemy.getType(), roundResponses, battle.initialPlayerHealth, battle.initialEnemyHealth));
+
+        }
+
+
+        return responses;
+    }
+
     /**
      * Get the inventory
      * @return
@@ -386,7 +425,7 @@ public class Player extends Entity implements PlayerStateSubject{
      * Get current player health
      * @return
      */
-    public Integer getCurrentplayerHealth() {
+    public double getCurrentplayerHealth() {
         return this.currentplayerHealth;
     }
 
@@ -394,7 +433,7 @@ public class Player extends Entity implements PlayerStateSubject{
      * Update current player health
      * @param currentplayerHealth
      */
-    public void setCurrentplayerHealth(Integer currentplayerHealth) {
+    public void setCurrentplayerHealth(Double currentplayerHealth) {
         this.currentplayerHealth = currentplayerHealth;
     }
 
@@ -418,4 +457,37 @@ public class Player extends Entity implements PlayerStateSubject{
     public void increaseAlly(){
         this.noAlly += 1;
     }
+
+
+
+    public int getNoAlly() {
+        return this.noAlly;
+    }
+
+    public void setNoAlly(int noAlly) {
+        this.noAlly = noAlly;
+    }
+
+    public List<EnemyObserver> getEnemyObservers() {
+        return this.enemyObservers;
+    }
+
+    public void setEnemyObservers(List<EnemyObserver> enemyObservers) {
+        this.enemyObservers = enemyObservers;
+    }
+
+
+    public List<Battle> getBattles() {
+        return this.battles;
+    }
+
+    public void setBattles(List<Battle> battles) {
+        this.battles = battles;
+    }
+
+    public void addBattle(Battle battle){
+        this.battles.add(battle);
+    }
+
+
 }
