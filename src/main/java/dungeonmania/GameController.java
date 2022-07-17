@@ -97,7 +97,37 @@ public class GameController {
 
     public void tickBattle(){
 
-        BattleHelper.battle(this, findPlayer());
+        Player player = findPlayer();
+
+        if (player == null){
+            return;
+        }
+
+        List<Enemy> enemies = this.entitiesSamePosition(player.getPosition()).stream().filter(e -> (e instanceof Enemy)).
+                            map(e -> (Enemy) e).
+                            collect(Collectors.toList());;
+
+        Boolean sentinal = true;
+
+        int counter = 30;
+
+        while (sentinal && counter >= 0) {
+
+            BattleHelper.battle(this, player);
+
+
+            enemies = this.entitiesSamePosition(player.getPosition()).stream().filter(e -> (e instanceof Enemy)).
+                map(e -> (Enemy) e).
+                collect(Collectors.toList());
+
+            if (enemies.isEmpty()){
+                sentinal = false;
+            }
+
+            counter += -1;
+
+        }
+
     }
 
 

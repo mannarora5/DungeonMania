@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import dungeonmania.GameController;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.Player.PlayerState.InvincibleState;
 import dungeonmania.Entities.Player.PlayerState.PlayerState;
 import dungeonmania.Entities.buildableEntities.Bow;
 import dungeonmania.Entities.buildableEntities.Shield;
@@ -57,13 +58,61 @@ public class BattleHelper {
                 // Battle commenced before so new round
                 if (battle.getEnemy().getId() == enemy.getId()) {
 
-                    double deltaEnemyHealth = -1 * BattleHelper.getPlayerAttack(player);
-                    double deltaPlayerHealth = -1 * BattleHelper.getEnemyAttack(enemy, player);
+                    if (playerState instanceof InvincibleState) {
 
+                            enmiesToRemvoe.add(enemy.getId());
+
+                    } else {
+
+                        double deltaEnemyHealth = -1 * BattleHelper.getPlayerAttack(player);
+                        double deltaPlayerHealth = -1 * BattleHelper.getEnemyAttack(enemy, player);
+
+                        enemy.setEnemyHealth(enemy.getEnemyHealth() + deltaEnemyHealth);
+
+                        player.setCurrentplayerHealth(player.getCurrentplayerHealth() + deltaPlayerHealth);
+
+                        battle.rounds.add(new Round(deltaPlayerHealth, deltaEnemyHealth, weapons));
+
+                        if (player.getCurrentplayerHealth() <= 0){
+                            enmiesToRemvoe.add(player.getId());
+                            BattleHelper.removeEntities(game, enmiesToRemvoe);
+                            return;
+                        }
+
+                        if (enemy.getEnemyHealth() <= 0){
+                            enmiesToRemvoe.add(enemy.getId());
+                        }
+                    }
+                } 
+
+            }
+
+            if (!battleFound){
+                // New battle and new round
+
+
+                if (playerState instanceof InvincibleState) {
+
+                    enmiesToRemvoe.add(enemy.getId());
+
+
+                } else {
+                    double deltaEnemyHealth =  -1 *BattleHelper.getPlayerAttack(player);
+                    double deltaPlayerHealth = -1 *BattleHelper.getEnemyAttack(enemy, player);
+
+                    
                     enemy.setEnemyHealth(enemy.getEnemyHealth() + deltaEnemyHealth);
                     player.setCurrentplayerHealth(player.getCurrentplayerHealth() + deltaPlayerHealth);
 
-                    battle.rounds.add(new Round(deltaPlayerHealth, deltaEnemyHealth, weapons));
+                    Round round1 = new Round(deltaPlayerHealth, deltaEnemyHealth, weapons);
+
+                    List<Round> rounds = new ArrayList<Round>();
+
+                    rounds.add(round1);
+
+                    player.addBattle(new Battle(enemy, rounds, 
+                                    player.getCurrentplayerHealth(), enemy.getEnemyHealth()));
+
 
                     if (player.getCurrentplayerHealth() <= 0){
                         enmiesToRemvoe.add(player.getId());
@@ -74,49 +123,19 @@ public class BattleHelper {
                     if (enemy.getEnemyHealth() <= 0){
                         enmiesToRemvoe.add(enemy.getId());
                     }
-                } 
-
-            }
-
-            if (!battleFound){
-                // New battle and new round
-
-
-                double deltaEnemyHealth =  -1 *BattleHelper.getPlayerAttack(player);
-                double deltaPlayerHealth = -1 *BattleHelper.getEnemyAttack(enemy, player);
-
-                enemy.setEnemyHealth(enemy.getEnemyHealth() + deltaEnemyHealth);
-                player.setCurrentplayerHealth(player.getCurrentplayerHealth() + deltaPlayerHealth);
-
-                Round round1 = new Round(deltaPlayerHealth, deltaEnemyHealth, weapons);
-
-                List<Round> rounds = new ArrayList<Round>();
-
-                rounds.add(round1);
-
-                player.addBattle(new Battle(enemy, rounds, 
-                                player.getCurrentplayerHealth(), enemy.getEnemyHealth()));
-
-
-                if (player.getCurrentplayerHealth() <= 0){
-                    enmiesToRemvoe.add(player.getId());
-                    BattleHelper.removeEntities(game, enmiesToRemvoe);
-                    return;
-                }
-
-                if (enemy.getEnemyHealth() <= 0){
-                    enmiesToRemvoe.add(enemy.getId());
                 }
                 
             }
         }
 
-        
+        BattleHelper.removeEntities(game, enmiesToRemvoe);
+
     }
 
     public static void removeEntities(GameController game, List<String> enmiesToRemvoe){
         for (String id: enmiesToRemvoe){
             game.removeEntity(id);
+            game.findPlayer().enemiesDestroyed += 1;
         }
     }
 
@@ -150,9 +169,12 @@ public class BattleHelper {
             }
         }
 
-        return ((bowBonus * (Player.playerAttack + swordBonus)) / 5) + mercenaryBonus;
 
-        
+       
+        double div = (double) (bowBonus * (Player.playerAttack.intValue() + swordBonus)) / 5.0;
+
+        return  ( div + mercenaryBonus);
+
     }
 
 
