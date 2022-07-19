@@ -39,6 +39,7 @@ This specification is broken into four parts:
 - Thu 14 Jul 6am - Add image for green portal
 - Thu 14 Jul 10pm - Fix triggering interactions multiple times from the front-end
 - Sat 16 Jul 9am - Add error tolerant to battle calculation
+- Mon 18 Jul 8am - Add Milestone 3 (search for 💀 to find all product/technical spec changes)
 
 ## 1. Aims
 
@@ -108,6 +109,15 @@ Spider | <img src="images/spider.png" width="40" /> | Spiders spawn at random lo
 | Zombie Toast  | <img src="images/zombie.png" /> | Zombies spawn at zombie spawners and move in random directions. Zombies are limited by the same movement constraints as the Player, except portals have no effect on them. |
 | Mercenary | <img src="images/ranger.png" /> | Mercenaries do not spawn; they are only present if created as part of the dungeon. They constantly move towards the Player, stopping only if they cannot move any closer (they are able to move around walls). Mercenaries are limited by the same movement constraints as the Player. All mercenaries are considered hostile, unless the Player can bribe them with a certain amount of gold; in which case they become allies. Mercenaries must be within a certain radius of the player in order to be bribed, which is formed by the diagonally and cardinally adjacent cells in a "square" fashion, akin to the blast radius for bombs. As an ally, once it reaches the Player it simply follows the Player around, occupying the square the player was previously in. |
 
+### 3.3.1 Bosses 💀
+
+Bosses are moving entities which are harder to defeat/conquer than normal enemies.
+
+| Entity    | Image         | Description |
+| --------- | --------------| ------------|
+| Assassin | <img src='images/assassin.png' /> | Assassins are exceptionally powerful mercenaries which deal significantly more damage. When bribing an Assassin, there is a certain chance that the bribe will fail; the gold will be wasted and the Assassin will remain hostile. Assassins are also capable of seeing and moving towards the Player when they are invisible, if they are within a certain radius.  |
+| Hydra | <img src='images/hydra.png' width="40" height="40" /> | Hydras are generally considered to be a special creatures similar to Zombies. Hydras are limited by the same movement constraints as Zombies. When a hydra is attacked by the player, there is a certain chance that its health will increase rather than decrease by the given amount, [as two heads have grown back when one is cut off](https://simple.wikipedia.org/wiki/Lernaean_Hydra). |
+
 ### 3.4 Collectable Entities
 
 | Entity    | Image | Description |
@@ -123,6 +133,14 @@ Spider | <img src="images/spider.png" width="40" /> | Spiders spawn at random lo
 
 It is possible for a player to use another potion while the effects of an existing potion are still lasting (can be of the same or a different type of potion). In this case, the effects are not registered immediately but are instead 'queued' and will take place the tick following the previous potion wearing of. For example, on tick 0 the Player consumes an invinsibility potion that lasts for 5 ticks and becomes invisible to enemies moving that tick, on tick 3 they use an invincibility potion, at the end of tick 4 (after all enemy movements) the player becomes visible again and becomes invincible.
 
+### 3.4.1 Further Collectable Entities 💀
+
+In Milestone 3, the following collectable entities have been added:
+
+| Entity    | Image         | Description |
+| --------- | --------------| ------------|
+| Sun Stone | <img src='images/sun_stone.png' /> | Can be picked up by the player, and can be used to open doors and interchangeably with treasure; except it cannot be used to bribe mercenaries or assassins. Since the sun stone is classed as treasure it counts towards the treasure goal. When used in place of a key, it is retained after use. |
+
 ### 3.5 Buildable Entities
 
 Some entities can be built using a 'recipe' by the player, where entities are combined to form more complex and useful entities. Once a buildable item has been constructed, it is stored in a player's inventory. For all buildable entities, once the item is constructed the materials used in that construction have been consumed and disappear from the player's inventory. 
@@ -131,6 +149,15 @@ Some entities can be built using a 'recipe' by the player, where entities are co
 | --------- | --------------| ------------------|
 | Bow  | <img src="images/bow.png" width="40" />| Can be crafted with 1 wood + 3 arrows. The bow has a durability which deteriorates after a certain number of battles. Bows give the Player double damage in each round, to simulate being able to attack an enemy at range (it can't actually attack an enemy at range). |
 | Shield    | <img src="images/shield.png" /> | Can be crafted with 2 wood + (1 treasure OR 1 key). Shields decrease the effect of enemy attacks. Each shield has a specific durability that dictates the number of battles it can be used before it deteriorates. |
+
+### 3.5.1 Further Buildable Entities 💀
+
+In Milestone 3, the following collectable entities have been added:
+
+| Entity    | Image         | Description |
+| --------- | --------------| ------------|
+| Sceptre   | <img src='images/sceptre.png' /> | Can be crafted with one wood or two arrows, one key or one treasure, and one sun stone. A character with a sceptre does not need to bribe mercenaries or assassins to become allies, as they can use the sceptre to control their minds. The effects only last for a certain number of ticks. |
+| Midnight Armour | <img src='images/midnight_armour.png' /> | Can be crafted with a sword and a sun stone if there are no zombies currently in the dungeon. Midnight armour provides extra attack damage as well as protection. |
 
 ### 3.6 Battles
 
@@ -193,9 +220,198 @@ All compound goals are binary (they contain two and only two subgoals).
 
 If getting to an exit is one of a conjunction of conditions, it must be done last. For example, if the condition is to collect 3 treasure AND get to an exit, the player must collect at least 3 treasures THEN get to the exit. It is possible for a subgoal to become un-achieved, for example if the dungeon goal is `boulders AND exit` and all boulders are pushed onto switches, then the boulders subgoal becomes complete. However, if a boulder is then moved off a switch, the boulders subgoal is no longer complete.
 
-## 3.8 Winning & Losing
+### 3.8 Winning & Losing
 
 The game is won when all the goals are achieved. The game is lost when the player dies and is removed from the map.
+
+### 3.9 Advanced Movement 💀
+
+During the development process the engineering team discovered issues in the requirements of the movement of mercenaries and decided that they should follow a specific path to move towards the player.
+
+In this Milestone, the movement of mercenaries (and by extension assassins) must follow a Djikstra's algorithm to take the shortest path towards the player.
+
+<details>
+<summary>
+You can view pseudocode for the algorithm here.
+</summary>
+
+> Note: This is not necessarily optimal (A* is probably a better algorithm for our common maze like dungeons), but since this is a design course and not an algorithms course, this is fine.
+
+```
+function Dijkstras(grid, source):
+    let dist be a Map<Position, Double>
+    let prev be a Map<Position, Position>
+
+    for each Position p in grid:
+        dist[p] := infinity
+        previous[p] := null
+    dist[source] := 0
+
+    let queue be a Queue<Position> of every position in grid
+    while queue is not empty:
+        u := next node in queue with the smallest dist
+        for each cardinal neighbour v of u:
+            if dist[u] + cost(u, v) < dist[v]:
+                dist[v] := dist[u] + cost(u, v)
+                previous[v] := u
+    return previous
+```
+
+</details>
+
+As part of this, you will need to extend your solution to accomodate the idea of a **swamp tile**. These are tiles that have an `x` and `y` position and remain fixed throughout the entire game. They slow the movement of all entities through them, except for the player. Each swamp file has a movement factor which is a multiplying factor of the number of ticks it takes to traverse the tile. For example, let us say the movement factor for a swamp tile is 2:
+* Tick 1: Move onto the swamp tile;
+* Tick 2: Stuck on the swamp tile;
+* Tick 3: Still stuck on the swamp tile;
+* Tick 4: Move off the swamp tile.
+
+| Entity    | Image         | 
+| --------- | --------------|
+| Swamp Tile | <img src='images/swamp_tile.png' /> |
+
+Your implementation of Djikstra's will need to accomodate for the fact that swamp tiles slow the enemies down. There will be one autotest that checks that portals have an effect on your implementation of Djikstra's.
+
+### 3.10 Persistence 💀
+
+At any point during the game, the game should be able to be saved into a local persistence layer such that if the application is terminated, the user can reboot the application, select the game from a list of saved games and continue playing from where they left off, as if nothing had changed at all.
+
+To pass the more basic tests, you will simply need to preserve the position of entities on the map. To pass more complex ones, you will need to consider persistence of items like potions, bribing/mind-control, etc.
+
+### 3.11 Extension 1: Time Travel 💀
+
+#### 3.11.1 Time Turner
+
+This part of the extension includes the following new entity:
+
+| Entity    | Image         |
+| --------- | --------------|
+| Time Turner | <img src='images/time_turner.png' /> |
+
+If the player has collected a time turner, then two rewind buttons will appear on the frontend. When clicked, these buttons move the state of the game back one tick and 5 ticks respectively and "transport" the current player back to those game states in a time travelling fashion.
+
+#### 3.11.2 Time Travelling Portal
+
+This part of the extension includes the following new entity:
+
+| Entity    | Image         |
+| --------- | --------------|
+| Time Travelling Portal | <img src="images/time_portal.png" /> |
+
+If a player travels through a time travelling portal, they exit through the same portal, except the dungeon state is that of 30 ticks previously.
+
+#### 3.11.3 Time Travel Rules
+
+When a character has time travelled, either by the rewind buttons or via a time travelling portal:
+
+* Their 'older self' still exists in the dungeon as its own entity. If they encounter their older self and **either** are carrying a sun stone or are wearing midnight armour, or they are invisible, then nothing happens. If not, then a battle ensues.
+* Their 'older self' should take the same path as was taken initially, and unless they encounter their 'current self' (they character being controlled), should eventually travel through the time portal and disappear from the map.
+* The player's inventory persists across time travelling. This means that if a player picks up a sword then travels through a time portal, the sword remains in their inventory as well as being back on the map available to pick up.
+
+Only the character can travel through time travel portals.
+
+<details>
+<summary>
+Implementation Hint
+</summary>
+
+The design of this extension is up to you, however we recommend you treat time travel as moving backwards in a series of game states that are being stored (the state of the dungeon at tick X). When time travel occurs, the player is transported to that state, and all `tick` and `interact` functions are "played" out in the same order.
+
+</details>
+
+### 3.12 Extension 2: Dungeon Builder 💀
+
+In this extension, instead of specifying an existing dungeon to play, players can choose specify a dungeon to be automatically generated when creating a new game.
+
+As part of this, you will need to be able to automatically generate dungeons.  Furthermore it's important that you have an *exit* at the end position and that you have exit goals setup for this created dungeon.
+
+#### 3.12.1 Generating a Dungeon - Randomized Prim's Algorithm
+
+<details>
+<summary>
+You will need to generate dungeons according to the following maze generation algorithm (which is just a randomised version of Prim's).
+</summary>
+
+> Note: You should enforce a border of walls around the maze.
+
+```
+function RandomizedPrims(width, height, start, end):
+    let maze be a 2D array of booleans (of size width and height) default false
+    // false representing a wall and true representing empty space
+
+    maze[start] = empty
+
+    let options be a list of positions
+    add to options all neighbours of 'start' not on boundary that are of distance 2 away and are walls
+
+    while options is not empty:
+        let next = remove random from options
+
+        let neighbours = each neighbour of distance 2 from next not on boundary that are empty
+        if neighbours is not empty:
+            let neighbour = random from neighbours
+            maze[ next ] = empty (i.e. true)
+            maze[ position inbetween next and neighbour ] = empty (i.e. true)
+            maze[ neighbour ] = empty (i.e. true)
+
+        add to options all neighbours of 'next' not on boundary that are of distance 2 away and are walls
+    
+    // at the end there is still a case where our end position isn't connected to the map
+    // we don't necessarily need this, you can just keep randomly generating maps (was original intention)
+    // but this will make it consistently have a pathway between the two.
+    if maze[end] is a wall:
+        maze[end] = empty
+
+        let neighbours = neighbours not on boundary of distance 1 from maze[end]
+        if there are no cells in neighbours that are empty:
+            // let's connect it to the grid
+            let neighbour = random from neighbours
+            maze[neighbour] = empty
+```
+
+Or, in a more wordy fashion;
+
+- Given a grid that consists of a 2D array of states (Wall/Empty) initialised to only walls
+- Set the start position to empty spaces
+- Add to a list of positions to process the neighbours of start (that are walls)
+- Given that there are still positions to process:
+    - Pick a random position from the list and a random cardinal neighbour of distance 2 that isn't on the boundary and is empty (not a wall)
+    - Pick a random neighbour that is a wall and connect the two via 2 empty spaces
+    - Compute all cardinal positions that are walls for the random neighbour and add it to the list of positions to process.
+- At the end fix-up the maze given that the end cell is still a wall
+    - Mark it as not a wall
+    - If it has atleast one neighbour that is a empty cell then don't do anything else (it's connected)
+    - Otherwise, mark one of it's cardinal neighbours as a empty cell as well.
+</details>
+
+### 3.13 Extension 3: Logic Switches 💀
+
+There are two new entities in this extension:
+
+| Entity      | JSON Prefix                                               | Image                                                       | Description                                                                                                                                                                                                                           |
+|-------------|-----------------------------------------------------------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Light Bulb  | <code>light_bulb_on</code> or <code>light_bulb_off</code> | <img src='images/lightbulb.png' />                          | Light bulbs cannot be collected, but can be lit up by placing a boulder on an adjacent switch. Light bulbs will always be created off. |
+| Wire        | <code>wire</code>                                         | <img src='images/wire.png' width="30" height="30" />        | Wires cannot be collected, but form part of a circuit and are connected to a switch and any entity that interacts via switches.                                                                                                       |
+| Switch Door | <code>switch_door</code>                                  | <img src='images/door.png' width="30" height="30" /> | Switch doors can be opened without a key if connected to an active switch/circuit. It should only remain open as long as it is connected to an active switch/circuit.                                                                 |
+
+All entities which interact via switches (doors, bombs, and light bulbs), as well as switches themselves can become "logical" entities, where one of the following rules is adopted:
+
+* AND - the entity will be only activated if there are 2 or more adjacent activated entities (switches with boulders on them or active wires). If there are more than two switches adjacent, all must be activated.
+* OR - the entity will be activated if there are 1 or more adjacent activated entities
+* XOR - the entity will be activated if there is 1 and only 1 adjacent activated entity
+* CO_AND - the entity will only be activated if there are 2 or more activated entities adjacent, which are **both activated on the same tick** (i.e. a boulder is pushed onto them at the same time).
+
+If a switch adjacent to a wire is activated, all the other interactable entities adjacent to the wire are activated. This allows for the creation of dungeons with logic gates. For example:
+
+<table>
+<tr>
+<td>
+<img src="images/logic_1.png"/>
+</td>
+<td>
+<img src="images/logic_2.png"/>
+</td>
+</tr>
+</table>
 
 # Part III) Technical Specification
 
@@ -244,11 +460,33 @@ The `type` field will be a string that starts with one of the following prefixes
 | Bow  | <code>bow</code> | No, since this entity must be built by the player. |
 | Shield    | <code>shield</code> | No, since this entity must be built by the player. |
 
-#### 4.1.1 Extra Fields
+#### 4.1.1 Further Entities 💀
+
+| Entity | JSON Prefix | Creatable in Dungeon Map? |
+| ------ | ----------- | ------------------------- |
+| Swamp Tile    | <code>swamp_tile</code> | Yes |
+| Sun Stone    | <code>sun_stone</code> | Yes |
+| Sceptre    | <code>sceptre</code> | No, since this entity must be built by the player. |
+| Midnight Armour    | <code>midnight_armour</code> | No, since this entity must be built by the player. |
+| Time Turner    | <code>time_turner</code> | Yes |
+| Time Travelling Portal    | <code>time_travelling_portal</code> | Yes |
+| Light Bulb (off)    | <code>light_bulb_on</code> | Yes |
+| Light Bulb (on)    | <code>light_bulb_on</code> | No, since light bulbs will always be created off. |
+| Wire    | <code>wire</code> | Yes |
+| Switch Door    | <code>switch_door</code> | Yes |
+| Older Player    | <code>older_player</code> | No, since these will only appear when the player has time travelled. |
+
+#### 4.1.2 Extra Fields
 
 Some entities will contain additional fields in their JSON entry, namely:
 - All entities of type `portal` will have a field `colour`. Two portals which have the same `colour` are linked (travelling through one portal takes you to the other). We will never provide a dungeon which has more than two portals of the same colour, and all portals will have a counterpart of the same colour in the dungeon. 
 - All entities of type `door` and `key` will have a `key` field which, in the case of the `key` is the identifier of the key, and in the case of the `door` the id of the key which fits that door. 
+
+#### 4.1.3 Further Extra Fields 💀
+
+- All logical entities will be created with the field `logic` which will be one of `and`, `or`, `xor`, or `co_and`.
+- All swamp tiles will be created with a field `movement_factor` which will be the tile's movement factor, an integer >= 0.
+- Switch doors will also have keys.
 
 ### 4.2 Input - Goals
 
@@ -308,6 +546,30 @@ During automarking, we will be providing our own configuration files with each t
 | `zombie_attack`                 | Attack damage of the zombie toast.                                                                                                           |
 | `zombie_health`                 | Health of the zombie toast.                                                                                                                  |
 | `zombie_spawn_rate`             | Zombies spawn every x ticks from each spawner, starting from the x'th tick. Spawn rate of 0 means that zombies will never spawn in the game. |
+
+#### 5.1.1 Further Configuration Values 💀
+
+In Milestone 3, the following configuration fields have been added.
+
+| JSON Format | Description | 
+| ------ | ----------- | 
+| `assassin_attack`              | Attack damage of the assassin. |
+| `assassin_bribe_amount`        | The amount of gold required to perform an attampt to bribe an assassin. |
+| `assassin_bribe_fail_rate`     | The chance that the bribe on an assassin will fail. The value of this field should be always inclusively between 0 and 1. |
+| `assassin_health`              | Health of the assassin. |
+| `assassin_recon_radius`        | The radius within which an assassin can see and move towards the player even when they are invisible. |
+| `hydra_spawn_rate`             | Hydras spawn every x ticks, starting from the x'th tick. Spawn rate of 0 means that hydras will never spawn in the game.  |
+| `hydra_attack`                 | Attack damage of the hydra. |
+| `hydra_health`                 | Health of the hydra. |
+| `hydra_health_increase_rate`   | The chance that the health of a Hydra increases when it gets attacked. The value of this field should be always inclusively between 0 and 1. |
+| `hydra_health_increase_amount` | The increment on the health of a Hydra increases when it gets attacked. |
+| `mind_control_duration`        | The amount of time mind controlling via a sceptre lasts for. |
+| `midnight_armour_attack`       | Attack bonus wearing midnight armour gives to the player. |
+| `midnight_armour_defence`      | The number of battles that the midnight armour lasts for. |
+
+#### 5.1.2 Backwards Compatiblity
+
+All of the Milestone 2 configuration files (in the provided config files, and in our autotests) do not currently contain the fields listed in Section 4.1.2. Rather than retroactively adding these fields to the existing configuraiton files, you will need to design your implementation to accomodate for this and maintain **backwards compatibility**. All Milestone 3 configuration files will contain all values from both Milestones.
 
 ## 6. Interface
 
@@ -460,7 +722,7 @@ Direction of movement for the player.
 
 > Note: [there is also an `AnimationQueue` object and constructor that you can find here](FRONTEND.md#animationqueue) but this isn't likely to be until the latter parts of Milestone 2 (and Milestone 3).
 
-### 6.2 Interface Methods
+### 6.2 Interface Methods (Milestone 2)
 
 <table>
 <tr>
@@ -554,12 +816,12 @@ throws InvalidActionException
 
 </td>
 <td>
-Builds the given entity, where <code>buildable</code> is one of <code>bow</code> and <code>shield</code>.
+💀 Builds the given entity, where <code>buildable</code> is one of <code>bow</code>, <code>shield</code>, <code>sceptre</code>, or <code>midnight_armour</code>.
 </td>
 <td>
 IllegalArgumentException:
 <ul>
-<li>If <code>buildable</code> is not one of bow, shield</li>
+<li>💀 If <code>buildable</code> is not one of <code>bow</code>, <code>shield</code>, <code>sceptre</code>, or <code>midnight_armour</code></li>
 </ul>
 InvalidActionException:
 <ul>
@@ -577,7 +839,7 @@ throws InvalidActionException
 
 </td>
 <td>
-Interacts with a mercenary (where the Player bribes the mercenary) or a zombie spawner, where the Player destroys the spawner.
+💀 Interacts with a mercenary (where the Player bribes/mind controls the mercenary) or a zombie spawner, where the Player destroys the spawner.
 </td>
 <td>
 IllegalArgumentException:
@@ -586,15 +848,177 @@ IllegalArgumentException:
 </ul>
 InvalidActionException
 <ul>
-<li>If the player is not within specified bribing radius to the mercenary, if they are bribing</li>
+<li>💀 If the player is not within specified bribing radius to the mercenary, if they are bribing/mind-controlling</li>
 <li>If the player is not cardinally adjacent to the spawner, if they are destroying a spawner</li>
-<li>If the player does not have enough gold and attempts to bribe a mercenary</li>
+<li>💀 If the player does not have enough gold and does not have a sceptre and attempts to bribe/mind-control a mercenary</li>
 <li>If the player does not have a weapon and attempts to destroy a spawner</li>
 </td>
 </tr>
 </table>
 
-### 6.3 Interface Exceptions
+### 6.3 Interface Methods (Milestone 3) 💀
+
+#### 6.3.1 Persistence
+
+<table>
+<tr>
+<th>Method Prototype</th>
+<th>Description</th>
+<th>Exceptions</th>
+</tr>
+<tr>
+<td>
+
+```java
+public DungeonResponse saveGame(String gameName)
+```
+
+</td>
+<td>
+Saves the current game state with the given name so that if the application is terminated, the current game state can be reloaded and play can continue from where it left off.
+</td>
+<td>
+N/A
+</td>
+</tr>
+<tr>
+<td>
+
+```java
+public DungeonResponse loadGame(String gameName)
+```
+
+</td>
+<td>
+Loads the game with the given name from the existing games saved.
+</td>
+<td>
+IllegalArgumentException:
+<ul>
+<li>If <code>id</code> is not a valid game name</li>
+</td>
+</tr>
+<tr>
+<td>
+
+```java
+public List<String> allGames()
+```
+
+</td>
+<td>
+
+Returns a list containing all the saved games that are currently stored.
+
+</td>
+<td>
+N/A
+</td>
+</tr>
+</table>
+
+#### 6.3.2 Extension 1: Time Travel
+
+<table>
+<tr>
+<th>Method Prototype</th>
+<th>Description</th>
+<th>Exceptions</th>
+</tr>
+
+<tr>
+<td>
+
+```java
+public DungeonResponse rewind(int ticks)
+```
+
+</td>
+<td>
+Rewinds the game state a specified number of ticks.
+</td>
+<td>
+<ul>IllegalArgumentException:
+<li>If <code>ticks</code> is <= 0;
+<li>If the number of <code>ticks</code> have not occurred yet; 
+</ul>
+</td>
+</tr>
+</table>
+
+#### 6.3.3 Extension 2: Dungeon Generation
+
+
+<table>
+<tr>
+<th>Method Prototype</th>
+<th>Description</th>
+<th>Exceptions</th>
+</tr>
+
+<tr>
+<td>
+
+```java
+public DungeonResponse generateDungeon(int xStart, int yStart, int xEnd, int yEnd)
+```
+
+</td>
+<td>
+Generates a dungeon surrounded by walls in a rectangular grid from the start to the end position on the map. An exit will need to be at <code>(xEnd, yEnd)</code>
+</td>
+<td>
+N/A
+</td>
+</tr>
+</table>
+
+#### 6.4 Server Layer
+
+If you are completing Extension Tasks 1 + 2, you will need to add code to `App.java` which sets up a HTTP endpoint that receives a web request from the frontend to call this API method. The request will be of the following format:
+
+<table>
+<tr>
+<th>Route Name</th>
+<th>HTTP Method</th>
+<th>Data Types</th>
+</tr>
+
+<tr>
+<td>
+
+```
+/api/game/rewind
+```
+
+</td>
+<td>POST</td>
+<td>
+<b>Parameters</b>: <code>{ ticks: int }</code>
+
+<b>Return Type</b>: <code>{ DungeonResponse }</code>
+</td>
+</tr>
+<tr>
+<td>
+
+```
+/api/game/new/generate
+```
+
+</td>
+<td>POST</td>
+<td>
+<b>Parameters</b>: <code>{ xStart: int, yStart: int, xEnd: int, yEnd: int, gameMode: String }</code>
+
+<b>Return Type</b>: <code>{ DungeonResponse }</code>
+</td>
+</tr>
+</table>
+
+We have handled potential concurrency issues by synchronising all endpoints - you will simply need to need to wrap your function call in the endpoint you create using `callUsingSessionAndArgument`. The existing endpoints are a good place to start when writing this code.
+
+#### 6.5 Interface Exceptions
 
 The only two exceptions throwable by the Controller are:
 * `IllegalArgumentException` (an builtin unchecked exception) on the specified conditions; and
@@ -882,7 +1306,6 @@ $ git push -f origin submission
 ```
 
 Or, you can create one via the GitLab website by going to Repository > Tags > New Tag.
-If you do not make a submission tag, we will take the last commit on your master branch before the deadline for your submission.
 
 ### 12.5 Marking Criteria
 
@@ -979,21 +1402,182 @@ Test Design:
 
 ## 13. Milestone 3: Evolution of Requirements
 
-Like any real-world software engineering scenario, the requirements you need to develop your solution to to will evolve.
+Like any real-world software engineering scenario, the requirements you need to develop your solution to will evolve.
 
 In this Milestone, you will be expected to:
 
 1. Adjust your domain model as needed to suit the updated requirements, and as per any feedback on your Milestone 2 design; and
 2. Extend your backend accordingly, and completing anything leftover from Milestone 2.
 3. Make customisations to the frontend, to make it your own game.
+4. If you have time, complete extension tasks.
 
-Milestone 3 will be released on Monday of Week 8.
+There is no sample implementation or provided tests for Milestone 3.
+
+### 13.1 Evolved Requirements
+
+This specification document has been updated with the new requirements. To make it easy for you, all places where Milestone 3 Requirements have been added in the product and technical specification have been marked with a 💀 emoji. 
+
+You will need to update your dependency chart with your Milestone 3 tasks once you have done your High Level Design.
+
+### 13.2 Frontend Customisations
+
+As part of this Milestone there is a small component which involves you making customisations via your backend to make use of the animation tools available and in doing so customise the User Experience of your game. The instructions in [FRONTEND.md](FRONTEND.md) will assist you with this. You are not required to write or modify any frontend code.
+
+### 13.3 Detailed Design & UML Diagram
+
+Based on feedback and any other changes to your design, update your UML diagram.
+
+For this milestone, your design will need to make use of at least **four** of the following patterns:
+* Strategy Pattern
+* State Pattern
+* Observer Pattern
+* Composite Pattern
+* Factory Pattern / Abstract Factory Pattern
+* Decorator Pattern
+* Singleton Pattern
+* Iterator Pattern
+* Template Pattern
+* Visitor Pattern
+
+The three design patterns you used in Milestone 2 count towards this tally.
+
+You are welcome to use other design patterns in addition if you wish, though any patterns that are forced on and make the design worse rather than better will lose marks for design.
+
+Design patterns you make use of in your test design can also contribute to this tally.
+
+**Fields and methods are required on the UML diagram for this milestone**. Your UML diagram needs to be consitent with your code and clearly indicate where you're using the design patterns (use labels).
+
+During your demonstration you will be asked to explain your design choices.
+
+### 13.4 Software Delivery & Software Testing
+
+Is as per Milestone 2, see Section 12.2 and 12.3.
+
+#### 13.4.1 Documentation
+
+We require you have the following documentation as part of your submission:
+* `design.pdf` with your updated UML diagram;
+* `planning.pdf` with your task sequencing, updated for Milestone 3;
+* `testing.pdf` with your test plan, with any updates made;
+* `assumptions.pdf` with your updated assumptions documentation;
+* Your GitLab Kanban Taskboard with your tickets, story points and priorities; and
+* Your Merge Request history on GitLab, with comments and discussion.
+
+You are welcome to include additional documentation as part of your submission - meeting minutes, further planning and design and anything else you wish to add which will be looked at and marked, however it is not mandatory. However, documentation will be reviewed if there is a discrepancy in team member contribution, so meeting minutes and other evidence in this situation is helpful.
+
+### 13.5 Submission
+
+To submit, make a tag to show that your code at the current commit is ready for your submission using the command:
+
+```bash
+$ git tag -fa submission -m "milestone3-submission"
+$ git push -f origin submission
+```
+
+Or, you can create one via the GitLab website by going to Repository > Tags > New Tag.
+
+Make sure to push to master as well as making the submission tag as we will take this for automarking.
+
+### 13.6 Marking Criteria
+
+<table>
+<tr>
+<th>Criteria</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>
+
+**Software Correctness (35%)**
+
+</td>
+<td>
+
+This section will be entirely automarked. See Section 14.
+
+</td>
+</tr>
+<tr>
+<td>
+
+**Software Testing (15%)**
+
+</td>
+<td>
+
+Code Coverage (7%)
+- 85% branch coverage will give you full marks in this section.
+
+Usability Testing (8%)
+- This section will be assessed during your milestone demonstration.
+- Do the features you've implemented work as required?
+- Are the features implemented bug-free? 
+- Does your game provide the user with a good experience?
+- Have customisations been made which enhance the user experience? Up to 4/8 can be achieved without any UX customisations.
+
+</td>
+</tr>
+<td>
+
+**Software Design (40%)**
+
+</td>
+<td>
+
+General:
+- Does the design make use of at least four design patterns in the specified list?
+- Do these patterns improve the design or are they forced on?
+- Are the patterns modelled appropriately?
+- Have the right patterns been used (e.g. state vs strategy)?
+- Does the design have good cohesion?
+- Does the design minimise coupling?
+- Do the inheritance relationships make logical sense?
+- Has LSP been obeyed?
+- Have interfaces vs abstract classes been used appropriately?
+- Are the aggregation and composition relationships and cardinalities shown on the UML logical and appropriate?
+- Are all classes single responsibility? Is there a lot of logic in the main Game class(es) or is it split up?
+- Are there any redundant classes / data classes?
+- Have all the appropriate entities been modelled as classes, or is data grouped arbitrarily in JSON objects/strings/arrays?
+- Has data been encapsulated appropriately?
+- Has functionality been delegated to the appropriate classes and abstracted where needed?
+- Is the UML diagram correctly formatted?
+- Is there a mix of unit, integration and system-level tests? Are your tests well designed and logically structured?
+- Is the code well styled and readable?
+- Have you used streams and lambda expressions to improve code conciseness and quality?
+
+Test Design:
+- The quality and structure of your test code will be assessed in adhering to the above principles as well.
+- Does the testing plan show how unit, integration, system and usability tests will be structured?
+- Does the testing plan demonstrate a logical and consistent approach?
+- Are unit tests written to minimise dependencies on other components of the code?
+- Are integration tests written to weave a web of dependencies and catch any bugs lurking in the cracks?
+- Do the system tests (unit-style or integration-style) provide a wholistic coverage of the space they are testing?
+
+</td>
+</tr>
+<tr>
+<td>
+
+**Software Delivery (10%)**
+
+</td>
+<td>
+
+- Is the dependency chart logically sequenced?
+- Have story points and priorities been allocated to each task?
+- Has the team followed best-practice delivery processes? (See Section 12.3.1 and 12.3.2)
+- Does the Kanban show the truth of the team's progress?
+
+</td>
+</tr>
+</table>
+
 
 ## 14. Software Correctness
 
 To test the breadth and depth of your implementation we will be running a series of autotests against your code.
 
-### 14.1 Mark Breakdown
+### 14.1 Mark Breakdown (Milestone 2)
 
 Each section of the product specification is worth a different amount of marks according to its relative complexity. The testing breakdown is as follows:
 * Player movement (10 marks)
@@ -1013,9 +1597,25 @@ Each section of the product specification is worth a different amount of marks a
 
 Note that some tests will by the nature of the functionality they are testing be integration tests (rely on multiple features to be implemented in order for the test to pass). For example, tests related to goals will inherently also test the functionality related to each part of the goal (e.g. enemies).
 
-The overall automark is out of 260 marks.
+The overall automark is out of 260 marks in Milestone 2.
 
-### 14.2 Automark Calculation
+### 14.2 Mark Breakdown (Milestone 3)
+
+The Milestone 3 automarking will test on a completed interface for Milestone 2. This means that you will be rewarded for finishing off any leftover functionality from Milestone 2.
+
+In addition to the tests listed in Section 14.1, the testing breakdown is as follows:
+
+* Bosses (20 marks)
+* Swamp Tiles & Pathfinding (20 marks)
+* Further Collectable & Buildable Entities (15 marks)
+* Persistence (40 marks)
+* Time Travel (50 marks)
+* Dungeon Generation (15 marks)
+* Logic Switches (30 marks)
+
+The overall automark is out of 450 marks in Milestone 3.
+
+### 14.3 Automark Calculation (Milestone 2)
 
 The automark calculation is based on the following rules:
 * To achieve a pass (50% of the automark), your solution needs to pass **70 marks** worth of tests
@@ -1027,11 +1627,21 @@ The automark calculation is based on the following rules:
 
 This marking scheme is designed to make it easy to pass the project and more challenging to achieve a higher mark.
 
-### 14.3 Example Tests
+### 14.1 Automark Calculation (Milestone 3)
+
+The automark calculation is based on the following rules:
+* To achieve a pass (50% of the automark), your solution needs to pass **135 marks** worth of tests
+* To achieve a credit (65% of the automark), your solution needs to pass **180 marks** worth of tests
+* To achieve a distinction (75% of the automark), your solution needs to pass **270 marks** worth of tests
+* To achieve a high distinction (85% of the automark), your solution needs to **340 marks** worth of tests
+* To achieve full marks (100% of the automark), your solution needs to pass **400 marks** worth of tests
+* For an extra bonus of up to 5% in the remainder of the overall project, your solution needs to pass all tests.
+
+### 14.5 Example Tests
 
 We have provided you with several example tests to act as a dryrun and ensure that your code doesn't have anything wildly wrong with it that would cause every test to fail. This is intentionally a minimal subset to give you a small leg-up as you are expected to write your own tests to ensure the correctness of your solution.
 
-### 14.4 Autotest Feedback
+### 14.6 Autotest Feedback
 
 On **Thursday 14th July** (Week 7) and **Thursday 28th July** (Week 9) at **8am** we will take the latest commit on your `master` branch and run that against our autotest suite. By **6pm** that night, we will provide you with a set of results that contain:
 * For a subset (a) of our tests, the name of the test, whether you passed or failed it, and if you failed what the error was;
@@ -1047,7 +1657,7 @@ The autotests will be run against groups' submissions for Milestone 2 Marking on
 
 If you are unsure why you are failing a specific test, review your code and the specification, and if you are still unsure please post on the forum and we will be able to provide you with some support.
 
-### 14.5 Autotest Re-runs
+### 14.7 Autotest Re-runs
 
 Following the release of automarks, groups may request a re-run if the group has failed more than 30% of the autotests due to **one or two** minor issues in their code. The group can make a patch of up to 20 lines difference and push this patch to a branch where it will be rerun **at a 20% penalty to the final automark**. Diffs of more than 20 lines need to be approved by the Course Authority. All requests for re-runs must be made via the Course Forum. Groups that have not failed more than 30% of the autotests, or have failed due to multiple issues / non-minor issues are not elegible for a re-run. If you are not sure whether you are elegible for a re-run please post on the Course Forum.
 
