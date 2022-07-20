@@ -43,6 +43,7 @@ This specification is broken into four parts:
 - Tue 19 Jul 9pm - Fix section 4.1.1 by adding boss entities
 - Tue 19 Jul 10pm - Fix M3 spec Typos
 - Wed 20 Jul 12am - Fix description for `midnight_armour_defence` and durability for midnight armour in the spec.
+- Wed 20 Jul 6pm - Removed redundant `hydra_spawn_rate` config field from the spec because hydra will not spawn from a spawner.
 
 ## 1. Aims
 
@@ -563,7 +564,6 @@ In Milestone 3, the following configuration fields have been added.
 | `assassin_bribe_fail_rate`     | The chance that the bribe on an assassin will fail. The value of this field should be always inclusively between 0 and 1. |
 | `assassin_health`              | Health of the assassin. |
 | `assassin_recon_radius`        | The radius within which an assassin can see and move towards the player even when they are invisible. |
-| `hydra_spawn_rate`             | Hydras spawn every x ticks, starting from the x'th tick. Spawn rate of 0 means that hydras will never spawn in the game.  |
 | `hydra_attack`                 | Attack damage of the hydra. |
 | `hydra_health`                 | Health of the hydra. |
 | `hydra_health_increase_rate`   | The chance that the health of a Hydra increases when it gets attacked. The value of this field should be always inclusively between 0 and 1. |
