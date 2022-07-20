@@ -44,6 +44,8 @@ This specification is broken into four parts:
 - Tue 19 Jul 10pm - Fix M3 spec Typos
 - Wed 20 Jul 12am - Fix description for `midnight_armour_defence` and durability for midnight armour in the spec.
 - Wed 20 Jul 6pm - Removed redundant `hydra_spawn_rate` config field from the spec because hydra will not spawn from a spawner.
+- Wed 20 Jul 11pm - Fix description for `buildable` fields in `DungeonResponse`
+- Wed 20 Jul 11pm - Fix description for building `midnight_armour`
 
 ## 1. Aims
 
@@ -612,7 +614,8 @@ public DungeonResponse(String dungeonId,
     <li><code>dungeonId</code> is the unique identifier for the dungeon</li>
     <li><code>dungeonName</code> is the name of the dungeon map being used (i.e. <code>maze</code>, which corresponds to the file <code>src/main/resources/dungeons/maze.json</code></li>
     <li><code>entities</code> is a list of all entities currently in the dungeon (all entities in the Player's inventory aren't included); if a Player or enemy dies it is removed from this list</li>
-    <li><code>inventory</code> is the Player's current inventory<code>buildables</code> is a list of buildable item types that the player can build, given their current inventory</li>
+    <li><code>inventory</code> is the Player's current inventory</li>
+    <li><code>buildables</code> is a list of buildable item types that the player can build, given their current inventory and game state</li>
     <li><code>battles</code> is the list of battles that has occured in total in the game so far (see <code>BattleResponse</code>), in the order that they occurred</li>
     <li><code>goals</code> is a string containing the goals yet to be completed. An empty string denotes the game has been won. Each goal in the string is preceded with a colon <code>:</code> and is one of the four basic goals listed in Section 4.2. How you represent conjunctions (AND) and disjunuctions (OR) is up to you, as the frontend will simply render your string with the goals as images. We will only check for the goal strings in our tests (e.g. <code>:exit</code>). An example of the <code>goals</code> string is <code>":exit AND (:treasure OR :enemies)"</code></li>
 </ul>
@@ -830,7 +833,7 @@ IllegalArgumentException:
 </ul>
 InvalidActionException:
 <ul>
-<li>If the player does not have sufficient items to craft the buildable</li>
+<li>If the player does not have sufficient items to craft the buildable, or unbuildable for <code>midnight_armour</code> because there are zombies currently in the dungeon.</li>
 </ul>
 </td>
 </tr>
