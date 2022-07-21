@@ -20,6 +20,10 @@
       "type" : "boulder",
       "x" : 4,
       "y" : 1
+    }, {
+      "type" : "sun_stone",
+      "x" : 5,
+      "y" : 2
     }
   ],
   "goal-condition": {

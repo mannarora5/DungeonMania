@@ -13,7 +13,8 @@ public class TreasureGoal implements GoalComponent{
     @Override
     public boolean goalcompleted(GameController game) {
         int collectedTreasure = game.findPlayer().getInventory().quantity("treasure");
-        if (TreasureGoal.totalTreasure == collectedTreasure) {
+        int collectedSunStone = game.findPlayer().getInventory().quantity("sun_stone");
+        if (totalTreasure == collectedTreasure + collectedSunStone) {
             return true;
         }
         return false;

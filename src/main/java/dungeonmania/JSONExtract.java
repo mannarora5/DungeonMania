@@ -20,6 +20,7 @@ import dungeonmania.Entities.collectableEntities.Invisibility;
 import dungeonmania.Entities.collectableEntities.Key;
 import dungeonmania.Entities.collectableEntities.Sword;
 import dungeonmania.Entities.collectableEntities.Treasure;
+import dungeonmania.Entities.collectableEntities.Sunstone;
 import dungeonmania.Entities.collectableEntities.Wood;
 import dungeonmania.Entities.enemyEntities.Mercenary;
 import dungeonmania.Entities.enemyEntities.Spider;
@@ -302,6 +303,9 @@ public class JSONExtract {
 
             } else if (entityType.equals("spider")) {
                 entitiesList.add(new Spider(Id, position));
+                
+            } else if (entityType.equals("sun_stone")) {
+                entitiesList.add(new Sunstone(Id, position));
             }
 
             setEntities_created(getEntities_created() + 1);

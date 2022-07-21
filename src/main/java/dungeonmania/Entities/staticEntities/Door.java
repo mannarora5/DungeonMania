@@ -29,9 +29,12 @@ public class Door extends Static {
                 super.setType("door_open");
                 inventory.removeMultipleItems("key", 1); // Can remove later with use interface
                 return true;
-            } else{
-                return false;
             } 
+            if (inventory.hasSunStone()) {
+                setOpen(true);
+                super.setType("door_open");
+                return true; 
+            }
         }
         return false;
     }

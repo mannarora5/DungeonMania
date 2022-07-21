@@ -27,23 +27,12 @@ public class AndGoal implements GoalComponent {
     
     @Override
     public boolean goalcompleted(GameController game) {
-        for (GoalComponent goal : getgoals()) {
-            if (goal.toString() == ":exit") {
-                GoalComponent goal2 = isNotExit();
-                if (goal2.goalcompleted(game) == true && goal.goalcompleted(game) == true) {
-                    return true; 
-                } 
-                else {
-                    return false;
-                }
-            }
-        }
         return getgoals().stream().allMatch(g -> g.goalcompleted(game));
     }
 
     public GoalComponent isNotExit() {
         for (GoalComponent goal : goals) {
-            if (goal.toString() != "exit") {
+            if (goal.toString() != ":exit") {
                return goal; 
             }
         }

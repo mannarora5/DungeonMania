@@ -8,6 +8,7 @@ import dungeonmania.Entities.buildableEntities.Shield;
 import dungeonmania.Entities.collectableEntities.Arrow;
 import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.Entities.collectableEntities.Key;
+import dungeonmania.Entities.collectableEntities.Sunstone;
 import dungeonmania.Entities.collectableEntities.Sword;
 import dungeonmania.Entities.collectableEntities.Treasure;
 import dungeonmania.Entities.collectableEntities.Wood;
@@ -222,7 +223,6 @@ public class Inventory {
         }
 
         return null;   
-
     }
 
 
@@ -255,6 +255,32 @@ public class Inventory {
         return this.items.stream().filter(e -> e instanceof Key).map(e -> (Key) e).findFirst().orElse(null);
     }
 
+    /**
+     * Get Sun stone
+     * @return
+     */
+    public Sunstone getSunstone() {
+        for (Collectable i: this.items) {
+            if (i instanceof Sunstone) {
+                return (Sunstone)i;
+            }
+        }
+
+        return null;   
+    }
+
+    /**
+     * Check if inventory has a Sunstone
+     * @return
+     */
+    public boolean hasSunStone() {
+        for (Collectable i: this.items) {
+            if (i instanceof Sunstone) {
+                return true;
+            }
+        }
+        return false; 
+    }
 
     /**
      * Get items
