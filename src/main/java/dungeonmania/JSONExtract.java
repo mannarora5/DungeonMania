@@ -354,11 +354,12 @@ public class JSONExtract {
         } else if ("AND".equals(goals.getString("goal"))) {
             JSONArray subgoals = goals.getJSONArray("subgoals");
             AndGoal and = new AndGoal();
+            List<GoalComponent> subgoal_List =  new ArrayList<>();
             for (int i = 0; i < subgoals.length(); i++) {
                 JSONObject subgoal = subgoals.getJSONObject(i);
-                List<GoalComponent> subgoal_List =  createGoalClasses(subgoal);
-                and.getgoals().addAll(subgoal_List);
+                subgoal_List.addAll(createGoalClasses(subgoal));
             }
+            and.addgoals(subgoal_List);
             listGoals.add(and);
             
         }

@@ -6,7 +6,7 @@ import dungeonmania.Entities.staticEntities.zombieSpawner;
 
 public class EnemyGoal implements GoalComponent {
 
-    public static int totalEnemies;  
+    private static int totalEnemies;  
 
 
     public static void settotalEnemies(int totalEnemies) {
@@ -15,7 +15,7 @@ public class EnemyGoal implements GoalComponent {
     
 
     @Override
-    public boolean goalcompleted(GameController game) {
+    public boolean checkgoalcompleted(GameController game) {
         //enemies destroyed
         int enemiesDestroyed = game.findPlayer().getEnemiesDestroyed();
 
@@ -36,5 +36,7 @@ public class EnemyGoal implements GoalComponent {
     public String toString() {
         return ":enemies";
     }
+
+    
 
 }

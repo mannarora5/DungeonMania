@@ -7,7 +7,7 @@ import dungeonmania.Entities.staticEntities.Exit;
 public class ExitGoal implements GoalComponent{
     
     @Override
-    public boolean goalcompleted(GameController game) {
+    public boolean checkgoalcompleted(GameController game) {
         for (Entity entity : game.getEntities()) {
             if (entity instanceof Exit) {
                 if (entity.getPosition().equals(game.findPlayer().getPosition())) {

@@ -264,7 +264,7 @@ public class GameController {
 
         String goalString = "";
         for (GoalComponent goal: goals) {
-            if (!goal.goalcompleted(this)) {
+            if (!goal.checkgoalcompleted(this)) {
                 goalString = goalString + goal.toString();
             }
         }
