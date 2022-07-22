@@ -11,7 +11,7 @@ import dungeonmania.util.Position;
 public class spiderNormalMovement implements enemyMovementState{
 
 
-    public Spider spider;
+    private Spider spider;
 
     public spiderNormalMovement(Spider spider){
         this.spider = spider;

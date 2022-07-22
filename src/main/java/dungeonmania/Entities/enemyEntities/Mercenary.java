@@ -25,15 +25,15 @@ public class Mercenary extends Enemy implements EnemyObserver{
     public static int bribeAmount;
     public static int bribeRadius;
 
-    public boolean mercenaryBribed;
+    private boolean mercenaryBribed;
 
-    public double currentMercenaryHealth;
+    private double currentMercenaryHealth;
 
-    enemyMovementState allyMercenarystate;
-    enemyMovementState normalMercenarystate;
-    enemyMovementState scaredMercenaryMovement;
-    enemyMovementState randomMercenaryMovement;
-    enemyMovementState currentMovementState;
+    private enemyMovementState allyMercenarystate;
+    private enemyMovementState normalMercenarystate;
+    private enemyMovementState scaredMercenaryMovement;
+    private enemyMovementState randomMercenaryMovement;
+    private enemyMovementState currentMovementState;
 
     public Mercenary(String id, Position position) {
             
@@ -243,6 +243,8 @@ public class Mercenary extends Enemy implements EnemyObserver{
     public void setCurrentMovementState(enemyMovementState currentMovementState) {
         this.currentMovementState = currentMovementState;
     }
+
+    
 
 
     

@@ -15,7 +15,7 @@ public class spiderReverseMovement implements enemyMovementState{
     
 
 
-    public Spider spider;
+    private Spider spider;
 
     public spiderReverseMovement(Spider spider){
         this.spider = spider;

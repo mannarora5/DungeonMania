@@ -14,8 +14,8 @@ import dungeonmania.util.Position;
 
 public class zombieRandomMovmentState implements enemyMovementState{
 
-    Random rand = new Random();
-    ZombieToast zombie;
+    private Random rand = new Random();
+    private ZombieToast zombie;
 
 
     public zombieRandomMovmentState(ZombieToast zombie){
@@ -57,4 +57,25 @@ public class zombieRandomMovmentState implements enemyMovementState{
     Position newPosition = AdjacentPositions.get(randomIndex);
     zombie.setPosition(newPosition);
     }
+
+
+
+    public Random getRand() {
+        return this.rand;
+    }
+
+    public void setRand(Random rand) {
+        this.rand = rand;
+    }
+
+    public ZombieToast getZombie() {
+        return this.zombie;
+    }
+
+    public void setZombie(ZombieToast zombie) {
+        this.zombie = zombie;
+    }
+
+
+
 }

@@ -27,29 +27,29 @@ import dungeonmania.util.Position;
 
 public class Player extends Entity implements PlayerStateSubject{
 
-    public Inventory inventory;
+    private Inventory inventory;
 
-    public int enemiesDestroyed;
+    private int enemiesDestroyed;
 
-    public int noAlly;
+    private int noAlly;
 
     public static Integer playerHealth;
     public static Integer playerAttack;
 
-    public double currentplayerHealth;
+    private double currentplayerHealth;
 
-    public PlayerState state;
-    public PlayerState normalState = new NormalState();
-    public PlayerState invincibleState = new InvincibleState();
-    public PlayerState invisibleState = new InvisibleState();
+    private PlayerState state;
+    private PlayerState normalState = new NormalState();
+    private PlayerState invincibleState = new InvincibleState();
+    private PlayerState invisibleState = new InvisibleState();
 
-    public List<Collectable> potionQueue;
+    private List<Collectable> potionQueue;
 
-    public List<EnemyObserver> enemyObservers;
+    private List<EnemyObserver> enemyObservers;
     
     private int potionTimer;
 
-    public List<Battle> battles;
+    private List<Battle> battles;
 
     
     public Player(String id,Position position) {
@@ -279,7 +279,7 @@ public class Player extends Entity implements PlayerStateSubject{
 
             List<RoundResponse> roundResponses = new ArrayList<RoundResponse>();
 
-            for (Round round: battle.rounds) {
+            for (Round round: battle.getRounds()) {
 
                 List<ItemResponse> weaponryUsed  = new ArrayList<ItemResponse>();
 
@@ -293,7 +293,7 @@ public class Player extends Entity implements PlayerStateSubject{
 
             }
 
-            responses.add(new BattleResponse(battle.enemy.getType(), roundResponses, battle.initialPlayerHealth, battle.initialEnemyHealth));
+            responses.add(new BattleResponse(battle.getEnemy().getType(), roundResponses, battle.getInitialPlayerHealth(), battle.getInitialEnemyHealth()));
 
         }
 

@@ -6,7 +6,7 @@ import dungeonmania.util.Position;
 
 public abstract class Enemy extends Entity{
 
-    public double enemyAttack;
+    private double enemyAttack;
 
     // enemy id, type, position, health, attack damage, multiplier and interactable 
     public Enemy(String id, String type, Position position, Boolean isInterctable, double attack) {
@@ -42,6 +42,8 @@ public abstract class Enemy extends Entity{
     public void setEnemyAttack(double enemyAttack) {
         this.enemyAttack = enemyAttack;
     }
+
+    
 
 
 }

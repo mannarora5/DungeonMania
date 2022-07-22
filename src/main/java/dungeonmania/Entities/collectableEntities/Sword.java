@@ -7,7 +7,7 @@ public class Sword extends Collectable{
     public static Integer swordDuration;
     public static Integer swordAttack;
 
-    public Integer currentSwordDuration;
+    private Integer currentSwordDuration;
 
     public Sword(String Id, Position position) {
         super(Id, "sword", position);
@@ -33,6 +33,16 @@ public class Sword extends Collectable{
         Sword.swordAttack = attack;
 
     }
+
+
+    public Integer getCurrentSwordDuration() {
+        return this.currentSwordDuration;
+    }
+
+    public void setCurrentSwordDuration(Integer currentSwordDuration) {
+        this.currentSwordDuration = currentSwordDuration;
+    }
+
 
 
 }

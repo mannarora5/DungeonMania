@@ -17,11 +17,11 @@ public class EnemyGoal implements GoalComponent {
     @Override
     public boolean goalcompleted(GameController game) {
         //enemies destroyed
-        int enemiesDestroyed = game.findPlayer().enemiesDestroyed;
+        int enemiesDestroyed = game.findPlayer().getEnemiesDestroyed();
 
         int numEnemySpawners = 0;
         //Check if all spawners are destroyed
-        for (Entity entity : game.entities) {
+        for (Entity entity : game.getEntities()) {
             if (entity instanceof zombieSpawner) {
                 numEnemySpawners += 1;
             }

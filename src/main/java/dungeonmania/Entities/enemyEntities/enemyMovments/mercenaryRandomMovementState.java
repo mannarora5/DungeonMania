@@ -13,8 +13,8 @@ import dungeonmania.Entities.staticEntities.Wall;
 import dungeonmania.util.Position;
 
 public class mercenaryRandomMovementState implements enemyMovementState {
-    Mercenary mercenary;
-    Random rand = new Random();
+    private Mercenary mercenary;
+    private Random rand = new Random();
 
 
     public mercenaryRandomMovementState(Mercenary mercenary){
@@ -51,5 +51,24 @@ public class mercenaryRandomMovementState implements enemyMovementState {
         Position newPosition = AdjacentPositions.get(randomIndex);
         mercenary.setPosition(newPosition);
     }
+
+
+
+    public Mercenary getMercenary() {
+        return this.mercenary;
+    }
+
+    public void setMercenary(Mercenary mercenary) {
+        this.mercenary = mercenary;
+    }
+
+    public Random getRand() {
+        return this.rand;
+    }
+
+    public void setRand(Random rand) {
+        this.rand = rand;
+    }
+
 }
     

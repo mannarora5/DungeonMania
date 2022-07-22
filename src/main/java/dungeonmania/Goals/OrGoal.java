@@ -6,7 +6,7 @@ import java.util.List;
 import dungeonmania.GameController;
 
 public class OrGoal implements GoalComponent {
-    public List<GoalComponent> goals = new ArrayList<>();
+    private List<GoalComponent> goals = new ArrayList<>();
 
     
     public OrGoal(List<GoalComponent> goals) {

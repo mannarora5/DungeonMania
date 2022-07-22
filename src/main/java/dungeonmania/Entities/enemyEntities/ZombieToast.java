@@ -15,9 +15,9 @@ public class ZombieToast extends Enemy implements EnemyObserver{
     private static int zombieHealth;
     private static int zombieAttack;
 
-    enemyMovementState normalZombieMovement;
-    enemyMovementState scaredZombieMovement;
-    enemyMovementState currentMovementState;
+    private enemyMovementState normalZombieMovement;
+    private enemyMovementState scaredZombieMovement;
+    private enemyMovementState currentMovementState;
 
     private  double currentzombieHealth;
 

@@ -12,7 +12,7 @@ public class Spider extends Enemy implements EnemyObserver{
     public static int spiderHealth;
     public static int spiderAttack;
 
-    public double currentSpiderHealth;
+    private double currentSpiderHealth;
 
     enemyMovementState normalState;
     enemyMovementState reverselState;
@@ -126,6 +126,8 @@ public class Spider extends Enemy implements EnemyObserver{
     public void decreasetick(){
         this.currentPostick -= 1;
     }
+
+    
 
 }
 

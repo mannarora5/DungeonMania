@@ -6,10 +6,10 @@ import dungeonmania.Entities.enemyEntities.Enemy;
 
 public class Battle {
 
-    public Enemy enemy;
-    public double initialPlayerHealth;
-    public double initialEnemyHealth;
-    public List<Round> rounds;
+    private Enemy enemy;
+    private double initialPlayerHealth;
+    private double initialEnemyHealth;
+    private List<Round> rounds;
     
     public Battle(Enemy enemy, List<Round> rounds, double initialPlayerHealth, double initialEnemyHealth) {
         this.initialPlayerHealth = initialPlayerHealth;
@@ -50,5 +50,7 @@ public class Battle {
     public void setRounds(List<Round> rounds) {
         this.rounds = rounds;
     }
+
+    
     
 }

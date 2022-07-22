@@ -7,7 +7,7 @@ public class Shield extends Buildable{
     public static Integer shieldDuration;
     public static Integer shieldDefence;
 
-    public Integer currentShieldDuration;
+    private Integer currentShieldDuration;
 
     public Shield(String Id, Position position) {
         super(Id, "shield", position, false);

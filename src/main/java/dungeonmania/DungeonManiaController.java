@@ -16,12 +16,13 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DungeonManiaController {
 
-    public GameController game;
-    public String dungeonName;
+    private GameController game;
+    private String dungeonName;
 
     public String getSkin() {
         return "default";

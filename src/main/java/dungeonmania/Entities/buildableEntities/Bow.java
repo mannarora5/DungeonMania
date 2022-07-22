@@ -8,7 +8,7 @@ public class Bow extends Buildable{
 
     public static Integer bowDuration;
 
-    public Integer currentBowDuration;
+    private Integer currentBowDuration;
 
     public Bow(String Id, Position position) {
         super(Id, "bow", position, false);

@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SpiderSpawnner {
     
-    Random random = new Random();
+    private Random random = new Random();
     public static Integer spawnRate;
 
     /**
@@ -33,7 +33,7 @@ public class SpiderSpawnner {
         int randomYcoordinate = ThreadLocalRandom.current().nextInt(minY, maxY + 1);
 
 
-        String spider_id = JSONExtract.entities_created.toString();
+        String spider_id = JSONExtract.getEntities_created().toString();
         JSONExtract.increaseEntitiesCreates();
 
         Spider spider  = new Spider(spider_id , new Position(randomXcoordinate, randomYcoordinate));
@@ -47,4 +47,14 @@ public class SpiderSpawnner {
     public static void setSpawnRate(Integer rate){
         SpiderSpawnner.spawnRate = rate;
     }  
+
+
+    public Random getRandom() {
+        return this.random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
 }
