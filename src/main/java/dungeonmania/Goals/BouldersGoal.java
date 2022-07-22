@@ -11,7 +11,7 @@ public class BouldersGoal implements GoalComponent{
         int numSwitchNotActivated = 0;
         //Check if a switch is not activated
 
-        for (Entity entity: game.entities) {
+        for (Entity entity: game.getEntities()) {
             if (entity instanceof Switch) {
                 Switch s = (Switch) entity;
                 if (s.getActivated() == false) {

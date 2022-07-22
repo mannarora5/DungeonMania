@@ -49,8 +49,8 @@ import dungeonmania.util.Position;
 public class JSONExtract {
 
 
-    public static Integer entities_created = 0;
-    public static Integer items_created = 0;
+    private static Integer entities_created = 0;
+    private static Integer items_created = 0;
     
     /**
      *
@@ -392,5 +392,5 @@ public class JSONExtract {
         JSONExtract.entities_created += 1;
     }
     
-
+    
 }

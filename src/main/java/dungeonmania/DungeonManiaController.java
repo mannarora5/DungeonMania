@@ -21,8 +21,8 @@ import java.util.List;
 
 public class DungeonManiaController {
 
-    public GameController game;
-    public String dungeonName;
+    private GameController game;
+    private String dungeonName;
 
     public String getSkin() {
         return "default";

@@ -33,7 +33,7 @@ public class SpiderSpawnner {
         int randomYcoordinate = ThreadLocalRandom.current().nextInt(minY, maxY + 1);
 
 
-        String spider_id = JSONExtract.entities_created.toString();
+        String spider_id = JSONExtract.getEntities_created().toString();
         JSONExtract.increaseEntitiesCreates();
 
         Spider spider  = new Spider(spider_id , new Position(randomXcoordinate, randomYcoordinate));

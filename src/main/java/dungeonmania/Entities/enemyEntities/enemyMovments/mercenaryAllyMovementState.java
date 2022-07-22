@@ -25,7 +25,7 @@ public class mercenaryAllyMovementState implements enemyMovementState{
 
     public void move(GameController game){
         Position mercenarypPosition = mercenary.getPosition();
-        Position playerPostionprevious = game.playerPositions.get(game.playerPositions.size()-1);
+        Position playerPostionprevious = game.getPlayerPositions().get(game.getPlayerPositions().size()-1);
         List<Position> AdjacentPositions = mercenarypPosition.getAdjacentPositions();
         List<PositonDistance> distanceAndPositions = new ArrayList<>();
 

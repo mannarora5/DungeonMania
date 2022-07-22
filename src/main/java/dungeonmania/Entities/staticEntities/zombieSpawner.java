@@ -55,7 +55,7 @@ public class zombieSpawner extends Static {
             return;
         }
 
-        String zombie_id = JSONExtract.entities_created.toString();
+        String zombie_id = JSONExtract.getEntities_created().toString();
         JSONExtract.increaseEntitiesCreates();
 
 
@@ -86,7 +86,7 @@ public class zombieSpawner extends Static {
 
         for (Position p: cardinalPositions){
             if (p.equals(player_position)){
-                game.entities.remove(this);
+                game.getEntities().remove(this);
                 return;
             }
         }

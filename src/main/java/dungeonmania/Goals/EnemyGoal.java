@@ -21,7 +21,7 @@ public class EnemyGoal implements GoalComponent {
 
         int numEnemySpawners = 0;
         //Check if all spawners are destroyed
-        for (Entity entity : game.entities) {
+        for (Entity entity : game.getEntities()) {
             if (entity instanceof zombieSpawner) {
                 numEnemySpawners += 1;
             }

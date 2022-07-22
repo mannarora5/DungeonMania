@@ -25,10 +25,10 @@ import dungeonmania.util.Position;
 
 public class GameController {
     
-    public List<Entity> entities;
-    public List<GoalComponent> goals;
-    public int ticks;
-    public List<Position> playerPositions = new ArrayList<>();
+    private List<Entity> entities;
+    private List<GoalComponent> goals;
+    private int ticks;
+    private List<Position> playerPositions = new ArrayList<>();
 
     public void newGame(String dungeonName, String config) throws IllegalArgumentException {
 
@@ -271,6 +271,14 @@ public class GameController {
         return goalString;
     }
 
+
+    public List<Position> getPlayerPositions() {
+        return this.playerPositions;
+    }
+
+    public void setPlayerPositions(List<Position> playerPositions) {
+        this.playerPositions = playerPositions;
+    }
     
 
 }
