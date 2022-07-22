@@ -53,7 +53,7 @@ public class GameController {
             }
         }
 
-        findPlayer().enemyObservers.addAll(enemies);
+        findPlayer().getEnemyObservers().addAll(enemies);
 
         this.ticks = 0;
     }

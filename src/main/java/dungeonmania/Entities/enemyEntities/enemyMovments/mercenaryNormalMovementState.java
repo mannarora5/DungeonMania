@@ -14,7 +14,7 @@ import dungeonmania.util.PositonDistance;
 
 public class mercenaryNormalMovementState implements enemyMovementState {
 
-    Mercenary mercenary;
+    private Mercenary mercenary;
 
 
     public mercenaryNormalMovementState(Mercenary mercenary){
@@ -93,5 +93,16 @@ public class mercenaryNormalMovementState implements enemyMovementState {
             }    
         }
     }
+
+
+
+    public Mercenary getMercenary() {
+        return this.mercenary;
+    }
+
+    public void setMercenary(Mercenary mercenary) {
+        this.mercenary = mercenary;
+    }
+
 
 }

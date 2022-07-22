@@ -15,7 +15,7 @@ import dungeonmania.util.PositonDistance;
 public class zombieScaredMovementState implements enemyMovementState{
 
 
-    ZombieToast zombie;
+    private ZombieToast zombie;
 
 
     public zombieScaredMovementState(ZombieToast zombie){
@@ -84,6 +84,17 @@ public class zombieScaredMovementState implements enemyMovementState{
                 adjacentPositions.remove(entity.getPosition());
             }    
         }
-    }   
+    } 
+    
+
+    public ZombieToast getZombie() {
+        return this.zombie;
+    }
+
+    public void setZombie(ZombieToast zombie) {
+        this.zombie = zombie;
+    }
+    
+
 }
 

@@ -133,17 +133,23 @@ public class BattleHelper {
     }
 
     public static void removeEntities(GameController game, List<String> enmiesToRemvoe){
+
+        int enemiesRemoved = 0;
         for (String id: enmiesToRemvoe){
             game.removeEntity(id);
-            game.findPlayer().enemiesDestroyed += 1;
+            enemiesRemoved += 1;
         }
+
+        Player player = game.findPlayer();
+        player.setEnemiesDestroyed(player.getEnemiesDestroyed() + enemiesRemoved);
+
     }
 
     public static double getPlayerAttack(Player player) {
 
         Bow bow = player.getInventory().getBow();
         Sword sword = player.getInventory().getSword();
-        int noAllies = player.noAlly;
+        int noAllies = player.getNoAlly();
 
         int bowBonus = 2;
         int swordBonus = Sword.swordAttack;
@@ -162,9 +168,10 @@ public class BattleHelper {
         if (sword == null){
             swordBonus = 0;
         } else {
-            sword.currentSwordDuration -= 1;
 
-            if (sword.currentSwordDuration == 0){
+            sword.setCurrentSwordDuration(sword.getCurrentSwordDuration() - 1);
+
+            if (sword.getCurrentSwordDuration() == 0){
                 player.getInventory().removeItem(sword.getId());
             }
         }

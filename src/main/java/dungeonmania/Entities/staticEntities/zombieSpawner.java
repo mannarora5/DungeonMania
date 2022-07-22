@@ -66,7 +66,7 @@ public class zombieSpawner extends Static {
         zombie.updateMovement(player);
 
         EnemyObserver observer = (EnemyObserver) zombie;
-        game.findPlayer().enemyObservers.add(observer);
+        game.findPlayer().getEnemyObservers().add(observer);
         game.addentity(zombie);
 
     }

@@ -13,7 +13,7 @@ import dungeonmania.util.PositonDistance;
 public class Bomb extends Collectable{
 
     public static Integer radius;
-    public Boolean placed;
+    private Boolean placed;
 
     public Bomb(String Id, Position position) {
         super(Id, "bomb", position);

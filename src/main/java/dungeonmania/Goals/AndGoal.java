@@ -8,7 +8,7 @@ import dungeonmania.GameController;
 
 
 public class AndGoal implements GoalComponent {
-    public List<GoalComponent> goals;
+    private List<GoalComponent> goals;
 
     public List<GoalComponent> getGoals() {
         return goals;

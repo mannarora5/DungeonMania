@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SpiderSpawnner {
     
-    Random random = new Random();
+    private Random random = new Random();
     public static Integer spawnRate;
 
     /**
@@ -47,4 +47,14 @@ public class SpiderSpawnner {
     public static void setSpawnRate(Integer rate){
         SpiderSpawnner.spawnRate = rate;
     }  
+
+
+    public Random getRandom() {
+        return this.random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
 }
