@@ -95,7 +95,7 @@ public class TestJSONExtractObjects {
         JSONObject testgoals = JSONExtract.extractGoalsJSON("d_complexGoalsTest_andAll");
         List<GoalComponent>goals = JSONExtract.createGoalClasses(testgoals);
         assertEquals(1, goals.size());
-        assertEquals("((:exit && :treasure) && (:boulders && :enemies))", goals.get(0).toString());
+        assertEquals(":exit && :treasure && :boulders && :enemies", goals.get(0).toString());
     }
 
     @Test
@@ -114,7 +114,7 @@ public class TestJSONExtractObjects {
         List<GoalComponent>goals = JSONExtract.createGoalClasses(testgoals);
         assertEquals(1, goals.size());
         System.out.println(goals);
-        assertEquals("(:enemies && :treasure)", goals.get(0).toString());
+        assertEquals(":enemies && :treasure", goals.get(0).toString());
     }
     
 }
