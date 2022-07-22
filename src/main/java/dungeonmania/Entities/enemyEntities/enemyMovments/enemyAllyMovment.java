@@ -1,33 +1,39 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
+import dungeonmania.Entities.enemyEntities.Enemy;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
-import dungeonmania.Entities.enemyEntities.Mercenary;
+import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.staticEntities.Boulder;
 import dungeonmania.Entities.staticEntities.Door;
 import dungeonmania.Entities.staticEntities.Wall;
 import dungeonmania.util.Position;
 import dungeonmania.util.PositonDistance;
 
-public class mercenaryNormalMovementState implements enemyMovementState {
+public class enemyAllyMovment implements enemyMovementState {
+    
+    private Enemy enemy;
 
-    private Mercenary mercenary;
 
-
-    public mercenaryNormalMovementState(Mercenary mercenary){
-        this.mercenary = mercenary;
+    public enemyAllyMovment(Enemy enemy){
+        this.enemy = enemy;
     }
 
 
+
+
     public void move(GameController game){
-        Position mercenarypPosition = mercenary.getPosition();
-        Position playerPostion = game.findPlayer().getPosition();
+        Position mercenarypPosition = this.enemy.getPosition();
+        Position playerPostionprevious = game.getPlayerPositions().get(game.getPlayerPositions().size()-1);
         List<Position> AdjacentPositions = mercenarypPosition.getAdjacentPositions();
         List<PositonDistance> distanceAndPositions = new ArrayList<>();
 
+        //Add the current position to teh AdjacentPositionsList
+        AdjacentPositions.add(mercenarypPosition);
         //Delete the cardinally diagonal grids
         AdjacentPositions.remove(mercenarypPosition.translateBy(1, 1));
         AdjacentPositions.remove(mercenarypPosition.translateBy(1, -1));
@@ -54,16 +60,10 @@ public class mercenaryNormalMovementState implements enemyMovementState {
 
         //Loop through possible adjacent spaces and check the distance
         for(Position adjacentPosition : AdjacentPositions) {
-            double distance = PositonDistance.distancebetweenposition(playerPostion, adjacentPosition);
+            double distance = PositonDistance.distancebetweenposition(playerPostionprevious, adjacentPosition);
             PositonDistance dist = new PositonDistance(distance, adjacentPosition);
             distanceAndPositions.add(dist);
         }
-
-        
-        // Add current pos dist aswell
-        PositonDistance currDist = new PositonDistance(PositonDistance.distancebetweenposition(playerPostion, this.mercenary.getPosition()),
-         this.mercenary.getPosition());
-        distanceAndPositions.add(currDist);
 
         //Loop through and find the shortest distance between player and mercenary
         double shortestDistance = 1000;
@@ -76,8 +76,7 @@ public class mercenaryNormalMovementState implements enemyMovementState {
         }
 
         //Set the new Postion
-        mercenary.setPosition(shortDistance.getPosition());
-
+        this.enemy.setPosition(shortDistance.getPosition());
     }
 
     public void checkEntities(List<Entity> entities,List<Position> adjacentPositions) {
@@ -88,7 +87,7 @@ public class mercenaryNormalMovementState implements enemyMovementState {
                     adjacentPositions.remove(entity.getPosition());
                 }
             }
-            if (entity instanceof Boulder || entity instanceof Wall) {
+            if (entity instanceof Boulder || entity instanceof Wall || entity instanceof Player) {
                 adjacentPositions.remove(entity.getPosition());
             }    
         }
@@ -96,13 +95,13 @@ public class mercenaryNormalMovementState implements enemyMovementState {
 
 
 
-    public Mercenary getMercenary() {
-        return this.mercenary;
+
+    public Enemy getEnemy() {
+        return this.enemy;
     }
 
-    public void setMercenary(Mercenary mercenary) {
-        this.mercenary = mercenary;
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
     }
-
 
 }
