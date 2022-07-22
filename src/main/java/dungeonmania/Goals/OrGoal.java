@@ -14,16 +14,16 @@ public class OrGoal implements GoalComponent {
     }
 
     @Override
-    public boolean goalcompleted(GameController game) {
-        return this.getgoals().stream().anyMatch(g -> g.goalcompleted(game));
+    public boolean checkgoalcompleted(GameController game) {
+        return this.getgoals().stream().anyMatch(g -> g.checkgoalcompleted(game));
     }
 
     public List<GoalComponent> getgoals() {
-        return goals;
+        return this.goals;
     }
 
     public void addgoals(GoalComponent goal) {
-        goals.add(goal);
+        this.goals.add(goal);
     }
 
     @Override

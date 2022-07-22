@@ -7,7 +7,7 @@ import dungeonmania.Entities.staticEntities.Switch;
 public class BouldersGoal implements GoalComponent{
     
     @Override
-    public boolean goalcompleted(GameController game) {
+    public boolean checkgoalcompleted(GameController game) {
         int numSwitchNotActivated = 0;
         //Check if a switch is not activated
 
