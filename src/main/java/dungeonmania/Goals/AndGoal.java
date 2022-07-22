@@ -10,7 +10,6 @@ import dungeonmania.GameController;
 public class AndGoal implements GoalComponent {
     private List<GoalComponent> goals;
 
-    private List<GoalComponent> goals;
 
     private GoalComponent g1;
     private GoalComponent g2;
