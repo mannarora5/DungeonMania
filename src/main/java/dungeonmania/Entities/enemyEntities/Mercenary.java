@@ -8,11 +8,11 @@ import dungeonmania.Entities.Player.PlayerState.InvincibleState;
 import dungeonmania.Entities.Player.PlayerState.InvisibleState;
 import dungeonmania.Entities.Player.PlayerState.NormalState;
 import dungeonmania.Entities.Player.PlayerState.PlayerState;
+import dungeonmania.Entities.enemyEntities.enemyMovments.enemyAllyMovment;
+import dungeonmania.Entities.enemyEntities.enemyMovments.enemyHuntMovement;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
-import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryAllyMovementState;
-import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryNormalMovementState;
-import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryRandomMovementState;
-import dungeonmania.Entities.enemyEntities.enemyMovments.mercenaryScaredMovementState;
+import dungeonmania.Entities.enemyEntities.enemyMovments.enemyRandomMovement;
+import dungeonmania.Entities.enemyEntities.enemyMovments.enemyScaredMovement;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.Position;
 import dungeonmania.util.PositonDistance;
@@ -41,10 +41,10 @@ public class Mercenary extends Enemy implements EnemyObserver{
         this.mercenaryBribed = false;
 
         this.currentMercenaryHealth = Mercenary.mercenaryHealth;
-        this.allyMercenarystate = new mercenaryAllyMovementState(this);
-        this.normalMercenarystate = new mercenaryNormalMovementState(this);
-        this.scaredMercenaryMovement = new mercenaryScaredMovementState(this);
-        this.randomMercenaryMovement = new mercenaryRandomMovementState(this);
+        this.allyMercenarystate = new enemyAllyMovment(this);
+        this.normalMercenarystate = new enemyHuntMovement(this);
+        this.scaredMercenaryMovement = new enemyScaredMovement(this);
+        this.randomMercenaryMovement = new enemyRandomMovement(this);
         this.currentMovementState = this.normalMercenarystate;
     }
 

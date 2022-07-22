@@ -1,37 +1,41 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
+
+
 import java.util.List;
 import java.util.Random;
 
 import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
-import dungeonmania.Entities.enemyEntities.Mercenary;
+import dungeonmania.Entities.enemyEntities.Enemy;
 import dungeonmania.Entities.staticEntities.Boulder;
 import dungeonmania.Entities.staticEntities.Door;
 import dungeonmania.Entities.staticEntities.Portal;
 import dungeonmania.Entities.staticEntities.Wall;
 import dungeonmania.util.Position;
 
-public class mercenaryRandomMovementState implements enemyMovementState {
-    private Mercenary mercenary;
+
+public class enemyRandomMovement  implements enemyMovementState{
+
+    private Enemy enemy;
     private Random rand = new Random();
 
-
-    public mercenaryRandomMovementState(Mercenary mercenary){
-        this.mercenary = mercenary;
+    public enemyRandomMovement(Enemy enemy){
+        this.enemy = enemy;
     }
-    
+
+
 
     public void move(GameController game){
-        Position mercenaryCurrentPosition = mercenary.getPosition();
+        Position mercenaryCurrentPosition = this.enemy.getPosition();
         List<Entity> entities = game.getEntities();
         List<Position> AdjacentPositions = mercenaryCurrentPosition.getAdjacentPositions();
         List<Position> cloneAdjacentPositions = mercenaryCurrentPosition.getAdjacentPositions();
         //Delete all diagonally adjacent cells
-        AdjacentPositions.remove(mercenary.getPosition().translateBy(1, 1));
-        AdjacentPositions.remove(mercenary.getPosition().translateBy(1, -1));
-        AdjacentPositions.remove(mercenary.getPosition().translateBy(-1, -1));
-        AdjacentPositions.remove(mercenary.getPosition().translateBy(-1, 1));
+        AdjacentPositions.remove(this.enemy.getPosition().translateBy(1, 1));
+        AdjacentPositions.remove(this.enemy.getPosition().translateBy(1, -1));
+        AdjacentPositions.remove(this.enemy.getPosition().translateBy(-1, -1));
+        AdjacentPositions.remove(this.enemy.getPosition().translateBy(-1, 1));
 
         for(Entity entity: entities) {
             if (AdjacentPositions.contains(entity.getPosition()) == true) {
@@ -49,17 +53,18 @@ public class mercenaryRandomMovementState implements enemyMovementState {
         //Move zombie in random direction
         int randomIndex = rand.nextInt(AdjacentPositions.size());
         Position newPosition = AdjacentPositions.get(randomIndex);
-        mercenary.setPosition(newPosition);
+        this.enemy.setPosition(newPosition);
     }
 
 
+    
 
-    public Mercenary getMercenary() {
-        return this.mercenary;
+    public Enemy getEnemy() {
+        return this.enemy;
     }
 
-    public void setMercenary(Mercenary mercenary) {
-        this.mercenary = mercenary;
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
     }
 
     public Random getRand() {
@@ -70,5 +75,5 @@ public class mercenaryRandomMovementState implements enemyMovementState {
         this.rand = rand;
     }
 
+
 }
-    

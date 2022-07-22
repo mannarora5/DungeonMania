@@ -6,8 +6,8 @@ import dungeonmania.Entities.Player.PlayerState.InvincibleState;
 import dungeonmania.Entities.Player.PlayerState.NormalState;
 import dungeonmania.Entities.Player.PlayerState.PlayerState;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
-import dungeonmania.Entities.enemyEntities.enemyMovments.zombieRandomMovmentState;
-import dungeonmania.Entities.enemyEntities.enemyMovments.zombieScaredMovementState;
+import dungeonmania.Entities.enemyEntities.enemyMovments.enemyRandomMovement;
+import dungeonmania.Entities.enemyEntities.enemyMovments.enemyScaredMovement;
 import dungeonmania.util.Position;
 
 public class ZombieToast extends Enemy implements EnemyObserver{
@@ -27,8 +27,8 @@ public class ZombieToast extends Enemy implements EnemyObserver{
 
         this.currentzombieHealth = ZombieToast.zombieHealth;
 
-        this.normalZombieMovement = new zombieRandomMovmentState(this);
-        this.scaredZombieMovement = new zombieScaredMovementState(this);
+        this.normalZombieMovement = new enemyRandomMovement(this);
+        this.scaredZombieMovement = new enemyScaredMovement(this);
 
         this.currentMovementState = this.normalZombieMovement;
         

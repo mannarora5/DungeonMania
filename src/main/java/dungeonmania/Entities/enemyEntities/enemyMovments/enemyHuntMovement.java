@@ -1,29 +1,33 @@
 package dungeonmania.Entities.enemyEntities.enemyMovments;
 
+import dungeonmania.Entities.enemyEntities.Enemy;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
-import dungeonmania.Entities.enemyEntities.Mercenary;
 import dungeonmania.Entities.staticEntities.Boulder;
 import dungeonmania.Entities.staticEntities.Door;
 import dungeonmania.Entities.staticEntities.Wall;
 import dungeonmania.util.Position;
 import dungeonmania.util.PositonDistance;
 
-public class mercenaryScaredMovementState implements enemyMovementState{
-
-    private Mercenary mercenary;
+public class enemyHuntMovement  implements enemyMovementState{
 
 
-    public mercenaryScaredMovementState(Mercenary mercenary){
-        this.mercenary = mercenary;
+    private Enemy enemy;
+
+
+    public enemyHuntMovement(Enemy enemy){
+        this.enemy = enemy;
     }
 
 
+
+
     public void move(GameController game){
-        Position mercenarypPosition = mercenary.getPosition();
+        Position mercenarypPosition = this.enemy.getPosition();
         Position playerPostion = game.findPlayer().getPosition();
         List<Position> AdjacentPositions = mercenarypPosition.getAdjacentPositions();
         List<PositonDistance> distanceAndPositions = new ArrayList<>();
@@ -59,18 +63,24 @@ public class mercenaryScaredMovementState implements enemyMovementState{
             distanceAndPositions.add(dist);
         }
 
+        
+        // Add current pos dist aswell
+        PositonDistance currDist = new PositonDistance(PositonDistance.distancebetweenposition(playerPostion, this.enemy.getPosition()),
+         this.enemy.getPosition());
+        distanceAndPositions.add(currDist);
+
         //Loop through and find the shortest distance between player and mercenary
-        double highestdistance = 0;
-        PositonDistance furtheDistance = new PositonDistance(-1, UP);
+        double shortestDistance = 1000;
+        PositonDistance shortDistance = new PositonDistance(-1, UP);
         for (PositonDistance positonDistance: distanceAndPositions) {
-            if (highestdistance < positonDistance.getDistance()) {
-                furtheDistance = positonDistance;
-                highestdistance = positonDistance.getDistance();
+            if (shortestDistance > positonDistance.getDistance()) {
+                shortDistance = positonDistance;
+                shortestDistance = positonDistance.getDistance();
             }
         }
 
         //Set the new Postion
-        mercenary.setPosition(furtheDistance.getPosition());
+        this.enemy.setPosition(shortDistance.getPosition());
 
     }
 
@@ -86,17 +96,18 @@ public class mercenaryScaredMovementState implements enemyMovementState{
                 adjacentPositions.remove(entity.getPosition());
             }    
         }
-    } 
-
-
-
-
-    public Mercenary getMercenary() {
-        return this.mercenary;
     }
 
-    public void setMercenary(Mercenary mercenary) {
-        this.mercenary = mercenary;
+
+
+
+    public Enemy getEnemy() {
+        return this.enemy;
     }
 
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
+    }
+
+    
 }
