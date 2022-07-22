@@ -279,7 +279,7 @@ public class Player extends Entity implements PlayerStateSubject{
 
             List<RoundResponse> roundResponses = new ArrayList<RoundResponse>();
 
-            for (Round round: battle.rounds) {
+            for (Round round: battle.getRounds()) {
 
                 List<ItemResponse> weaponryUsed  = new ArrayList<ItemResponse>();
 
@@ -293,7 +293,7 @@ public class Player extends Entity implements PlayerStateSubject{
 
             }
 
-            responses.add(new BattleResponse(battle.enemy.getType(), roundResponses, battle.initialPlayerHealth, battle.initialEnemyHealth));
+            responses.add(new BattleResponse(battle.getEnemy().getType(), roundResponses, battle.getInitialPlayerHealth(), battle.getInitialEnemyHealth()));
 
         }
 

@@ -71,7 +71,7 @@ public class BattleHelper {
 
                         player.setCurrentplayerHealth(player.getCurrentplayerHealth() + deltaPlayerHealth);
 
-                        battle.rounds.add(new Round(deltaPlayerHealth, deltaEnemyHealth, weapons));
+                        battle.getRounds().add(new Round(deltaPlayerHealth, deltaEnemyHealth, weapons));
 
                         if (player.getCurrentplayerHealth() <= 0){
                             enmiesToRemvoe.add(player.getId());
