@@ -9,11 +9,17 @@ import org.json.JSONObject;
 
 import dungeonmania.Battle.BattleHelper;
 import dungeonmania.Entities.*;
+import dungeonmania.Entities.Player.Inventory;
 import dungeonmania.Entities.Player.Player;
+import dungeonmania.Entities.buildableEntities.Bow;
+import dungeonmania.Entities.buildableEntities.MidnightArmour;
+import dungeonmania.Entities.buildableEntities.Sceptre;
+import dungeonmania.Entities.buildableEntities.Shield;
 import dungeonmania.Entities.collectableEntities.Bomb;
 import dungeonmania.Entities.enemyEntities.Enemy;
 import dungeonmania.Entities.enemyEntities.EnemyObserver;
 import dungeonmania.Entities.enemyEntities.SpiderSpawnner;
+import dungeonmania.Entities.enemyEntities.ZombieToast;
 import dungeonmania.Entities.staticEntities.Portal;
 import dungeonmania.Entities.staticEntities.zombieSpawner;
 import dungeonmania.Goals.GoalComponent;
@@ -169,17 +175,38 @@ public class GameController {
         }
     }
 
+
+    public void builditem(String buildable) throws InvalidActionException{
+
+        Inventory inventory = findPlayer().getInventory();
+
+        if (buildable.equals("bow")) {
+
+            Bow.buildBow(inventory);
+            
+        } else if (buildable.equals("shield")) {
+
+            Shield.buildShield(inventory);
+
+        } else if (buildable.equals("sceptre")){ 
+
+            Sceptre.buildSceptre(inventory);
+
+        } else if (buildable.equals("midnight_armour")) {
+
+            for (Entity e : this.entities){
+                if (e instanceof ZombieToast){
+                    throw new InvalidActionException("Zombies present cannot build armour");
+                }
+            }
+
+            MidnightArmour.buildArmour(inventory);
+        }
+
+    }
     
 
-    public void buildBow() throws InvalidActionException {
-        this.findPlayer().getInventory().buildbow();
-    }
 
-    public void buildShield() throws InvalidActionException {
-        this.findPlayer().getInventory().buildshield();
-    }
-
-    
 
     public List<EntityResponse> getEntityResponses(){
         List<EntityResponse> responses = new ArrayList<EntityResponse>();
@@ -211,11 +238,13 @@ public class GameController {
     }
 
     public Player findPlayer(){
-        return entities.stream().filter(entity -> entity instanceof Player).map(entity -> (Player) entity).findFirst().orElse(null);
+        return entities.stream().filter(entity -> entity instanceof Player).
+                map(entity -> (Player) entity).findFirst().orElse(null);
     }
 
     public List<zombieSpawner> findZombieSpawner(){
-        return entities.stream().filter(entity -> entity instanceof zombieSpawner).map(entity -> (zombieSpawner) entity).collect(Collectors.toList());
+        return entities.stream().filter(entity -> entity instanceof zombieSpawner).
+                map(entity -> (zombieSpawner) entity).collect(Collectors.toList());
     }
 
     public List<Entity> getEntities() {

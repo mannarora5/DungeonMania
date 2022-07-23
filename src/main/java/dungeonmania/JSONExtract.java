@@ -12,6 +12,8 @@ import org.json.JSONObject;
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.buildableEntities.Bow;
+import dungeonmania.Entities.buildableEntities.MidnightArmour;
+import dungeonmania.Entities.buildableEntities.Sceptre;
 import dungeonmania.Entities.buildableEntities.Shield;
 import dungeonmania.Entities.collectableEntities.Arrow;
 import dungeonmania.Entities.collectableEntities.Bomb;
@@ -206,6 +208,23 @@ public class JSONExtract {
 
 
 
+        // Milestone 3 configs
+
+        if (configs.has("mind_control_duration")) {
+            Integer mind_control_duration  = (Integer) configs.get("mind_control_duration");
+            Sceptre.setMindControlDuration(mind_control_duration);
+        }
+
+        if (configs.has("midnight_armour_attack")){
+            Integer midnight_armour_attack  = (Integer) configs.get("midnight_armour_attack");
+            MidnightArmour.setArmourAttack(midnight_armour_attack);
+        }
+
+        if (configs.has("midnight_armour_defence")) {
+            Integer midnight_armour_defence  = (Integer) configs.get("midnight_armour_defence");
+            MidnightArmour.setArmourDefence(midnight_armour_defence);
+        }
+
 
     }
 
@@ -306,7 +325,8 @@ public class JSONExtract {
                 
             } else if (entityType.equals("sun_stone")) {
                 entitiesList.add(new Sunstone(Id, position));
-            }
+
+            } 
 
             setEntities_created(getEntities_created() + 1);
         }

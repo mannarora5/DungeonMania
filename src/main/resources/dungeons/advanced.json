@@ -214,7 +214,7 @@
       {
         "x": 13,
         "y": 4,
-        "type": "bomb"
+        "type": "sun_stone"
       },
       {
         "x": 17,
@@ -229,7 +229,7 @@
       {
         "x": 3,
         "y": 5,
-        "type": "mercenary"
+        "type": "treasure"
       },
       {
         "x": 4,
@@ -404,7 +404,7 @@
       {
         "x": 7,
         "y": 10,
-        "type": "treasure"
+        "type": "mercenary"
       },
       {
         "x": 15,
