@@ -51,6 +51,7 @@ This specification is broken into four parts:
 - Fri 22 Jul 3pm - Add rewind buttons for `time_turner` to frontend
 - Fri 22 Jul 3pm - Add dungeon generation to frontend and fix method signature for `generateDungeon`
 - Fri 22 Jul 5pm - Clarify Sun Stone and Sceptre.
+- Sat 23 Jul 12pm - Time travel clarifications
 
 ## 1. Aims
 
@@ -308,7 +309,7 @@ This part of the extension includes the following new entity:
 | --------- | --------------|
 | Time Travelling Portal | <img src="images/time_portal.png" /> |
 
-If a player travels through a time travelling portal, they exit through the same portal, except the dungeon state is that of 30 ticks previously.
+If a player travels through a time travelling portal, they exit through the same portal in a square cardinally adjacent to the portal, except the dungeon state is that of 30 ticks previously. If less than 30 ticks have passed, then the dungeon state is simply the initial dungeon state.
 
 #### 3.11.3 Time Travel Rules
 
@@ -325,7 +326,9 @@ Only the character can travel through time travel portals.
 Implementation Hint
 </summary>
 
-The design of this extension is up to you, however we recommend you treat time travel as moving backwards in a series of game states that are being stored (the state of the dungeon at tick X). When time travel occurs, the player is transported to that state, and all `tick` and `interact` functions are "played" out in the same order.
+The design of this extension is up to you, however we recommend you treat time travel as moving backwards in a series of game states that are being stored (the state of the dungeon at tick X). When time travel occurs, the player is transported to that state, and all `tick` and `interact` functions are "played" out in the same order *for the older player*, not the current player.
+
+This also means that when the older player reaches the tick during which they time travelled (either by using a time turner or through a portal), they should be removed from the map.
 
 </details>
 
