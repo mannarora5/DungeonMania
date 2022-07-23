@@ -22,20 +22,22 @@ public class Door extends Static {
      */
     public boolean openDoor(Inventory inventory){
 
-        if(inventory.hasKey()){
+        if (inventory.hasSunStone()) {
+            
+            setOpen(true);
+            super.setType("door_open");
+            return true; 
+
+        }else if(inventory.hasKey()){
             Key k = inventory.getKey();
             if(this.key == k.getDigit()){
                 setOpen(true);
                 super.setType("door_open");
-                inventory.removeMultipleItems("key", 1); // Can remove later with use interface
+                inventory.removeMultipleItems("key", 1); 
                 return true;
             } 
-            if (inventory.hasSunStone()) {
-                setOpen(true);
-                super.setType("door_open");
-                return true; 
-            }
-        }
+
+        } 
         return false;
     }
 

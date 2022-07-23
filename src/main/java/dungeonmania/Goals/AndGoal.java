@@ -151,7 +151,6 @@ public class AndGoal implements GoalComponent {
         return goals;
     }
 
-
     public void setGoals(List<GoalComponent> goals) {
         this.goals = goals;
     }
