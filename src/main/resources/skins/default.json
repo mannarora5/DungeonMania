@@ -39,6 +39,7 @@
         "zombie_toast_spawner": "images/tileset/entities/zombie_spawner.png",
         "zombie_toast": "images/tileset/entities/zombie.png",
         "boulders": "images/tileset/entities/boulder_00.png",
-        "enemies": "images/tileset/items/sword_silver.png"
+        "enemies": "images/tileset/items/sword_silver.png",
+        "sun_stone": "images/tileset/items/sun_stone.png"
     }
 }
