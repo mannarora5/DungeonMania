@@ -2,12 +2,14 @@ package dungeonmania.Entities.enemyEntities;
 
 
 import dungeonmania.GameController;
+import dungeonmania.Entities.Player.Inventory;
 import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.Player.PlayerStateSubject;
 import dungeonmania.Entities.Player.PlayerState.InvincibleState;
 import dungeonmania.Entities.Player.PlayerState.InvisibleState;
 import dungeonmania.Entities.Player.PlayerState.NormalState;
 import dungeonmania.Entities.Player.PlayerState.PlayerState;
+import dungeonmania.Entities.buildableEntities.Sceptre;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyAllyMovment;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyHuntMovement;
 import dungeonmania.Entities.enemyEntities.enemyMovments.enemyMovementState;
@@ -26,6 +28,7 @@ public class Mercenary extends Enemy implements EnemyObserver{
     public static int bribeRadius;
 
     private boolean mercenaryBribed;
+    private int mindControlDuration;
 
     private double currentMercenaryHealth;
 
@@ -46,26 +49,29 @@ public class Mercenary extends Enemy implements EnemyObserver{
         this.scaredMercenaryMovement = new enemyScaredMovement(this);
         this.randomMercenaryMovement = new enemyRandomMovement(this);
         this.currentMovementState = this.normalMercenarystate;
+        this.mindControlDuration = 0;
     }
 
-    /**
-     * Set attack damage of mercenary
-     * @param enemyAttack
-     */
-    public static void setMecenaryAttack(int enemyAttack) {
-        Mercenary.mercenaryAttack = enemyAttack;
-    }
-
-    /**
-     * Set Mercenary Health
-     * @param enemyHealth
-     */
-    public static void setMecenaryHealth(int enemyHealth) {
-        Mercenary.mercenaryHealth = enemyHealth;
-    }
 
     public void move(GameController game) {
-        this.currentMovementState.move(game);
+
+
+        if(this.mindControlDuration > 0) {
+            // Mind control active 
+            this.currentMovementState.move(game);
+
+            this.decreaseMindControlDuration();
+
+            // Mind control finish
+            if (this.mindControlDuration <= 0){
+                this.currentMovementState = this.normalMercenarystate;
+                this.mercenaryBribed = false;
+            }
+
+        } else {
+            this.currentMovementState.move(game);
+        }
+
     }
 
     @Override
@@ -102,22 +108,6 @@ public class Mercenary extends Enemy implements EnemyObserver{
         
     }
 
-    /**
-     * Set bribe amount for merecenary
-     * @param bribe_amount
-     */
-    public static void setBribe_amount(int bribe_amount) {
-        Mercenary.bribeAmount = bribe_amount;
-    }
-
-    /**
-     * Set bribe radius for mercenary
-     * @param bribe_radius
-     */
-    public static void setBribe_radius(int bribe_radius) {
-        Mercenary.bribeRadius = bribe_radius;
-    }
-
     
     /**
      * Bribes mecenary
@@ -128,10 +118,19 @@ public class Mercenary extends Enemy implements EnemyObserver{
     public void bribe(GameController game, Player player) throws InvalidActionException {
 
         if (this.getMercenaryBribed()){
-            throw new InvalidActionException("Mercenary already bribed");
+            throw new InvalidActionException("Mercenary already bribed/mind controlled");
         }
 
-       int quantity = player.getInventory().quantity("treasure");
+        Inventory inventory = player.getInventory();
+
+        Sceptre sceptre =  inventory.getSceptre();
+
+        if (sceptre != null){
+            this.mindControl(player);
+            return;
+        }
+
+       int quantity = inventory.quantity("treasure");
        // check if player has enough treasure to bribe mercenary 
        if (quantity < Mercenary.bribeAmount) {
         throw new InvalidActionException("Not enough treasure for bribe");
@@ -142,7 +141,7 @@ public class Mercenary extends Enemy implements EnemyObserver{
        // checks if player is in radius of enemy
        if (distance <= Mercenary.bribeRadius) {
 
-            player.getInventory().removeMultipleItems("treasure", quantity);
+            inventory.removeMultipleItems("treasure", quantity);
             this.setMercenaryBribed(true);
             this.setCurrentMovementState(this.getAllyMercenarystate());
             player.increaseAlly();
@@ -151,6 +150,21 @@ public class Mercenary extends Enemy implements EnemyObserver{
         throw new InvalidActionException("Not in radius to bribe mercenary");
        }
 
+
+    }
+
+
+    public void mindControl(Player player) {
+
+        this.mercenaryBribed = true;
+
+        this.mindControlDuration = Sceptre.mindControlDuration;
+
+        this.currentMovementState = this.allyMercenarystate;
+
+        player.getInventory().removeMultipleItems("sceptre", 1);
+
+        player.increaseAlly();
 
     }
 
@@ -246,6 +260,51 @@ public class Mercenary extends Enemy implements EnemyObserver{
 
     
 
+    public int getMindControlDuration() {
+        return this.mindControlDuration;
+    }
 
+    public void setMindControlDuration(int mindControlDuration) {
+        this.mindControlDuration = mindControlDuration;
+    }
+
+
+    /**
+     * Set attack damage of mercenary
+     * @param enemyAttack
+     */
+    public static void setMecenaryAttack(int enemyAttack) {
+        Mercenary.mercenaryAttack = enemyAttack;
+    }
+
+    /**
+     * Set Mercenary Health
+     * @param enemyHealth
+     */
+    public static void setMecenaryHealth(int enemyHealth) {
+        Mercenary.mercenaryHealth = enemyHealth;
+    }
+
+    public void decreaseMindControlDuration(){
+        this.mindControlDuration += -1;
+    }
+
+
+
+        /**
+     * Set bribe amount for merecenary
+     * @param bribe_amount
+     */
+    public static void setBribe_amount(int bribe_amount) {
+        Mercenary.bribeAmount = bribe_amount;
+    }
+
+    /**
+     * Set bribe radius for mercenary
+     * @param bribe_radius
+     */
+    public static void setBribe_radius(int bribe_radius) {
+        Mercenary.bribeRadius = bribe_radius;
+    }
     
 }

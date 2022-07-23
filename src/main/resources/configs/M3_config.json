@@ -22,7 +22,7 @@
     "mercenary_health": 5,
     "midnight_armour_attack": 2,
     "midnight_armour_defence": 2,
-    "mind_control_duration": 3,
+    "mind_control_duration": 30,
     "player_attack": 10,
     "player_health": 10,
     "shield_defence": 1,

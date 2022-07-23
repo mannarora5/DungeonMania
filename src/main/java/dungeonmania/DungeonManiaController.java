@@ -17,6 +17,7 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DungeonManiaController {
@@ -126,10 +127,12 @@ public class DungeonManiaController {
      */
     public DungeonResponse build(String buildable) throws IllegalArgumentException, InvalidActionException {
 
-        if (buildable.equals("bow")) {
-            this.game.buildBow();
-        } else if (buildable.equals("shield")) {
-            this.game.buildShield();
+        List<String> buildables = Arrays.asList("bow","shield","sceptre","midnight_armour");
+
+        if (buildables.contains(buildable.toString())) {
+            
+            this.game.builditem(buildable);
+
         } else {
             throw new IllegalArgumentException(buildable);
         }

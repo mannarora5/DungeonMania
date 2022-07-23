@@ -71,7 +71,7 @@ public class TestJSONExtractObjects {
 
         JSONObject test = JSONExtract.extractConfigJSON("c_battleTests_basicMercenaryMercenaryDies");
 
-        assertEquals(24, test.length());
+        assertEquals(37, test.length());
         assertEquals(1, test.get("bomb_radius"));
         assertEquals(1, test.get("enemy_goal"));
         assertEquals(5, test.get("spider_attack"));

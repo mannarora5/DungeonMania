@@ -3,8 +3,9 @@ package dungeonmania.Entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-import dungeonmania.JSONExtract;
 import dungeonmania.Entities.buildableEntities.Bow;
+import dungeonmania.Entities.buildableEntities.MidnightArmour;
+import dungeonmania.Entities.buildableEntities.Sceptre;
 import dungeonmania.Entities.buildableEntities.Shield;
 import dungeonmania.Entities.collectableEntities.Arrow;
 import dungeonmania.Entities.collectableEntities.Collectable;
@@ -13,9 +14,7 @@ import dungeonmania.Entities.collectableEntities.Sunstone;
 import dungeonmania.Entities.collectableEntities.Sword;
 import dungeonmania.Entities.collectableEntities.Treasure;
 import dungeonmania.Entities.collectableEntities.Wood;
-import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.response.models.ItemResponse;
-import dungeonmania.util.Position;
 
 public class Inventory {
     private List<Collectable> items;
@@ -112,6 +111,7 @@ public class Inventory {
         Integer noKey = 0;
         Integer noTreasure = 0;
         Integer noSunStone = 0;
+        Integer noSword = 0;
 
         for (Collectable item: items){
 
@@ -123,8 +123,10 @@ public class Inventory {
                 noKey++;
             } else if (item instanceof Treasure) {
                 noTreasure++;
-            } else if (item instanceof Sunstone) {
+            } else if (item instanceof Sunstone){
                 noSunStone++;
+            } else if (item instanceof Sword){
+                noSword++;
             }
         }
 
@@ -133,78 +135,28 @@ public class Inventory {
             builds.add("bow");
         }
 
-        if (noWood >= 2 && (noTreasure >= 1 || noKey >= 1 || noSunStone >= 1)) {
+        if (noSunStone >= 1 && noSword >= 1) {
+            builds.add("midnight_armour");
+        }
+
+        if (noWood >= 2 && (noTreasure >= 1 || noKey >= 1)) {
             builds.add("shield");
         }
+
+        if ((noWood >= 1 || noArrows >= 2) && (noTreasure >= 1 || noKey >= 1) && noSunStone >= 1) {
+            builds.add("sceptre");
+        } else if ((noWood >= 1 || noArrows >= 2) && noSunStone >= 2){
+            builds.add("sceptre");
+
+        }
+
 
         return builds;
     }
 
 
-    /**
-     * Built the bow using wood and arrow
-     * @throws InvalidActionException
-     */
-    public void buildbow() throws InvalidActionException{
-        
-        int woodAmount = this.quantity("wood");
-        int arrowAmount = this.quantity("arrow");
 
-        if (woodAmount < 1) {
-            throw new InvalidActionException("Not enough wood to build bow");
-        } else if (arrowAmount < 3) {
-            throw new InvalidActionException("Not enough arrows to build bow");
-        } else {
-            this.removeMultipleItems("wood", 1);
-            this.removeMultipleItems("arrow", 3);
-
-            this.addItem(new Bow("1000", new Position(-1000, -1000)));
-        }
-    }
-
-    /**
-     * Build shield using wood, key and treausre
-     * @throws InvalidActionException
-     */
-    public void buildshield() throws InvalidActionException{
-
-        int woodAmount = this.quantity("wood");
-        int keyAmount = this.quantity("key");
-        int treasureAmount = this.quantity("treasure");
-        int sunstoneAmount = this.quantity("sun_stone");
-
-
-        if (woodAmount < 2) {
-
-            throw new InvalidActionException("Not enough wood to build shield");
-
-        } else if (keyAmount < 1 && treasureAmount < 1 && sunstoneAmount < 1) {
-
-            throw new InvalidActionException("Not enough treasure,key, or Sun Stone to build shield");
-
-        } else {
-
-            this.removeMultipleItems("wood", 2);
-
-            if (sunstoneAmount > 0) { 
-                // Do not remove
-                
-            } else if (treasureAmount > 0) {
-                this.removeMultipleItems("treasure", 1);
-            } else {
-                this.removeMultipleItems("key", 1);
-            }
-
-
-            String id = JSONExtract.getEntities_created().toString();
-            JSONExtract.increaseEntitiesCreates();
-
-            this.addItem(new Shield(id, new Position(-1000, -1000)));
-        }
-        
-    }
-
-
+ 
     public Bow getBow(){
         
         for (Collectable i: this.items) {
@@ -233,6 +185,28 @@ public class Inventory {
         for (Collectable i: this.items) {
             if (i instanceof Sword) {
                 return (Sword)i;
+            }
+        }
+
+        return null;   
+    }
+
+    public MidnightArmour getArmour(){
+
+        for (Collectable i: this.items) {
+            if (i instanceof MidnightArmour) {
+                return (MidnightArmour)i;
+            }
+        }
+
+        return null;   
+    }
+
+    public Sceptre getSceptre(){
+
+        for (Collectable i: this.items) {
+            if (i instanceof Sceptre) {
+                return (Sceptre)i;
             }
         }
 

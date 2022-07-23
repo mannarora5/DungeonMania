@@ -9,6 +9,7 @@ import dungeonmania.Entities.Player.Player;
 import dungeonmania.Entities.Player.PlayerState.InvincibleState;
 import dungeonmania.Entities.Player.PlayerState.PlayerState;
 import dungeonmania.Entities.buildableEntities.Bow;
+import dungeonmania.Entities.buildableEntities.MidnightArmour;
 import dungeonmania.Entities.buildableEntities.Shield;
 import dungeonmania.Entities.collectableEntities.Collectable;
 import dungeonmania.Entities.collectableEntities.Sword;
@@ -149,11 +150,15 @@ public class BattleHelper {
 
         Bow bow = player.getInventory().getBow();
         Sword sword = player.getInventory().getSword();
+        MidnightArmour armour = player.getInventory().getArmour();
+
         int noAllies = player.getNoAlly();
 
         int bowBonus = 2;
         int swordBonus = Sword.swordAttack;
         int mercenaryBonus = Mercenary.mercenaryAttack * noAllies;
+        double armourAttack = MidnightArmour.armourAttack;
+
 
         if (bow == null){
             bowBonus = 1;
@@ -176,9 +181,11 @@ public class BattleHelper {
             }
         }
 
+        if (armour == null) {
+            armourAttack = 0;
+        }
 
-       
-        double div = (double) (bowBonus * (Player.playerAttack.intValue() + swordBonus)) / 5.0;
+        double div = (double) (bowBonus * (Player.playerAttack.intValue() + swordBonus + armourAttack)) / 5.0;
 
         return  ( div + mercenaryBonus);
 
@@ -188,8 +195,10 @@ public class BattleHelper {
     public static double getEnemyAttack(Enemy enemy, Player player){
 
         Shield shield = player.getInventory().getShield();
+        MidnightArmour armour = player.getInventory().getArmour();
 
         double shieldDefence = Shield.shieldDefence;
+        double armourDefence = MidnightArmour.armourDefence;
 
         if (shield == null){
             shieldDefence = 0;
@@ -200,6 +209,11 @@ public class BattleHelper {
             }
         }
 
-        return (enemy.getEnemyAttack() - shieldDefence) / 10;
+        if (armour == null) {
+            armourDefence = 0;
+        }
+
+
+        return (enemy.getEnemyAttack() - shieldDefence - armourDefence) / 10;
     }   
 }
