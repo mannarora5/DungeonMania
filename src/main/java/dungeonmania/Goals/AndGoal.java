@@ -1,5 +1,6 @@
 package dungeonmania.Goals;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
 import dungeonmania.GameController;
 
 
-public class AndGoal implements GoalComponent {
+public class AndGoal implements GoalComponent, Serializable  {
     private List<GoalComponent> goals;
 
 

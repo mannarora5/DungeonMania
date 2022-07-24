@@ -16,6 +16,7 @@ import dungeonmania.response.models.ItemResponse;
 import dungeonmania.util.Direction;
 import dungeonmania.util.FileLoader;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -173,23 +174,107 @@ public class DungeonManiaController {
 
     /**
      * /game/save
+     * @throws IOException
      */
     public DungeonResponse saveGame(String name) throws IllegalArgumentException {
-        return null;
+
+        // If name given already corresponds to the saved dungeon then update with current game
+
+        String path = "./savedDungeons/" + name + ".ser";
+        File file =  new File(path);
+
+        if (file.exists()){
+            file.delete();
+        }
+
+        try {
+            file.createNewFile();
+
+            FileOutputStream fileStream = new FileOutputStream(file);
+            ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+
+            objectStream.writeObject(this.game);
+
+            objectStream.close();
+            fileStream.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return getDungeonResponseModel();
+        }
+
+        return getDungeonResponseModel();
     }
 
     /**
      * /game/load
+     * @throws IOException
      */
-    public DungeonResponse loadGame(String name) throws IllegalArgumentException {
-        return null;
+    public DungeonResponse loadGame(String name) throws IllegalArgumentException{
+
+
+        String path = "./savedDungeons/" + name + ".ser";
+        File file =  new File(path);
+
+        if (!file.exists()){
+            throw new IllegalArgumentException("Invalid game name");
+        }
+
+        try {
+
+
+            FileInputStream fileStream = new FileInputStream(file);
+
+            ObjectInputStream objectStream = new ObjectInputStream(fileStream);
+
+            GameController gamObject = (GameController) objectStream.readObject();
+
+            this.game = gamObject;
+            this.dungeonName = name;
+
+            objectStream.close();
+            fileStream.close();
+
+
+        } catch (FileNotFoundException e) {
+
+            e.printStackTrace();
+            return getDungeonResponseModel();
+
+        }  catch (IOException e) {
+
+            e.printStackTrace();
+            return getDungeonResponseModel();
+
+        } catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+            return getDungeonResponseModel();
+
+        }
+
+        return getDungeonResponseModel();
     }
 
     /**
      * /games/all
      */
     public List<String> allGames() {
-        return new ArrayList<>();
+
+
+        List<String> gameNames = new ArrayList<>();
+
+        File saveFolder = new File("./savedDungeons");
+
+        File[] files = saveFolder.listFiles();
+
+        for (int i = 0; i < files.length; i++){
+            String name = files[i].getName().replace(".ser", "");
+            gameNames.add(name);
+        }
+
+        return gameNames;
     }
 
 }

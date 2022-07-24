@@ -1,11 +1,12 @@
 package dungeonmania.Goals;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import dungeonmania.GameController;
 
-public class OrGoal implements GoalComponent {
+public class OrGoal implements GoalComponent, Serializable {
     private List<GoalComponent> goals = new ArrayList<>();
 
     

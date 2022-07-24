@@ -1,5 +1,6 @@
 package dungeonmania;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ import dungeonmania.util.Direction;
 import dungeonmania.util.Position;
 
 
-public class GameController {
+public class GameController implements Serializable {
     
     private List<Entity> entities;
     private List<GoalComponent> goals;
