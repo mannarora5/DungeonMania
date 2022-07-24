@@ -54,6 +54,7 @@ This specification is broken into four parts:
 - Sat 23 Jul 12pm - Time travel clarifications
 - Sat 23 Jul 9pm - Clarify dungeon generation and time travel behaviour
 - Sun 24 Jul 9am - Fix description for exceptions in `interact()` and description for sun stone
+- Sun 24 Jul 9pm - Clarify dungeon state after time travel
 
 ## 1. Aims
 
@@ -323,7 +324,7 @@ When a character has time travelled, either by the rewind buttons or via a time 
 
 Only the character can travel through time travel portals.
 
-The older player should still collect items and play out all `tick` and `interact` movements with those items as they did before.
+The older player should still collect items and play out all `tick` and `interact` movements with those items as they did before. Time travel takes the player to *prior* the tick takes place, e.g. if on tick 30 the player travels through a portal it arrives out of the other side before the beginning of tick 0.
 
 <details>
 <summary>
