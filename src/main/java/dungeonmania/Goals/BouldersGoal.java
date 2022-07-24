@@ -1,10 +1,12 @@
 package dungeonmania.Goals;
 
+import java.io.Serializable;
+
 import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.staticEntities.Switch;
 
-public class BouldersGoal implements GoalComponent{
+public class BouldersGoal implements GoalComponent, Serializable {
     
     @Override
     public boolean checkgoalcompleted(GameController game) {

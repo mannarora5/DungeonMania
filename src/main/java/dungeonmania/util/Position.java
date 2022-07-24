@@ -1,10 +1,11 @@
 package dungeonmania.util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public final class Position {
+public final class Position implements Serializable{
     private final int x, y, layer;
 
     public Position(int x, int y, int layer) {

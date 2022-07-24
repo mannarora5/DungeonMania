@@ -1,10 +1,12 @@
 package dungeonmania.Goals;
 
+import java.io.Serializable;
+
 import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.staticEntities.zombieSpawner;
 
-public class EnemyGoal implements GoalComponent {
+public class EnemyGoal implements GoalComponent, Serializable {
 
     private static int totalEnemies;  
 

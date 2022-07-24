@@ -1,8 +1,10 @@
 package dungeonmania.Goals;
 
+import java.io.Serializable;
+
 import dungeonmania.GameController;
 
-public class TreasureGoal implements GoalComponent{
+public class TreasureGoal implements GoalComponent, Serializable{
 
     private static int totalTreasure;
 

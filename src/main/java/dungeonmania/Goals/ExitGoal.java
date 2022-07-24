@@ -1,10 +1,12 @@
 package dungeonmania.Goals;
 
+import java.io.Serializable;
+
 import dungeonmania.GameController;
 import dungeonmania.Entities.Entity;
 import dungeonmania.Entities.staticEntities.Exit;
 
-public class ExitGoal implements GoalComponent{
+public class ExitGoal implements GoalComponent, Serializable{
     
     @Override
     public boolean checkgoalcompleted(GameController game) {
