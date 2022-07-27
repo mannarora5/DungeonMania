@@ -55,6 +55,9 @@ This specification is broken into four parts:
 - Sat 23 Jul 9pm - Clarify dungeon generation and time travel behaviour
 - Sun 24 Jul 9am - Fix description for exceptions in `interact()` and description for sun stone
 - Sun 24 Jul 9pm - Clarify dungeon state after time travel
+- Sun 24 Jul 11pm - Revert bad spec update and clarify `hydra_health_increase_rate`
+- Tue 26 Jul 11pm - Clarify logical entity input
+- Wed 27 Jul 8am - (Important) Update exit location of player out of time portal
 
 ## 1. Aims
 
@@ -312,7 +315,7 @@ This part of the extension includes the following new entity:
 | --------- | --------------|
 | Time Travelling Portal | <img src="images/time_portal.png" /> |
 
-If a player travels through a time travelling portal, they exit through the same portal in a square cardinally adjacent to the portal, except the dungeon state is that of 30 ticks previously. If less than 30 ticks have passed, then the dungeon state is simply the initial dungeon state.
+If a player travels through a time travelling portal, they end up on the same square as the portal, except the dungeon state is that of 30 ticks previously. If less than 30 ticks have passed, then the dungeon state is simply the initial dungeon state.
 
 #### 3.11.3 Time Travel Rules
 
@@ -324,7 +327,7 @@ When a character has time travelled, either by the rewind buttons or via a time 
 
 Only the character can travel through time travel portals.
 
-The older player should still collect items and play out all `tick` and `interact` movements with those items as they did before. Time travel takes the player to *prior* the tick takes place, e.g. if on tick 30 the player travels through a portal it arrives out of the other side before the beginning of tick 0.
+The older player should still collect items and play out all `tick` and `interact` movements with those items as they did before. Time travel takes the player to *after* the tick takes place, e.g. if on tick 30 the player travels through a portal it arrives out of the other side after tick 0 has taken place.
 
 <details>
 <summary>
@@ -505,7 +508,7 @@ Some entities will contain additional fields in their JSON entry, namely:
 
 #### 4.1.3 Further Extra Fields 💀
 
-- All logical entities will be created with the field `logic` which will be one of `and`, `or`, `xor`, or `co_and`.
+- All logical entities will be created with the field `logic` which will be one of `and`, `or`, `xor`, or `co_and`. Milestone 2 entities (bombs, switches) that do not have a logic field cannot be activated by wires and act as they did in Milestone 2. Milestone 3 logical entities (light bulbs, switch doors) will always be created with a logic field. Regular doors will never be created with a logic field.
 - All swamp tiles will be created with a field `movement_factor` which will be the tile's movement factor, an integer >= 0.
 - Switch doors will also have keys.
 
@@ -581,7 +584,7 @@ In Milestone 3, the following configuration fields have been added.
 | `assassin_recon_radius`        | The radius within which an assassin can see and move towards the player even when they are invisible. |
 | `hydra_attack`                 | Attack damage of the hydra. |
 | `hydra_health`                 | Health of the hydra. |
-| `hydra_health_increase_rate`   | The chance that the health of a Hydra increases when it gets attacked. The value of this field should be always inclusively between 0 and 1. |
+| `hydra_health_increase_rate`   | The chance that the health of a Hydra increases when it gets attacked each round. The value of this field should be always inclusively between 0 and 1. |
 | `hydra_health_increase_amount` | The increment on the health of a Hydra increases when it gets attacked. |
 | `mind_control_duration`        | The amount of time mind controlling via a sceptre lasts for. |
 | `midnight_armour_attack`       | Attack bonus wearing midnight armour gives to the player. |
