@@ -50,6 +50,7 @@ This specification is broken into four parts:
 - Fri 22 Jul 8am - Remove stale `gameMode` parameter from `generateDungeon`
 - Fri 22 Jul 3pm - Add rewind buttons for `time_turner` to frontend
 - Fri 22 Jul 3pm - Add dungeon generation to frontend and fix method signature for `generateDungeon`
+- Tue 26 Jul 5pm - Remove `switch_door` from logic images
 - Fri 22 Jul 5pm - Clarify Sun Stone and Sceptre.
 - Sat 23 Jul 12pm - Time travel clarifications
 - Sat 23 Jul 9pm - Clarify dungeon generation and time travel behaviour
