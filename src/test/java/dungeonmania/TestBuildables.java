@@ -48,6 +48,7 @@ public class TestBuildables {
         Key k = new Key("1", new Position(0,0), 1);
 
         inventory .addItem(k);
+        assert(inventory.quantity("key") == 1);
         Shield.buildShield(inventory);
 
         assert(inventory.quantity("shield") == 1);

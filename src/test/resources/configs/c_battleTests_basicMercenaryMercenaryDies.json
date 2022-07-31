@@ -19,8 +19,8 @@
   "bribe_amount": 1,
   "bribe_radius": 1,
   "enemy_goal": 1,
-  "invincibility_potion_duration": 1,
-  "invisibility_potion_duration": 1,
+  "invincibility_potion_duration": 30,
+  "invisibility_potion_duration": 30,
   "mercenary_attack": 5,
   "mercenary_health": 5,
   "player_attack": 10,
@@ -35,5 +35,6 @@
   "treasure_goal": 1,
   "zombie_attack": 5,
   "zombie_health": 5,
-  "zombie_spawn_rate": 0
+  "zombie_spawn_rate": 10
+  
 }

@@ -306,5 +306,20 @@ public class Mercenary extends Enemy implements EnemyObserver{
     public static void setBribe_radius(int bribe_radius) {
         Mercenary.bribeRadius = bribe_radius;
     }
-    
+
+    public int checkMercenaryMovement(enemyMovementState currentMovementState) {
+        if(currentMovementState == this.normalMercenarystate) {
+            return 1;
+        }
+        if (currentMovementState == this.allyMercenarystate) {
+            return 2;
+        }
+        if (currentMovementState == this.randomMercenaryMovement) {
+            return 3;
+        }
+        if (currentMovementState == this.scaredMercenaryMovement) {
+            return 4;
+        }
+        return 0;
+    }
 }

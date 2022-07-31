@@ -19,6 +19,8 @@ public class ZombieToast extends Enemy implements EnemyObserver{
     private enemyMovementState scaredZombieMovement;
     private enemyMovementState currentMovementState;
 
+    
+
     private  double currentzombieHealth;
 
     public ZombieToast(String Id, Position position) {
@@ -109,6 +111,18 @@ public class ZombieToast extends Enemy implements EnemyObserver{
      */
     public int getZombieAttack(){
         return ZombieToast.zombieAttack;
+    }
+
+    public enemyMovementState getCurrentMovementState() {
+        return currentMovementState;
+    }
+
+    public boolean checkZombieMovement(enemyMovementState currentMovementState) {
+        if(currentMovementState == this.scaredZombieMovement) {
+            return true;
+        }
+        return false;
+        
     }
 
 

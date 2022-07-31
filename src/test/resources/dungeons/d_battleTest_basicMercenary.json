@@ -54,6 +54,11 @@
             "type": "wall",
             "x": 0,
             "y": 2
+        },
+        {
+            "type": "zombie_toast_spawner",
+            "x": 1,
+            "y": 1
         }
     ],
     "goal-condition": {"goal": "exit"}
