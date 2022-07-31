@@ -1,8 +1,6 @@
 package dungeonmania.TestEnemyMovements;
 
-import java.util.List;
 
-import javax.swing.text.html.parser.Entity;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +11,6 @@ import dungeonmania.Entities.collectableEntities.Invincibility;
 import dungeonmania.Entities.collectableEntities.Invisibility;
 import dungeonmania.Entities.collectableEntities.Treasure;
 import dungeonmania.Entities.enemyEntities.Mercenary;
-import dungeonmania.Entities.enemyEntities.ZombieToast;
 import dungeonmania.exceptions.InvalidActionException;
 import dungeonmania.util.Position;
 
