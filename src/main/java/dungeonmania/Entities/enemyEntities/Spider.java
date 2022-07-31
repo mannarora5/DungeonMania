@@ -127,6 +127,7 @@ public class Spider extends Enemy implements EnemyObserver{
         this.currentPostick -= 1;
     }
 
+
     
 
 }
