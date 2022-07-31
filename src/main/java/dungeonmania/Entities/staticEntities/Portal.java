@@ -7,7 +7,7 @@ public class Portal extends Static {
 
     public Portal(String Id, Position position, String colour) {
 
-        super(Id, "portal", position);
+        super(Id, "portal"+colour, position);
         this.colour = colour; 
     }
     

@@ -206,23 +206,17 @@ public class JSONExtract {
         Integer bomb_radius  = (Integer) configs.get("bomb_radius");
         Bomb.setRadius(bomb_radius);
 
+        if (configs.length() > 24) {
 
-
-        // Milestone 3 configs
-
-        if (configs.has("mind_control_duration")) {
             Integer mind_control_duration  = (Integer) configs.get("mind_control_duration");
             Sceptre.setMindControlDuration(mind_control_duration);
-        }
 
-        if (configs.has("midnight_armour_attack")){
             Integer midnight_armour_attack  = (Integer) configs.get("midnight_armour_attack");
             MidnightArmour.setArmourAttack(midnight_armour_attack);
-        }
-
-        if (configs.has("midnight_armour_defence")) {
+        
             Integer midnight_armour_defence  = (Integer) configs.get("midnight_armour_defence");
             MidnightArmour.setArmourDefence(midnight_armour_defence);
+
         }
 
 
